@@ -4,6 +4,12 @@
 
 using namespace std;
 
+Trader::Trader(string name, string username, double accountBalance){
+    this->name = name;
+    this->username = username;
+    this->accountBalance = accountBalance;
+}
+
 void Trader::setName(string name){
     this->name = name;
 }
@@ -18,6 +24,10 @@ void Trader::setBalance(double balance){
 
 double Trader::getBalance(){
     return this->balance;
+}
+
+void Trader::buyStock(Stock stock, int amount){
+    
 }
 
 int main(){

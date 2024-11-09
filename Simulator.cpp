@@ -68,14 +68,40 @@ bool Simulator::hydrateFile(string filename){
         return false;
     }
 
+    string name;
+    string username;
+    double accountBalance;
     while ((getLine(in, line)) && (line.compare("***") != 0)){
         //Can now go through and hydrate all of the traders
         //Reading them in with line that look like:
         //      Tony;tonyusername;10345.86
         //      NAME;USERNAME;ACCOUNT BALANCE
         //      String;String;double
+        stringstream traderInfo(line);
+        string part;
+        vector<string> parts;
+        while (getLine(traderInfo, part, ';')){
+            parts.push_back(part);
+        }
+
+        if (parts.size() != 3){
+            return false;
+        }
         
+        int start = parts.begin();
+        name = parts.at(start);
+        username = parts.at(start+1);
+        //Need to convert this to a double
+        accountBalance = parts.at(start+2);
+
+        Trader newTrader = Trader(name, username, accountBalance);
+        this->traders.push_back(newTrader);
     }
+
+    //At this point, onto the portfolios
+    //START HERE
+    //Need to convert the read in values for account balance, price, and shares to integers/doubles
+    //Need to continue hydrating from this point in the file. Onto the portfolios with stocks in the market
     
 }
 
