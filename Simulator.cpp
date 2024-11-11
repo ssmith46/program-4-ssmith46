@@ -1,16 +1,17 @@
 #include "Trader.h"
-#include <iostream>
+#include "Market.h"
+#include "Simulator.h"
 #include <string>
 #include <fstream>
 #include <sstream>
 
 using namespace std;
 
-void setSimulatorName(string name){
+void Simulator::setSimulatorName(string name){
     this->simulatorName = name;
 }
 
-string getSimulatorName(){
+string Simulator::getSimulatorName(){
     return this->simulatorName;
 }
 
@@ -46,7 +47,7 @@ bool Simulator::hydrateFile(string filename){
     } 
 
     //Read in 'Stocks:' delimiter
-    if (getLine(in, line)){
+    if (getline(in, line)){
         if (line.compare("Stocks:") != 0){
             return false;
         }
@@ -60,8 +61,8 @@ bool Simulator::hydrateFile(string filename){
 
     //At this point the file cursor should be ready to read the line containing 'Traders:'
     //Read this in now
-    if (getLine(in, line)){
-        if (line.compare("Traders:" != 0){
+    if (getline(in, line)){
+        if (line.compare("Traders:") != 0){
             return false;
         }
     } else {
@@ -71,7 +72,7 @@ bool Simulator::hydrateFile(string filename){
     string name;
     string username;
     double accountBalance;
-    while ((getLine(in, line)) && (line.compare("***") != 0)){
+    while ((getline(in, line)) && (line.compare("***") != 0)){
         //Can now go through and hydrate all of the traders
         //Reading them in with line that look like:
         //      Tony;tonyusername;10345.86
@@ -80,7 +81,7 @@ bool Simulator::hydrateFile(string filename){
         stringstream traderInfo(line);
         string part;
         vector<string> parts;
-        while (getLine(traderInfo, part, ';')){
+        while (getline(traderInfo, part, ';')){
             parts.push_back(part);
         }
 
@@ -88,11 +89,10 @@ bool Simulator::hydrateFile(string filename){
             return false;
         }
         
-        int start = parts.begin();
-        name = parts.at(start);
-        username = parts.at(start+1);
+        name = parts.at(0);
+        username = parts.at(1);
         //Need to convert this to a double
-        accountBalance = parts.at(start+2);
+        accountBalance = stod(parts.at(2));
 
         Trader newTrader = Trader(name, username, accountBalance);
         this->traders.push_back(newTrader);
@@ -102,13 +102,13 @@ bool Simulator::hydrateFile(string filename){
     //START HERE
     //Need to convert the read in values for account balance, price, and shares to integers/doubles
     //Need to continue hydrating from this point in the file. Onto the portfolios with stocks in the market
-    
+    return true;    
 }
 
 int main(int argc, char* argv[]){
     //First need to check if correct amount of arguments given
     if (argc != 2){
-        cout << "Error: Incorrect number of arguments passed. Should be 2.
+        cout << "Error: Incorrect number of arguments passed. Should be 2." << endl;
         return 1;
     }
     //argv[1] should be the filename to hydrate
@@ -118,8 +118,10 @@ int main(int argc, char* argv[]){
     Simulator s = Simulator();
     
     if (s.hydrateFile(filename)){
+        cout << "It says it worked!" << endl;
 
     } else { //Means that the hydration failed
+        cout << "Nah." << endl;
         return 1;
     } 
 

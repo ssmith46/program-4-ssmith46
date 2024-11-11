@@ -2,14 +2,12 @@
 #define StockPortfolio_H
 
 #include <string>
-#include <iostream>
 #include <vector>
-#include "Stock.h"
 #include "Trader.h"
 
 using namespace std;
 struct PortfolioEntry {
-    Stock stock;
+    Stock::Stock stock;
     int amountOwned;
 };
 
@@ -27,6 +25,5 @@ class StockPortfolio {
         vector<PortfolioEntry> portEnts;
         //The total value of all stocks in the portfolio
         double totalVal;
-        Trader owner;
 };
 #endif

@@ -1,6 +1,5 @@
 #ifndef Stock_H
 #define Stock_H
-#include <iostream>
 #include <string>
 using namespace std;
 

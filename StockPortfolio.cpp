@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <iomanip>
 
 int StockPortfolio::howMuchStockOwned(string symbol){
     int entries = this->portEnts.size();
@@ -61,13 +62,15 @@ void printStocks(){
     int amount;
     double price;
     int ws = 4
-    cout << setw(ws) << "Name" << set(ws) << "Shares" << set(ws) << "Value" << endl;
+    cout << set(ws) << "Symbol" << set(ws) << "Shares" << set(ws) << "Value" << endl;
 
     for (int i = 0; i<entries; i++){
         pe = this->portEnts.at(this->portEnts.begin()+i);
         symbol = pe.stock.getSymbol();
         amount = pe.amountOwned;
         price = pe.stock.getPrice();
-        cout
+        cout << set(ws) << symbol << set(ws) << amount << set(ws) << setprecision(2) << (price*amount) << endl;
     }
 }
+
+

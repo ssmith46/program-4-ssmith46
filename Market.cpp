@@ -1,6 +1,8 @@
 #include "Market.h"
+#include <iostream>
+#include <string>
 
-bool Market::hydrateStocks(ifstream in){
+bool Market::hydrateStocks(const ifstream in){
 
     string symbol;
     double price;
@@ -25,8 +27,8 @@ bool Market::hydrateStocks(ifstream in){
         int start = parts.begin();
         symbol = parts.at(start);
         //Need to convert these to int/double
-        price = parts.at(start+1);
-        shares = parts.at(start+2);
+        price = stod(parts.at(start+1));
+        shares = stoi(parts.at(start+2));
 
         Stock newStock = Stock(symbol, price, shares);
         this->stocks.push_back(newStock);

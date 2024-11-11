@@ -1,7 +1,9 @@
 #ifndef Trader_H
 #define Trader_H
-#include <iostream>
+
 #include <string>
+#include "Stock.h"
+
 using namespace std;
 
 class Trader {
@@ -16,6 +18,5 @@ class Trader {
         string name;
         string username;
         double balance;
-        StockPortfolio stockP;
 };
 #endif

@@ -12,13 +12,12 @@ class Simulator {
     public:
         Simulator();
         void loginScreen();
-        void hydrateFile();
+        bool hydrateFile(string filename);
         void setSimulatorName(string name);
         string getSimulatorName();
     private:
         Market market;
         vector<Trader> traders;
-        Trader loggedIn;
         string simulatorName;
-}
+};
 #endif
