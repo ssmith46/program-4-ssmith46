@@ -1,8 +1,8 @@
 #include "Market.h"
-#include <iostream>
+#include "Stock.h"
 #include <string>
 
-bool Market::hydrateStocks(const ifstream in){
+bool Market::hydrateStocks(ifstream& in){
 
     string symbol;
     double price;

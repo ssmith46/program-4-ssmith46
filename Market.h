@@ -2,36 +2,19 @@
 #define Market_H
 
 #include <string>
-#include <vector>
-
-
-#include <iostream>
-
-
-
-
-
-
-
-
-
-
-
-
-#include <fstream>
-
 #include "Stock.h"
+#include <vector>
 
 using namespace std;
 
 class Market {
     public:
-        bool hydrateStocks(const ifstream in);
+        bool hydrateStocks(ifstream& in);
         void printAllStocks();
         void addStock(Stock toAdd);
         Stock getStock(string symbol);
     private:
-        vector<Stock> allStocks;
+        vector<Stock*> stocks;
         
 };
 #endif

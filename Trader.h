@@ -8,7 +8,7 @@ using namespace std;
 
 class Trader {
     public:
-        Trader(string name, string username, double balance);
+        Trader(string name, string username, double accountBalance);
         void setName(string name);
         string getName();
         void setBalance(double balance);

@@ -1,9 +1,10 @@
 #include "Trader.h"
-#include "Market.h"
+#include "Stock.h"
 #include "Simulator.h"
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
 using namespace std;
 
@@ -95,7 +96,7 @@ bool Simulator::hydrateFile(string filename){
         accountBalance = stod(parts.at(2));
 
         Trader newTrader = Trader(name, username, accountBalance);
-        this->traders.push_back(newTrader);
+        this->traders.push_back(&newTrader);
     }
 
     //At this point, onto the portfolios

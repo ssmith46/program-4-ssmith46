@@ -1,6 +1,6 @@
 #include "Stock.h"
-#include <iostream>
 #include <stdio.h>
+#include <iostream>
 #include <string>
 
 using namespace std;

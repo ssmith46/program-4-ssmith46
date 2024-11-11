@@ -1,10 +1,10 @@
 #ifndef Simulator_H
 #define Simulator_H
 
-#include <iostream>
 #include <string>
-#include <vector>
 #include "Trader.h"
+#include "Market.h"
+#include <vector>
 
 using namespace std;
 
@@ -17,7 +17,7 @@ class Simulator {
         string getSimulatorName();
     private:
         Market market;
-        vector<Trader> traders;
+        vector<Trader*> traders;
         string simulatorName;
 };
 #endif
