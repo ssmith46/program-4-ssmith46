@@ -52,6 +52,11 @@ char Stock::getGrowthSymbol(){
     return this->growthSymbol;
 }
 
+double Stock::operator*(double amountToGrowBy){
+    this->price *= amountToGrowBy;
+    return this->price;
+}
+
 int main(){
     Stock s = Stock("TSL", 216.8, 100);
     
@@ -60,5 +65,19 @@ int main(){
     cout << "Should be 100: " << s.getShares() << endl;
     cout << "Should be '+': " << s.getGrowthSymbol() << endl;
     
+    cout << endl << endl << endl;
+    cout << "New Stock Growth Test:" << endl;
+
+    
+    srand(12);
+
+    for (int i = 0; i<3; i++){
+        cout << rand()% << endl;
+    }
+
+
+
+
+
     return 0;
 }

@@ -16,6 +16,8 @@ class Stock {
         void removeShares(int amount);
         void setGrowthSymbol(char Symbol);
         char getGrowthSymbol();
+        /*This will return the new price of the Stock*/
+        double operator*(double amountToGrowBy);
     private:
         string symbol;
         double price;
