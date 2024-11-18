@@ -16,12 +16,16 @@ class Stock {
         void removeShares(int amount);
         void setGrowthSymbol(char Symbol);
         char getGrowthSymbol();
+        void setLastChange(double change);
+        double getLastChange();
         /*This will return the new price of the Stock*/
-        double operator*(double amountToGrowBy);
+        double operator*=(double amountToChangeBy);
+        string toString();
     private:
         string symbol;
         double price;
         int shares;
         char growthSymbol;
+        double lastChange;
 };
 #endif
