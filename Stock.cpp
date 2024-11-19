@@ -80,7 +80,12 @@ string Stock::toString(){
     string retVal = "";
     stringstream s(retVal);
     s << setw(7) << this->getSymbol();
-    s << setw(3) << this->getGrowthSymbol();
+    s << setw(3);
+    if (this->getLastChange() > 0){
+        s << this->getGrowthSymbol();
+    } else {
+        s << " ";
+    }
     s << setprecision(2) << fixed << (this->getLastChange()*100) << "%";
     s << " ";
     s << setw(5) << setprecision(2) << fixed << (this->getPrice());
