@@ -42,7 +42,15 @@ bool Market::hydrateStocks(ifstream& in){
 }
 
 string Market::stocks_toString(){
-    return "";
+    string retVal = "";
+    for (int i = 0; i<this->allStocks.size(); i++){
+        if (i == this->allStocks.size()-1){
+            retVal += (this->allStocks.at(i))->toString();
+        } else {
+            retVal += (this->allStocks.at(i))->toString() + "\n";
+        }
+    }
+    return retVal;
 }
 
 bool Market::addStock(Stock toAdd){
@@ -100,6 +108,7 @@ int main(){
     if (m.addStock(d)){
         cout << "Should have failed to add d, but it did not." << endl;
     }
+    cout << m.stocks_toString() << endl;
     cout << "It works!" << endl;
     return 1;
 }
