@@ -1,6 +1,7 @@
 #include "Trader.h"
 #include "Stock.h"
 #include "Simulator.h"
+#include "CommandFactory.h"
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -17,7 +18,7 @@ string Simulator::getSimulatorName(){
 }
 
 Simulator::Simulator(){
-    this->market = Market();
+    //this->market = Market();
     this->simulatorName = "";
 }
 
@@ -26,7 +27,7 @@ void Simulator::loginScreen(){
 }
 
 bool Simulator::hydrateFile(string filename){
-
+/*
     ifstream in;
     in.open(filename, ios_base::in);
     string line;
@@ -96,13 +97,14 @@ bool Simulator::hydrateFile(string filename){
         accountBalance = stod(parts.at(2));
 
         Trader newTrader = Trader(name, username, accountBalance);
-        this->traders.push_back(&newTrader);
+      this->traders.push_back(&newTrader);
     }
 
     //At this point, onto the portfolios
     //START HERE
     //Need to convert the read in values for account balance, price, and shares to integers/doubles
     //Need to continue hydrating from this point in the file. Onto the portfolios with stocks in the market
+*/
     return true;    
 }
 
@@ -133,10 +135,17 @@ int simTest(int argc, char* argv[]){
 
 int main(){
 
+    CommandFactory cf;
     string line;
+    cout << "> ";
     getline(cin, line);
+    vector<string> allParts;
     while (line.compare("done") != 0){
-        cout << "You entered: " << line << endl;
+        allParts = cf.parseLine(line);
+        for (int i = 0; i<allParts.size(); i++){
+            cout << "Piece " << (i+1) << ": " << allParts.at(i) << endl;
+        }
+        cout << endl << "> ";
         getline(cin, line);
     }
     return 0;

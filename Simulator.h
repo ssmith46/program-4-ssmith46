@@ -16,7 +16,7 @@ class Simulator {
         void setSimulatorName(string name);
         string getSimulatorName();
     private:
-        Market market;
+//        Market market;
         vector<Trader*> traders;
         string simulatorName;
 };
