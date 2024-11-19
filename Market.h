@@ -9,10 +9,12 @@ using namespace std;
 
 class Market {
     public:
+        Market();
         string stocks_toString();
         bool addStock(Stock toAdd);
         Stock getStock(string symbol);
         void setMarketSeed(int seed);
+        int getMarketViolence();
         void setMarketViolence(int violence);
         void randomlyUpdateStocks();
         

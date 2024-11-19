@@ -81,9 +81,9 @@ string Stock::toString(){
     stringstream s(retVal);
     s << setw(7) << this->getSymbol();
     s << setw(3) << this->getGrowthSymbol();
-    s << setprecision(2) << fixed << this->getLastChange();
+    s << setprecision(2) << fixed << (this->getLastChange()*100) << "%";
     s << " ";
-    s << setw(5) << setprecision(2) << fixed << this->getPrice();
+    s << setw(5) << setprecision(2) << fixed << (this->getPrice());
     
     string piece = "";
     while (s >> piece){

@@ -5,6 +5,11 @@
 
 using namespace std;
 
+Market::Market(){
+    this->randSeed = 12;
+    this->marketViolence = 10;
+}
+
 bool Market::hydrateStocks(ifstream& in){
 /*
     string symbol;
@@ -78,15 +83,42 @@ Stock Market::getStock(string symbol){
 }
 
 void Market::setMarketSeed(int seed){
+    this->randSeed = seed;
+    srand(this->randSeed);
+}
 
+int Market::getMarketViolence(){
+    return this->marketViolence;
 }
 
 void Market::setMarketViolence(int violence){
-
+    this->marketViolence = violence;
 }
 
 void Market::randomlyUpdateStocks(){
+    
+    int randNum;
+    double growth;
 
+    //Loop through all of the stocks in the market
+    for (int i = 0; i<this->allStocks.size(); i++){
+        Stock *s = this->allStocks.at(i);
+        
+        //First calculate if positive of negative
+        //Right now, have it set to 1 in 3 is negative, but can change later
+        randNum = rand();
+        if (randNum % 3 == 0){
+            growth = -1;
+        } else {
+            growth = 1;
+        }
+        
+        //Now calculate the growth
+        randNum = rand() % this->getMarketViolence();
+        growth *= (randNum/(double)100);
+        
+        *s *= growth;
+    }
 }
 
 int main(){
@@ -109,6 +141,19 @@ int main(){
         cout << "Should have failed to add d, but it did not." << endl;
     }
     cout << m.stocks_toString() << endl;
+    cout << endl << endl;
+    cout << "Changing..." << endl;
+    m.randomlyUpdateStocks();
+    cout << m.stocks_toString() << endl;   
+    cout << "Changing..." << endl;
+    m.randomlyUpdateStocks();
+    cout << m.stocks_toString() << endl;   
+    cout << "Changing..." << endl;
+    m.randomlyUpdateStocks();
+    cout << m.stocks_toString() << endl;   
+    cout << "Changing..." << endl;
+    m.randomlyUpdateStocks();
+    cout << m.stocks_toString() << endl;   
     cout << "It works!" << endl;
     return 1;
 }
