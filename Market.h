@@ -9,12 +9,19 @@ using namespace std;
 
 class Market {
     public:
-        bool hydrateStocks(ifstream& in);
-        void printAllStocks();
-        void addStock(Stock toAdd);
+        string stocks_toString();
+        bool addStock(Stock toAdd);
         Stock getStock(string symbol);
+        void setMarketSeed(int seed);
+        void setMarketViolence(int violence);
+        void randomlyUpdateStocks();
+        
+
+        bool hydrateStocks(ifstream& in);
     private:
-        vector<Stock*> stocks;
+        vector<Stock*> allStocks;
+        int randSeed;
+        int marketViolence;
         
 };
 #endif

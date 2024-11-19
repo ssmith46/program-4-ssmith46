@@ -2,8 +2,10 @@
 #include "Stock.h"
 #include <string>
 
-bool Market::hydrateStocks(ifstream& in){
+using namespace std;
 
+bool Market::hydrateStocks(ifstream& in){
+/*
     string symbol;
     double price;
     int shares;
@@ -34,18 +36,37 @@ bool Market::hydrateStocks(ifstream& in){
         this->stocks.push_back(newStock);
     }
     //If made it to here, then the file was in the correct format
-    return true;
+*/
+    return false;
 }
 
-void Market::printAllStocks(){
-    
+string Market::stocks_toString(){
+    return "";
 }
 
-void Market::addStock(Stock toAdd){
-
+bool Market::addStock(Stock toAdd){
+    return false;
 }
 
 Stock Market::getStock(string symbol){
+    string str = "ssds";
+    Stock s(str, 2.1, 1);
+    return s;
+}
+
+void Market::setMarketSeed(int seed){
 
 }
 
+void Market::setMarketViolence(int violence){
+
+}
+
+void Market::randomlyUpdateStocks(){
+
+}
+
+int main(){
+    Market m = Market();
+    return 1;
+}
