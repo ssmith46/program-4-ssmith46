@@ -1,6 +1,7 @@
 #include "Market.h"
 #include "Stock.h"
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -45,7 +46,21 @@ string Market::stocks_toString(){
 }
 
 bool Market::addStock(Stock toAdd){
-    return false;
+    string uniqueSymbol = toAdd.getSymbol();
+    bool unique = true;
+    for (int i = 0; i<this->allStocks.size(); i++){
+        if ((this->allStocks.at(i))->getSymbol().compare(uniqueSymbol) == 0){
+            unique = false;
+            break;
+        }
+    }
+    if (!unique){
+        return false;
+    }
+
+    //At this point, actually add it to the stocks
+    this->allStocks.push_back(&toAdd);
+    return true;
 }
 
 Stock Market::getStock(string symbol){
@@ -68,5 +83,23 @@ void Market::randomlyUpdateStocks(){
 
 int main(){
     Market m = Market();
+    Stock a("A", 1.0, 1);
+    Stock b("B", 2.5, 3);
+    Stock c("C", 3.0, 2);
+    
+    if (!m.addStock(a)){
+        cout << "Failed to add A to the stocks." << endl;
+    }
+    if (!m.addStock(b)){
+        cout << "Failed to add B to the stocks." << endl;
+    }
+    if (!m.addStock(c)){
+        cout << "Failed to add C to the stocks." << endl;
+    }
+    Stock d("B", 2.7, 18);
+    if (m.addStock(d)){
+        cout << "Should have failed to add d, but it did not." << endl;
+    }
+    cout << "It works!" << endl;
     return 1;
 }

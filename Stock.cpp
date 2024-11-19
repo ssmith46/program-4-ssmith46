@@ -93,7 +93,7 @@ string Stock::toString(){
     return retVal;
 }
 
-int main(){
+int stockTest(){
     Stock s = Stock("TSL", 216.8, 100);
     
     cout << "Should be TSL: " << s.getSymbol() << endl;
