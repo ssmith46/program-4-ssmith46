@@ -9,10 +9,12 @@ using namespace std;
 class Trader {
     public:
         Trader(string name, string username, double accountBalance);
+        double getBalance();
+        void setBalance(double balance);
         void setName(string name);
         string getName();
-        void setBalance(double balance);
-        double getBalance();
+        void setUsername(string username);
+        string getUsername();
         void buyStock(Stock stock, int quantity);
     private:
         string name;

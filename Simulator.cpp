@@ -106,7 +106,7 @@ bool Simulator::hydrateFile(string filename){
     return true;    
 }
 
-int main(int argc, char* argv[]){
+int simTest(int argc, char* argv[]){
     //First need to check if correct amount of arguments given
     if (argc != 2){
         cout << "Error: Incorrect number of arguments passed. Should be 2." << endl;
@@ -130,3 +130,23 @@ int main(int argc, char* argv[]){
     return 0;
     
 }
+
+int main(){
+
+    string line;
+    getline(cin, line);
+    while (line.compare("done") != 0){
+        cout << "You entered: " << line << endl;
+        getline(cin, line);
+    }
+    return 0;
+}
+
+
+
+
+
+
+
+
+

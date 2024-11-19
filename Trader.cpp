@@ -7,7 +7,7 @@ using namespace std;
 Trader::Trader(string name, string username, double accountBalance){
     this->name = name;
     this->username = username;
-    this->accountBalance = accountBalance;
+    this->balance = accountBalance;
 }
 
 void Trader::setName(string name){
@@ -30,7 +30,16 @@ void Trader::buyStock(Stock stock, int amount){
     
 }
 
-int main(){
+void Trader::setUsername(string username){
+    this->username = username;
+}
+
+string Trader::getUsername(){
+    return this->username;
+}
+
+/*
+int traderTest(){
     Trader t = Trader();
     t.setName("Tony");
     cout << "Should be Tony: " << t.getName() << endl;
@@ -38,3 +47,4 @@ int main(){
     cout << "Should be 129.8: " << t.getBalance() << endl;
     return 0;
 }
+*/

@@ -121,6 +121,7 @@ void Market::randomlyUpdateStocks(){
     }
 }
 
+/*
 int main(){
     Market m = Market();
     Stock a("A", 1.0, 1);
@@ -157,3 +158,4 @@ int main(){
     cout << "It works!" << endl;
     return 1;
 }
+*/
