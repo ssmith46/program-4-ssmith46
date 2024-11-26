@@ -1,3 +1,11 @@
+/*
+Project: Stock Simulator C++ Final Project
+Author: Sullivan Smith
+Date: November 26, 2024
+
+File: CommandFactory.c
+Purpose: Contains the implementation of the "CommandFactory.h" file.
+*/
 #include <string>
 #include <sstream>
 #include "Market.h"
@@ -8,38 +16,44 @@
 
 using namespace std;
 
+/**
+ * Parse a line for the words on that line, getting rid of white space.
+ * 
+ * @param line -> The string in which the words will be stripped from.
+ * @return -> A vector of strings, where each element is one word from the line.
+ */
 vector<string> CommandFactory::parseLine(string line){
     
+    /*The variable to hold all the words in the line*/
     vector<string> allParts;
-    string part;
-
+    /*The string currently being collected. (Chars since last whitespace.)*/
     string word = "";
+
+    /*Iterate through all the chars in the line given as input*/
     for (int i = 0; i<line.length() + 1; i++){
-        //Do this so that the last word gets added still.
-        //Doesn't end in ' ', it ends in '\n'
+
+        /*Check if on last char ('\n') and add word if so.*/
         if (i == line.length()){
-            allParts.push_back(word);
-        }
-        else if ((line.substr(i, 1).compare(" ") == 0) || (line.substr(i, 1).compare("\t") == 0)){
+            /*Only add word if there is content within it.*/
             if (word.compare("") != 0){
                 allParts.push_back(word);
+            }
+        }
+
+        /*Check if the next char is white space, meaning the word on can be added.*/
+        else if ((line.substr(i, 1).compare(" ") == 0) || (line.substr(i, 1).compare("\t") == 0)){
+            /*Check if the word has content before adding it.*/
+            if (word.compare("") != 0){
+                allParts.push_back(word);
+                /*Reset the word collecting to the empty string.*/
                 word = "";
             }
+        /*In this case, just on a normal char so add it to the word collecting.*/
         } else {
             word += line.substr(i, 1);
         }
     }
 
+    /*Returns the now complete vector with all the words.*/
     return allParts;
 }
-
-/*
-int traderTest(){
-    Trader t = Trader();
-    t.setName("Tony");
-    cout << "Should be Tony: " << t.getName() << endl;
-    t.setBalance(129.8);
-    cout << "Should be 129.8: " << t.getBalance() << endl;
-    return 0;
-}
-*/
