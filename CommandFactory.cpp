@@ -16,6 +16,39 @@
 
 using namespace std;
 
+/** Sets the data member Simulator
+* 
+* @param s -> The simulator that commands can manipulate
+*/
+void CommandFactory::setSimulator(Simulator s){
+    this->s = s;
+}
+
+/** Access to the Simulator
+* 
+* @return -> The simulator for this CommandFactory
+*/
+Simulator CommandFactory::getSimulator(){
+    return this->s;
+}
+
+/** Sets the data member Market
+* 
+* @param s -> The market that commands can manipulate
+*/
+void CommandFactory::setMarket(Market m){
+    this->m = m;
+}
+
+/**
+* Access to the Market
+* 
+* @return -> The Market for this CommandFactory
+*/
+Market CommandFactory::getMarket(){
+    return this->m;
+}
+
 /**
  * Parse a line for the words on that line, getting rid of white space.
  * 

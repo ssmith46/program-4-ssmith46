@@ -97,27 +97,25 @@ Command Simulator::getNextCommand(){
 
 /*The actual execution of the entire simulator.*/
 int main(){
+    
     /*Create the Market for the Simulation.*/
     Market m = Market();
     /*Create the Simulator for the Simulation.*/
     Simulator s = Simulator(m);
     /*Create the CommandFactory for the Simulation.*/
-    CommandFactory cf = CommandFactory(m, s);
+    CommandFactory cf = CommandFactory();
+
+    /*Finish setting up the CommandFactory with the market and simulator*/
+    cf.setMarket(m);
+    cf.setSimulator(s);
+
     /*Set the CommandFactory as the Simulation's Command Factory for the Simulation.*/
     s.setCommandFactory(cf);
+
 
     /*Get the next command to execute (will change this later).*/
     s.getNextCommand();
 
-    
+
     return 0;
 }
-
-
-
-
-
-
-
-
-

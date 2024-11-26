@@ -73,6 +73,13 @@ class Simulator {
          * @return -> the name of the simulation run.
          */
         string getSimulatorName();
+        /**
+         * This function is used to get a line of input from the user, and convert
+         * it into a command that can then be executed to do what they want. 
+         * 
+         * @return -> A command that can be used to change the simulation. 
+         */
+        Command getNextCommand();
     private:
         /*The market used to interact with Stocks during the simulation.*/
         Market market;

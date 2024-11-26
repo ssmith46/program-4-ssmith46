@@ -30,8 +30,11 @@ using namespace std;
  *   in order to be manipulated when the command executes.
  * 
  * Member Functions:
- * - CommandFactory(Market m, Simulator s) -> The constructor for the CommandFactory
- *   object.
+ * - void setSimulator(Simulator s) -> Setter for the Simulator that commands can
+ *   manipulate.
+ * - Simulator getSimulator() -> Getter for the Simulator that commands can manipulate.
+ * - void setMarket(Market m) -> Setter for the Market that commands can manipulate.
+ * - Market getMarket() -> Getter for the Market that commands can manipulate.
  * - vector<string> parseLine(string line) -> Given a user entered line of text,
  *   parse it for all words sepereated by spaces. This will allow the factory to 
  *   create commands specific to the action that the user entered.
@@ -40,17 +43,56 @@ using namespace std;
  *   the coresponding command to execute which will fullfill the request of the user. 
  * 
  * Class Usage:
- * - 
+ * - This class will be a singleton class that is responsible for creating commands
+ *   that will make the simulation work.
 */
 class CommandFactory {
     public:
-        CommandFactory(Market m, Simulator s);
-        //Get all the parts of the line in a vector
+        /** Sets the data member Simulator
+         * 
+         * @param s -> The simulator that commands can manipulate
+         */
+        void setSimulator(Simulator s);
+        /** Access to the Simulator
+         * 
+         * @return -> The simulator for this CommandFactory
+         */
+        Simulator getSimulator();
+        /** Sets the data member Market
+         * 
+         * @param s -> The market that commands can manipulate
+         */
+        void setMarket(Market m);
+        /**
+         * Access to the Market
+         * 
+         * @return -> The Market for this CommandFactory
+         */
+        Market getMarket();
+        /**
+         * Get all the words out of a line of text.
+         * 
+         * @param line -> The string to parse for words, ignoring whitespace.
+         * @return -> Returns a vector of strings, where each string in the vector 
+         * is a word from the line.
+         */
         vector<string> parseLine(string line);
-        //Actually create and return the command
-        Command getCommand(string);
+        /**
+         * Takes a string as input and returns a command object that will fulfill
+         * the needs of that line of text.
+         * 
+         * @param line -> The line that contains info about the command to create,
+         * along with the parameters to fulfill that command.
+         */
+        Command getCommand(string line);
     private:
-    Market m;
-    Simulator s;
+        /**
+        * This is the Market that will be given to commands to manipulate.
+        */
+        Market m;
+        /**
+        * This is the Simulator that will be given to commands to manipulate.
+        */
+        Simulator s;
 };
 #endif
