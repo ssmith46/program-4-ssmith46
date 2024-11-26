@@ -76,10 +76,10 @@ bool Market::addStock(Stock toAdd){
     return true;
 }
 
-Stock Market::getStock(string symbol){
+Stock* Market::getStock(string symbol){
     string str = "ssds";
     Stock s(str, 2.1, 1);
-    return s;
+    return &s;
 }
 
 void Market::setMarketSeed(int seed){
