@@ -1,7 +1,16 @@
+/**
+ * Project: Stock Simulator C++ Final Project
+ * Author: Sullivan Smith
+ * Date: November 26, 2024
+ * 
+ * File: Simulator.cpp
+ * Purpose: Contains the implementation of the 'Simulator' class.
+*/
 #include "Trader.h"
 #include "Stock.h"
 #include "Simulator.h"
 #include "CommandFactory.h"
+#include "Market.h"
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -9,145 +18,98 @@
 
 using namespace std;
 
+/**
+* The constructor used to instantiate a Simulator object.
+*/
+Simulator::Simulator(Market m){
+    this->market = m;
+    this->simulatorName = "";
+}
+
+/**
+* A method used to set the CommandFactory of the Simulator. 
+* 
+* @param cf -> The command factory used for creating commands during the simulation.
+*/
+void Simulator::setCommandFactory(CommandFactory cf){
+    this->cf = cf;
+}
+
+/**
+* A method used to set the name of the simulation run.
+* 
+* @param name -> The name to set the simulation run to.
+*/
 void Simulator::setSimulatorName(string name){
     this->simulatorName = name;
 }
 
+/**
+* A method used to retreive the name of the simulation run.
+* 
+* @return -> the name of the simulation run.
+*/
 string Simulator::getSimulatorName(){
     return this->simulatorName;
 }
 
-Simulator::Simulator(){
-    //this->market = Market();
-    this->simulatorName = "";
-}
-
-void Simulator::loginScreen(){
-
-}
-
-bool Simulator::hydrateFile(string filename){
-/*
-    ifstream in;
-    in.open(filename, ios_base::in);
-    string line;
-
-    //Read in simulator name
-    if (getline(in, line)){
-        this->setSimulatorName(line);
-    } else {
-        return false;
-    }
-
-    //Read in '***' delimiter
-    if (getline(in, line)){
-        if (line.compare("***") != 0){
-            return false;
-        }
-    } else {
-        return false;
-    } 
-
-    //Read in 'Stocks:' delimiter
-    if (getline(in, line)){
-        if (line.compare("Stocks:") != 0){
-            return false;
-        }
-    } else {
-        return false;
-    }
-
-    //At this point will be hydrating stocks 
-    //Need to pass to the ifstream to the market to read in and build/store stocks
-    this->market.hydrateStocks(in);
-
-    //At this point the file cursor should be ready to read the line containing 'Traders:'
-    //Read this in now
-    if (getline(in, line)){
-        if (line.compare("Traders:") != 0){
-            return false;
-        }
-    } else {
-        return false;
-    }
-
-    string name;
-    string username;
-    double accountBalance;
-    while ((getline(in, line)) && (line.compare("***") != 0)){
-        //Can now go through and hydrate all of the traders
-        //Reading them in with line that look like:
-        //      Tony;tonyusername;10345.86
-        //      NAME;USERNAME;ACCOUNT BALANCE
-        //      String;String;double
-        stringstream traderInfo(line);
-        string part;
-        vector<string> parts;
-        while (getline(traderInfo, part, ';')){
-            parts.push_back(part);
-        }
-
-        if (parts.size() != 3){
-            return false;
-        }
-        
-        name = parts.at(0);
-        username = parts.at(1);
-        //Need to convert this to a double
-        accountBalance = stod(parts.at(2));
-
-        Trader newTrader = Trader(name, username, accountBalance);
-      this->traders.push_back(&newTrader);
-    }
-
-    //At this point, onto the portfolios
-    //START HERE
-    //Need to convert the read in values for account balance, price, and shares to integers/doubles
-    //Need to continue hydrating from this point in the file. Onto the portfolios with stocks in the market
+/**
+* The method used to get a user logged in as a particular trader.
 */
-    return true;    
+void Simulator::loginScreen(){
+    /** NOTE: Empty for now, but will add features later. */
 }
 
-int simTest(int argc, char* argv[]){
-    //First need to check if correct amount of arguments given
-    if (argc != 2){
-        cout << "Error: Incorrect number of arguments passed. Should be 2." << endl;
-        return 1;
-    }
-    //argv[1] should be the filename to hydrate
-    //Can pass this to the declaration of string to convert from char* to string
-    string filename(argv[1]);
+/**
+* This function is used to get a line of input from the user, and convert
+* it into a command that can then be executed to do what they want. 
+* 
+* @return -> A command that can be used to change the simulation. 
+*/
+Command Simulator::getNextCommand(){
 
-    Simulator s = Simulator();
-    
-    if (s.hydrateFile(filename)){
-        cout << "It says it worked!" << endl;
-
-    } else { //Means that the hydration failed
-        cout << "Nah." << endl;
-        return 1;
-    } 
+    /** NOTE: This function doesn't do what it actually should yet,
+      but this will be changed in future iterations.*/
 
 
-    return 0;
-    
-}
-
-int main(){
-
-    CommandFactory cf;
+    /*Create a variable for the line of input from the user.*/
     string line;
+    /*Indicate to user where to type.*/
     cout << "> ";
+    /*Get a line of input from the user.*/
     getline(cin, line);
+    /*Create a variable for all the words in the entered command*/
     vector<string> allParts;
+    /*Keep looping until the user enters 'done'*/
     while (line.compare("done") != 0){
-        allParts = cf.parseLine(line);
+        /*Get the words of the line.*/
+        allParts = this->cf.parseLine(line);
+        /*Iterate through all the words and print them out.*/
         for (int i = 0; i<allParts.size(); i++){
             cout << "Piece " << (i+1) << ": " << allParts.at(i) << endl;
         }
+        /*Indicate where the user can type.*/
         cout << endl << "> ";
+        /*Get the next line of input from the user.*/
         getline(cin, line);
     }
+}
+
+/*The actual execution of the entire simulator.*/
+int main(){
+    /*Create the Market for the Simulation.*/
+    Market m = Market();
+    /*Create the Simulator for the Simulation.*/
+    Simulator s = Simulator(m);
+    /*Create the CommandFactory for the Simulation.*/
+    CommandFactory cf = CommandFactory(m, s);
+    /*Set the CommandFactory as the Simulation's Command Factory for the Simulation.*/
+    s.setCommandFactory(cf);
+
+    /*Get the next command to execute (will change this later).*/
+    s.getNextCommand();
+
+    
     return 0;
 }
 
