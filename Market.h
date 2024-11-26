@@ -51,20 +51,61 @@ using namespace std;
 */
 class Market {
     public:
+        /**
+         * The constructor for the Market class.
+         */
         Market();
+        /**
+         * Converts all the stocks in the simulation to their 'to_string()' equivalents.
+         * 
+         * @return -> Returns the string resembeling all of the Stocks in the simulation.
+         */
         string stocks_toString();
+        /**
+         * Adds a stock to the simulation that can then be bought, sold, and fluctuates like
+         * the other stocks.
+         * 
+         * @param toAdd -> The stock that will be added to the simulation. 
+         * @return -> A boolean indicating whether the stock was added sucessfully or not. 
+         */
         bool addStock(Stock toAdd);
+        /**
+         * Returns a stock pointer for the Stock with the specified symbol.
+         * 
+         * @param symbol -> The symbol of the stock that is wanting to be retrieved. 
+         * @return -> Either the stock pointer to the stock that has that matching symbol,
+         * or a nullptr, indicating that no stock currently has that symbol in the simulation. 
+         */
         Stock* getStock(string symbol);
+        /**
+         * Sets the seed of the random number generator for the simulation.
+         * 
+         * @param seed -> The seed to set the random number generator to for the simulation. 
+         */
         void setMarketSeed(int seed);
+        /**
+         * Returns what the current aggressiveness of the simulation is. 
+         * 
+         * @return -> Returns the aggressiveness of the simulation.
+         */
         int getMarketViolence();
+        /**
+         * Sets the aggressiveness for the change of stock prices during the simulation. 
+         * 
+         * @param violence -> The aggressiveness to set the simulation to.
+         */
         void setMarketViolence(int violence);
+        /**
+         * A method used to randomly change the stock prices of the simulation.
+         */
         void randomlyUpdateStocks();
         
-
-        bool hydrateStocks(ifstream& in);
     private:
+        /*A vector that contains pointers to all the stocks in the simulation.*/
         vector<Stock*> allStocks;
+        /*The seed used in the random number generator for stock price changes.*/
         int randSeed;
+        /*The aggressiveness for the max stock price change allowed at a time.*/
         int marketViolence;
         
 };
