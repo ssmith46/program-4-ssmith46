@@ -1,10 +1,10 @@
-/*
-Project: Stock Simulator C++ Final Project
-Author: Sullivan Smith
-Date: November 26, 2024
-
-File: CommandFactory.c
-Purpose: Contains the implementation of the "CommandFactory.h" file.
+/**
+ * Project: Stock Simulator C++ Final Project
+ * Author: Sullivan Smith
+ * Date: November 26, 2024
+ * 
+ * File: CommandFactory.cpp
+ * Purpose: Contains the implementation of the 'CommandFactory' class.
 */
 #include <string>
 #include <sstream>
