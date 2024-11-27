@@ -30,6 +30,7 @@ using namespace std;
  * - StockPortfolio sp -> The stock portfolio containing detailis on the trader's stocks.
  * 
  * Member Functions:
+ * - Trader() -> A default constructor for a Trader.
  * - Trader(string name, string username, double accountBalance) -> A constructor for 
  *   creating instances of Traders.
  * - double getBalance() -> A getter for the account balance of a trader.
@@ -48,6 +49,10 @@ using namespace std;
 class Trader {
     public:
         /**
+         * A default Constructor so the compiler is happy. 
+         */
+        Trader();
+        /**
          * A constructor for a Trader instance. 
          * 
          * @param name -> The name that this trader will have in the simulation. 
@@ -55,7 +60,6 @@ class Trader {
          * @param accountBalance -> The starting account balance of this Trader. 
          */
         Trader(string name, string username, double accountBalance);
-        Trader();
         /**
          * A getter for the current balance of a Trader. 
          * 

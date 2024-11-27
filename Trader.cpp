@@ -13,6 +13,11 @@
 using namespace std;
 
 /**
+* A default Constructor so the compiler is happy. 
+*/
+Trader::Trader(){ }
+
+/**
 * A constructor for a Trader instance. 
 * 
 * @param name -> The name that this trader will have in the simulation. 
