@@ -11,6 +11,7 @@
 #include "Simulator.h"
 #include "CommandFactory.h"
 #include "Command.h"
+#include "MistakeCommand.h"
 #include "Market.h"
 #include <string>
 #include <fstream>
@@ -246,11 +247,6 @@ void Simulator::loginScreen(){
 * @return -> A command that can be used to change the simulation. 
 */
 Command* Simulator::getNextCommand(){
-
-    /** NOTE: This function doesn't do what it actually should yet,
-      but this will be changed in future iterations.*/
-
-
     /*Create a variable for the line of input from the user.*/
     string line;
     /*Indicate to user where to type.*/
@@ -329,7 +325,7 @@ void exampleStockSetup(Market *m){
 }
 
 /**
- * A function used to add some existent traders with stocks and account balances already. 
+ * A function used to add some existent traders with account balances already. 
  * 
  * @param s -> The simulator to add Traders to.
  */
@@ -347,8 +343,27 @@ void exampleTraderSetup(Simulator *s){
     s->addTrader(t4);
 }
 
+/**
+ * Function to create an instance of every object just to be sure it works
+ */
+void createAllObjectTypes(){
+    Stock s("E", 12.00, 5);
+    Trader t("Kyle", "kyle123", 125.00);
+    CommandFactory cf;
+    Market m;
+    Simulator sim(&m);
+    StockPortfolio spf;
+    Command c;
+    vector<string> svec;
+    MistakeCommand mc(svec, &m, &sim);
+    cout << "All object types created successfully!" << endl;
+}
+
 /*The actual execution of the entire simulator.*/
 int main(){
+
+    /*Ensure that all the objects work and can be created.*/
+    createAllObjectTypes();
     
     /*Create the Market for the Simulation.*/
     Market m = Market();
@@ -371,12 +386,17 @@ int main(){
 
     s.loginScreen();
     cout << endl;
-    cout << "Login Successful, you are logged in as: " << s.getLoggedInTrader()->getName() << "." << endl;
+    cout << "Login Successful, you are logged in as: " << s.getLoggedInTrader()->getName();
+    cout << "." << endl;
 
-    /*Get the next command to execute (will change this later).*/
+    /*Get the next command to execute and execute it.*/
     while (1){
         Command *c = s.getNextCommand();
-        c->execute();
+        if (c != nullptr){
+            c->execute();
+            /*Since dealing with a pointer on free store, delete it after use.*/
+            delete c;
+        }
     }
 
     return 0;

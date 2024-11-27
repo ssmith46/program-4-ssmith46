@@ -26,7 +26,10 @@ using namespace std;
  * @member stock -> A stock pointer to the stock that is owned, so price can be retreived.
  * @member amountOwned -> The number of shares of that stock that are owned by the trader.
  */
-struct PortfolioEntry;
+struct PortfolioEntry {
+    Stock* stock;
+    int amountOwned;
+};
 
 /**
  * Purpose:

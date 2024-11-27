@@ -16,18 +16,6 @@
 #include <iomanip>
 
 /**
- * This struct is what each entry in the Stock Portfolio is
- * and it contains information needed for calculating the worth of that stock amount.
- * 
- * @member stock -> A stock pointer to the stock that is owned, so price can be retreived.
- * @member amountOwned -> The number of shares of that stock that are owned by the trader.
- */
-struct PortfolioEntry {
-    Stock* stock;
-    int amountOwned;
-};
-
-/**
 * Calculate how much stock of a certain symbol a trader has in their portfolio. 
 * 
 * @param symbol -> The Stock that would like to be figured out how much is owned. 

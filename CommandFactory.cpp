@@ -100,13 +100,16 @@ vector<string> CommandFactory::parseLine(string line){
 * along with the parameters to fulfill that command.
 */
 Command* CommandFactory::getCommand(string line){
+    /*Parse the line for all the words in the input*/
     vector<string> allParts;
     allParts = this->parseLine(line);
 
+    /*Create the command pointer for returning*/
     Command *retVal;
 
-    /*This will create a 'mistake' command*/
+    /*This will create a 'mistake' command for now. In future, branch based on the arguments*/
     retVal = new MistakeCommand(allParts, this->getMarket(), this->getSimulator());
 
+    /*Return the created command*/
     return retVal;
 }
