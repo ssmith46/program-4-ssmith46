@@ -10,6 +10,7 @@
 #include "Stock.h"
 #include <string>
 #include <iostream>
+#include <sstream>
 #include <vector>
 #include <iomanip>
 
@@ -111,24 +112,53 @@ string StockPortfolio::sellStock(string symbol, int amount){
     return "Hmm, it seems that you don't own any of that stock. Please try selling a different stock that you own.";
 }
 
-
+/**
+* Convert all of the currently owned stocks into human readable format, and return them. 
+* 
+* @return -> The human readable format of the worth of each stock. 
+*/
 string StockPortfolio::stocks_toString(){
+    /*Calculate the size of the portfolio*/
     int entries = this->portEnts.size();
+    /*Create a variable for referring the portfolio entry on.*/
     struct PortfolioEntry pe;
+    /*Create a variable for the symbol of a Stock.*/
     string symbol;
+    /*Create a variable for the amount of a Stock that is owned.*/
     int amount;
+    /*Create a variable for the current price of a Stock.*/
     double price;
+    /*Define the shitespace amount to be between each column.*/
     int ws = 4;
+    /*Create a string for the return value of the stock portfolio.*/
     string retVal = "";
-    retVal += setw(ws) + "Symbol" + setw(ws) + "Shares" + setw(ws) + "Value" + endl;
+    /*Create a stringStream and give the return string as input.*/
+    stringstream s(retVal);
 
+    /*Add text to the stringStream.*/
+    s << setw(ws) << "Symbol" << setw(ws) << "Shares" << setw(ws) << "Value" << endl;
+
+    /*Iterate through all the entries in the portfolio.*/
     for (int i = 0; i<entries; i++){
-        pe = this->portEnts.at(this->portEnts.begin()+i);
-        symbol = pe.stock.getSymbol();
+        /*Get the portfolio entry on.*/
+        pe = this->portEnts.at(i);
+        /*Get data about the portfolio entry, and fill variables.*/
+        symbol = pe.stock->getSymbol();
         amount = pe.amountOwned;
-        price = pe.stock.getPrice();
-        cout << set(ws) << symbol << set(ws) << amount << set(ws) << setprecision(2) << (price*amount) << endl;
+        price = pe.stock->getPrice();
+        /*Put the data into the string stream.*/
+        s << setw(ws) << symbol;
+        s << setw(ws) << amount << setw(ws) << setprecision(2) << (price*amount) << endl;
     }
+
+    /*Get all the pieces out of the string stream, and put them in the retVal string.*/
+    string piece = "";
+    while (s >> piece){
+        retVal += piece + " ";
+    }
+
+    /*Return the portfolio string, but get rid of the last new line character.*/
+    return retVal.substr(0, retVal.length()-1);
 }
 
 
