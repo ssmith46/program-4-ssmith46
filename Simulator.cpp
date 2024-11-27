@@ -58,7 +58,19 @@ string Simulator::getSimulatorName(){
 * The method used to get a user logged in as a particular trader.
 */
 void Simulator::loginScreen(){
-    /** NOTE: Empty for now, but will add features later. */
+    cout << "Welcome to the " << this->getSimulatorName() << " stock market." << endl << endl;
+    bool loggedIn = false;
+    string line;
+    while (!loggedIn){
+        cout << "Enter Username, or 'new user' to create a new account:" << endl;
+        cout << "> ";
+        getline(cin, line);
+        if (line.compare("new user") == 0){
+            /*Code to add a new user here*/
+        } else {
+            /*Code to login as an existing user here*/
+        }
+    }
 }
 
 /**
@@ -99,6 +111,38 @@ Command Simulator::getNextCommand(){
     return c;
 }
 
+/**
+ * A function used to add stocks to the Market for an example run of the Simulator
+ * 
+ * @param m -> The market that the stocks will be added to.
+ */
+void exampleStockSetup(Market *m){
+    /*Create a few stocks as examples in the simulation*/
+    Stock s1("TSLA", 330.05, 1000);
+    Stock s2("AAPL", 234.20, 1500);
+    Stock s3("NVDA", 132.10, 2000);
+    Stock s4("S&P 500", 5989.83, 10000);
+    Stock s5("DIS", 116.89, 5000);
+    Stock s6("BA", 151.91, 1400);
+
+    /*Add the stocks created above to the market.*/
+    m->addStock(s1);
+    m->addStock(s2);
+    m->addStock(s3);
+    m->addStock(s4);
+    m->addStock(s5);
+    m->addStock(s6);
+}
+
+/**
+ * A function used to add some existent traders with stocks and account balances already. 
+ * 
+ * @param s -> The simulator to add Traders to.
+ */
+void exampleTradersSetup(Simulator *s){
+    
+}
+
 /*The actual execution of the entire simulator.*/
 int main(){
     
@@ -116,6 +160,8 @@ int main(){
     /*Set the CommandFactory as the Simulation's Command Factory for the Simulation.*/
     s.setCommandFactory(cf);
 
+    /*Setup a few stocks in the market.*/
+    exampleStockSetup(&m);
 
     /*Get the next command to execute (will change this later).*/
     s.getNextCommand();
