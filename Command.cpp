@@ -11,8 +11,11 @@
 #include "Simulator.h"
 #include <vector>
 #include <string>
+#include <iostream>
 
 using namespace std;
+
+Command::Command(){ }
 
 /**
 * Constructor for the the Command class.
@@ -31,4 +34,4 @@ Command::Command(vector<string> args, Market *m, Simulator *s){
 * The execute method for the command. Virtual, and will be overrided
 * by child classes that inherit from it.
 */
-void Command::execute(){ /*Override in children*/ }
+void Command::execute(){ cout << "Parent" << endl; /*Override in children*/ }

@@ -32,6 +32,7 @@ using namespace std;
  * - vector<string> args -> Arguments needed to execute the command.
  * 
  * Member Functions:
+ * - Command() -> A default constructor so the compiler doesn't complain.
  * - Command(vector<string> args, Market *m, Simulator *s)
  *      -> The constructor for the command object. 
  * - void execute() -> A void abstract method that is overidden by child commands
@@ -42,6 +43,10 @@ using namespace std;
 */
 class Command {
     public:
+        /**
+         * A default constructor for the command class, so compile is happy.
+         */
+        Command();
         /**
          * Constructor for the the Command class.
          * 

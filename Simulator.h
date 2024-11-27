@@ -86,7 +86,7 @@ class Simulator {
          * 
          * @return -> A command that can be used to change the simulation. 
          */
-        Command getNextCommand();
+        Command* getNextCommand();
         /**
          * This function allows additional traders to be added to the simultor. 
          * 

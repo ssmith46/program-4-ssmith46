@@ -11,6 +11,7 @@
 #include "Market.h"
 #include "Simulator.h"
 #include "Command.h"
+#include "MistakeCommand.h"
 #include "CommandFactory.h"
 #include <vector>
 
@@ -89,4 +90,23 @@ vector<string> CommandFactory::parseLine(string line){
 
     /*Returns the now complete vector with all the words.*/
     return allParts;
+}
+
+/**
+* Takes a string as input and returns a command object that will fulfill
+* the needs of that line of text.
+* 
+* @param line -> The line that contains info about the command to create,
+* along with the parameters to fulfill that command.
+*/
+Command* CommandFactory::getCommand(string line){
+    vector<string> allParts;
+    allParts = this->parseLine(line);
+
+    Command *retVal;
+
+    /*This will create a 'mistake' command*/
+    retVal = new MistakeCommand(allParts, this->getMarket(), this->getSimulator());
+
+    return retVal;
 }

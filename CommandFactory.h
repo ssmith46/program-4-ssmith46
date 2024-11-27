@@ -87,7 +87,7 @@ class CommandFactory {
          * @param line -> The line that contains info about the command to create,
          * along with the parameters to fulfill that command.
          */
-        Command getCommand(string line);
+        Command* getCommand(string line);
     private:
         /**
         * This is the Market that will be given to commands to manipulate.

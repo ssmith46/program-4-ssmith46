@@ -245,7 +245,7 @@ void Simulator::loginScreen(){
 * 
 * @return -> A command that can be used to change the simulation. 
 */
-Command Simulator::getNextCommand(){
+Command* Simulator::getNextCommand(){
 
     /** NOTE: This function doesn't do what it actually should yet,
       but this will be changed in future iterations.*/
@@ -257,24 +257,8 @@ Command Simulator::getNextCommand(){
     cout << "> ";
     /*Get a line of input from the user.*/
     getline(cin, line);
-    /*Variable for all the words in the entered command*/
-    vector<string> allParts;
-    /*Keep looping until the user enters 'done'*/
-    while (line.compare("done") != 0){
-        /*Get the words of the line.*/
-        allParts = this->cf.parseLine(line);
-        /*Iterate through all the words and print them out.*/
-        for (int i = 0; i<allParts.size(); i++){
-            cout << "Piece " << (i+1) << ": " << allParts.at(i) << endl;
-        }
-        /*Indicate where the user can type.*/
-        cout << endl << "> ";
-        /*Get the next line of input from the user.*/
-        getline(cin, line);
-    }
-
-    Command c = Command(allParts, this->market, this);
-    return c;
+    /*Get the command based off the text entered by the user.*/
+    return this->cf.getCommand(line);
 }
 
 /**
@@ -390,7 +374,10 @@ int main(){
     cout << "Login Successful, you are logged in as: " << s.getLoggedInTrader()->getName() << "." << endl;
 
     /*Get the next command to execute (will change this later).*/
-    s.getNextCommand();
+    while (1){
+        Command *c = s.getNextCommand();
+        c->execute();
+    }
 
     return 0;
 }
