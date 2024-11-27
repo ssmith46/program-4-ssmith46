@@ -80,16 +80,22 @@ bool Market::addStock(Stock toAdd){
 * or a nullptr, indicating that no stock currently has that symbol in the simulation. 
 */
 Stock* Market::getStock(string symbol){
-    /**
-     * NOTE: For the time being, this code does not reflect what this method
-     * will do later on, it was just added here for testing the object. Functionality
-     * of this method will be added later.
-     * */
+    /*The number of stocks in allStocks (the size).*/
+    int numStocks = this->allStocks.size();
+    /*The stock pointer on for this iteration.*/
+    Stock *on;
+    /*Iterate through all the stocks.*/
+    for(int i = 0; i<numStocks; i++){
+        /*Get the stock on for this iteration.*/
+        on = this->allStocks.at(i);
+        /*Check if it's the stock that is being looked for. Return if so.*/
+        if (on->getSymbol().compare(symbol) == 0){
+            return on;
+        }
+    }
 
-    /*Create a fake stock and return it.*/
-    string str = "ssds";
-    Stock s(str, 2.1, 1);
-    return &s;
+    /*No stock in the market has that symbol, return a nullptr.*/
+    return nullptr;
 }
 
 /**
