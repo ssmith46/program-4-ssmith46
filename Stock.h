@@ -119,16 +119,40 @@ class Stock {
          * @return -> The growth symbol of a stock based on the last change.
          */
         char getGrowthSymbol();
+        /**
+         * A setter for setting the last price change that a stock experienced.
+         * 
+         * @param change -> The percent change that the stock underwent.
+         */
         void setLastChange(double change);
+        /**
+         * A getter for the last change that a stock underwent. 
+         * 
+         * @return -> The percent change that a stock last underwent.
+         */
         double getLastChange();
-        /*This will return the new price of the Stock*/
+        /**
+         * An operator that allows a stock to be updated according to a percent change.
+         * 
+         * @return -> The new price of the stock.
+         */
         double operator*=(double amountToChangeBy);
+        /**
+         * A toString method that allows a stock to be transformed into a human readable format.
+         * 
+         * @return -> The string equivalent of the stock object.
+         */
         string toString();
     private:
+        /*The unique symbol for a stock.*/
         string symbol;
+        /*The current price of a stock.*/
         double price;
+        /*The number of remaining shares left for purchase of a stock.*/
         int shares;
+        /*The growth symbol that reflects the last change a stock underwent.*/
         char growthSymbol;
+        /*The percent change that a stock last underwent.*/
         double lastChange;
 };
 #endif
