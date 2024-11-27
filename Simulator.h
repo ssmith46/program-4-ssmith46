@@ -40,6 +40,7 @@ using namespace std;
  *   a particular Trader. 
  * - void setSimulatorName(string name) -> Sets the name of the currently running simulation.
  * - string getSimulatorName() -> Returns the name of the currently runnning simulation.
+ * - bool addTrader(Trader t) -> Add a trader to the simulator as a potential login for that user.
  * 
  * Class Usage:
  * - This class is used to house a Stock Simulation command line interface experience. It
@@ -83,6 +84,12 @@ class Simulator {
          * @return -> A command that can be used to change the simulation. 
          */
         Command getNextCommand();
+        /**
+         * This function allows additional traders to be added to the simultor. 
+         * 
+         * @param t -> The trader to add to the simulator
+         */
+        bool addTrader(Trader t);
     private:
         /*The market used to interact with Stocks during the simulation.*/
         Market *market;
