@@ -10,6 +10,7 @@
 #include "Stock.h"
 #include "Simulator.h"
 #include "CommandFactory.h"
+#include "Command.h"
 #include "Market.h"
 #include <string>
 #include <fstream>
@@ -21,7 +22,7 @@ using namespace std;
 /**
 * The constructor used to instantiate a Simulator object.
 */
-Simulator::Simulator(Market m){
+Simulator::Simulator(Market *m){
     this->market = m;
     this->simulatorName = "";
 }
@@ -78,7 +79,7 @@ Command Simulator::getNextCommand(){
     cout << "> ";
     /*Get a line of input from the user.*/
     getline(cin, line);
-    /*Create a variable for all the words in the entered command*/
+    /*Variable for all the words in the entered command*/
     vector<string> allParts;
     /*Keep looping until the user enters 'done'*/
     while (line.compare("done") != 0){
@@ -93,6 +94,9 @@ Command Simulator::getNextCommand(){
         /*Get the next line of input from the user.*/
         getline(cin, line);
     }
+
+    Command c = Command(allParts, this->market, this);
+    return c;
 }
 
 /*The actual execution of the entire simulator.*/
@@ -101,13 +105,13 @@ int main(){
     /*Create the Market for the Simulation.*/
     Market m = Market();
     /*Create the Simulator for the Simulation.*/
-    Simulator s = Simulator(m);
+    Simulator s = Simulator(&m);
     /*Create the CommandFactory for the Simulation.*/
     CommandFactory cf = CommandFactory();
 
     /*Finish setting up the CommandFactory with the market and simulator*/
-    cf.setMarket(m);
-    cf.setSimulator(s);
+    cf.setMarket(&m);
+    cf.setSimulator(&s);
 
     /*Set the CommandFactory as the Simulation's Command Factory for the Simulation.*/
     s.setCommandFactory(cf);

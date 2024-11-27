@@ -9,6 +9,9 @@
 #ifndef Trader_H
 #define Trader_H
 
+/*Forward declare class so it will compile.*/
+class Trader;
+
 #include <string>
 #include "Stock.h"
 #include "StockPortfolio.h"
@@ -103,6 +106,6 @@ class Trader {
         /*The account balance of the Trader.*/
         double balance;
         /*The stock portfolio of the trader.*/
-        StockPortfolio sp;
+        StockPortfolio *sp;
 };
 #endif

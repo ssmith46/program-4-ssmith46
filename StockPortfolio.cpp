@@ -7,6 +7,7 @@
  * Purpose: Contains the implementation of the 'StockPortfolio' class.
 */
 #include "StockPortfolio.h"
+#include "Trader.h"
 #include "Stock.h"
 #include <string>
 #include <iostream>
@@ -110,6 +111,20 @@ string StockPortfolio::sellStock(string symbol, int amount){
     }
     /*If making it to here, they do not have any of that stock in their portfolio.*/
     return "Hmm, it seems that you don't own any of that stock. Please try selling a different stock that you own.";
+}
+
+/**
+* Buys the specifies amount of shares of the specified stock. Creates a new entry in
+* the portEnts if there isn't currently an entry to match the stock being bought. 
+* 
+* @param s -> A pointer to the stock that would like to be bought. 
+* @param amount -> The number of shares that would like to be boughten of the
+* specified stock. 
+* @return -> Returns whether the transaction of buying that stock was successful or not
+* in the format of a message. 
+*/
+string StockPortfolio::buyStocks(Stock* s, int amount){
+    return "";
 }
 
 /**

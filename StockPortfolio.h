@@ -9,6 +9,9 @@
 #ifndef StockPortfolio_H
 #define StockPortfolio_H
 
+/*Forward declare class so it will compile.*/
+class StockPortfolio;
+
 #include <string>
 #include <vector>
 #include "Trader.h"
@@ -97,6 +100,6 @@ class StockPortfolio {
         /*The current worth of the portfolio, as calculated by current stock price.*/
         double totalVal;
         /*Owner of the stock portfolio.*/
-        Trader t;
+        Trader *t;
 };
 #endif

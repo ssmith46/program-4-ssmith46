@@ -9,6 +9,9 @@
 #ifndef Simulator_H
 #define Simulator_H
 
+/*Forward declare class so it will compile.*/
+class Simulator;
+
 #include <string>
 #include "Trader.h"
 #include "Market.h"
@@ -50,7 +53,7 @@ class Simulator {
          * 
          * @param m -> The market used for manipulating stocks during the simulation.
          */
-        Simulator(Market m);
+        Simulator(Market *m);
         /**
          * A method used to set the CommandFactory of the Simulator. 
          * 
@@ -82,7 +85,7 @@ class Simulator {
         Command getNextCommand();
     private:
         /*The market used to interact with Stocks during the simulation.*/
-        Market market;
+        Market *market;
         /*The command factory used to create commands based off of user input.*/
         CommandFactory cf;
         /*A vector that houses all of the potential traders for the simulation.*/

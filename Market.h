@@ -9,6 +9,9 @@
 #ifndef Market_H
 #define Market_H
 
+/*Forward declare class so it will compile.*/
+class Market;
+
 #include <string>
 #include "Stock.h"
 #include <vector>

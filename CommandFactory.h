@@ -9,6 +9,9 @@
 #ifndef CommandFactory_H
 #define CommandFactory_H
 
+/*Forward declare class so it will compile.*/
+class CommandFactory;
+
 #include <string>
 #include <sstream>
 #include "Command.h"
@@ -52,23 +55,23 @@ class CommandFactory {
          * 
          * @param s -> The simulator that commands can manipulate
          */
-        void setSimulator(Simulator s);
+        void setSimulator(Simulator *s);
         /** Access to the Simulator
          * 
          * @return -> The simulator for this CommandFactory
          */
-        Simulator getSimulator();
+        Simulator* getSimulator();
         /** Sets the data member Market
          * 
          * @param s -> The market that commands can manipulate
          */
-        void setMarket(Market m);
+        void setMarket(Market *m);
         /**
          * Access to the Market
          * 
          * @return -> The Market for this CommandFactory
          */
-        Market getMarket();
+        Market* getMarket();
         /**
          * Get all the words out of a line of text.
          * 
@@ -89,10 +92,10 @@ class CommandFactory {
         /**
         * This is the Market that will be given to commands to manipulate.
         */
-        Market m;
+        Market *m;
         /**
         * This is the Simulator that will be given to commands to manipulate.
         */
-        Simulator s;
+        Simulator *s;
 };
 #endif

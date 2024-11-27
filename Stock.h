@@ -8,6 +8,10 @@
 */
 #ifndef Stock_H
 #define Stock_H
+
+/*Forward declare class so it will compile.*/
+class Stock;
+
 #include <string>
 
 using namespace std;

@@ -20,7 +20,7 @@ using namespace std;
 * 
 * @param s -> The simulator that commands can manipulate
 */
-void CommandFactory::setSimulator(Simulator s){
+void CommandFactory::setSimulator(Simulator *s){
     this->s = s;
 }
 
@@ -28,7 +28,7 @@ void CommandFactory::setSimulator(Simulator s){
 * 
 * @return -> The simulator for this CommandFactory
 */
-Simulator CommandFactory::getSimulator(){
+Simulator* CommandFactory::getSimulator(){
     return this->s;
 }
 
@@ -36,7 +36,7 @@ Simulator CommandFactory::getSimulator(){
 * 
 * @param s -> The market that commands can manipulate
 */
-void CommandFactory::setMarket(Market m){
+void CommandFactory::setMarket(Market *m){
     this->m = m;
 }
 
@@ -45,7 +45,7 @@ void CommandFactory::setMarket(Market m){
 * 
 * @return -> The Market for this CommandFactory
 */
-Market CommandFactory::getMarket(){
+Market* CommandFactory::getMarket(){
     return this->m;
 }
 
