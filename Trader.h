@@ -90,6 +90,9 @@ class Trader {
         string getUsername();
         /**
          * A method used to buy stock for a Trader's portfolio.
+         * 
+         * @param stock -> A pointer to the stock that is wanting to be bought. 
+         * @param quantity -> The number of shares of the specified stock wanting to be bought. 
          */
         void buyStock(Stock *stock, int quantity);
     private:
