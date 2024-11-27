@@ -160,5 +160,3 @@ string StockPortfolio::stocks_toString(){
     /*Return the portfolio string, but get rid of the last new line character.*/
     return retVal.substr(0, retVal.length()-1);
 }
-
-
