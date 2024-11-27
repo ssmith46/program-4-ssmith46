@@ -55,6 +55,7 @@ class Trader {
          * @param accountBalance -> The starting account balance of this Trader. 
          */
         Trader(string name, string username, double accountBalance);
+        Trader();
         /**
          * A getter for the current balance of a Trader. 
          * 

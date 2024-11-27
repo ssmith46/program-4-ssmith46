@@ -33,6 +33,7 @@ using namespace std;
  * - CommandFactory cf -> The CommandFactory used to create commands in the simulation.
  * - vector<Trader*> traders -> A vector containing all the available traders for the simulation.
  * - string simulatorName -> A name for the simulation of the currently running instance.
+ * - Trader loggedIn -> The trader who is currently logged in to the simulation.
  * 
  * Member Functions:
  * - Simulator(Market m) -> A constructor for the Simulator class, used to instantiate a Simulator.
@@ -41,6 +42,8 @@ using namespace std;
  * - void setSimulatorName(string name) -> Sets the name of the currently running simulation.
  * - string getSimulatorName() -> Returns the name of the currently runnning simulation.
  * - bool addTrader(Trader t) -> Add a trader to the simulator as a potential login for that user.
+ * - Trader* getLoggedInTrader() -> Returns a pointer to the trader who is logged in.
+ * - void Simulator::setLoggedInTrader(Trader *t) -> A setter for the logged in trader.
  * 
  * Class Usage:
  * - This class is used to house a Stock Simulation command line interface experience. It
@@ -90,14 +93,30 @@ class Simulator {
          * @param t -> The trader to add to the simulator
          */
         bool addTrader(Trader t);
+        /**
+        * A getter to retrieve the user logged in to the simulator. 
+        * 
+        * @return -> Returns a pointer to the trader who is logged in.
+        */
+        Trader* getLoggedInTrader();
+        /**
+        * A setter for the trader logged in to the simulator. 
+        * 
+        * @param -> The Trader to set as logged in
+        */
+        void setLoggedInTrader(Trader *t);
+
     private:
         /*The market used to interact with Stocks during the simulation.*/
         Market *market;
         /*The command factory used to create commands based off of user input.*/
         CommandFactory cf;
         /*A vector that houses all of the potential traders for the simulation.*/
-        vector<Trader*> traders;
+        vector<Trader> traders;
         /*The name of the currently running simulation.*/
         string simulatorName;
+        /*The trader who is currently logged in for the simulation.*/
+        Trader *loggedIn;
+
 };
 #endif

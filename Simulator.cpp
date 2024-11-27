@@ -98,6 +98,7 @@ void Simulator::loginScreen(){
             string strBalance;
             double balance;
 
+            cout << endl;
             /*Code to add a new user here*/
             cout << "Awesome! Just need a few pieces of data on you:" << endl;
 
@@ -107,14 +108,17 @@ void Simulator::loginScreen(){
             bool inLoopCheck = true;
 
             while (!validInput){
+                cout << endl;
                 /*Get the name from the user.*/
                 cout << "Name: ";
                 getline(cin, name);
                 /*Make sure only entered one word.*/
-                if (hasWhiteSpace()){
+                if (hasWhiteSpace(name)){
+                    cout << endl;
                     cout << "Please enter only your first name with no spaces." << endl;
                 } else {
                     if (name.compare("") == 0){
+                        cout << endl;
                         cout << "Please enter at least one character." << endl;
                     } else {
                         validInput = true;
@@ -123,23 +127,27 @@ void Simulator::loginScreen(){
             }
             validInput = false;
             while (!validInput){
+                cout << endl;
                 cout << "Username: ";
                 getline(cin, username);
                 /*Make sure only entered one word.*/
                 if (hasWhiteSpace(username)){
+                    cout << endl;
                     cout << "Please enter only one word as your username." << endl;
                 } else {
                     if (name.compare("") == 0){
+                        cout << endl;
                         cout << "Please enter at least one character." << endl;
                     } else {
-                        Trader *on;
+                        Trader on;
                         for (int i = 0; i<this->traders.size(); i++){
                             on = this->traders.at(i);
-                            if (on->getUsername().compare(username) == 0){
+                            if (on.getUsername().compare(username) == 0){
                                 inLoopCheck = false;
                             }
                         }
                         if (!inLoopCheck){
+                            cout << endl;
                             cout << "It seems that username is already taken. ";
                             cout << "Please try another one." << endl;
                             inLoopCheck = true;
@@ -151,9 +159,11 @@ void Simulator::loginScreen(){
             }
             validInput = false;
             while (!validInput){
+                cout << endl;
                 cout << "Account Balance: ";
                 getline(cin, strBalance);
                 if (hasWhiteSpace(strBalance)){
+                    cout << endl;
                     cout << "Please enter your balance with not spaces." << endl;
                 } else {
                     if (strBalance.substr(0, 1).compare("$") == 0){
@@ -162,14 +172,19 @@ void Simulator::loginScreen(){
                     try {
                         balance = stod(strBalance);
                         if (balance < 0) {
-                            cout << "Please ensure that you start with a positive balance." << endl;
+                            cout << endl;
+                            cout << "Please ensure that you start with a positive balance.";
+                            cout << endl;
                         } else if (round(balance / 0.01) * 0.01 < .01) {
-                            cout << "Please ensure that your balance is at least one penny." << endl;
+                            cout << endl;
+                            cout << "Please ensure that your balance is at least one penny.";
+                            cout << endl;
                         } else {
                             balance = round(balance / 0.01) * 0.01;
                             validInput = true;
                         }
                     } catch(invalid_argument) {
+                        cout << endl;
                         cout << "Please ensure that your balance is a number." << endl;
                     }
                 }
@@ -177,8 +192,32 @@ void Simulator::loginScreen(){
 
             Trader newT(name, username, balance);
             this->addTrader(newT);
+            this->setLoggedInTrader(&newT);
+            loggedIn = true;
         } else {
             /*Code to login as an existing user here*/
+            if (hasWhiteSpace(line)){
+                cout << endl;
+                cout << "Please try again, your username shouldn't contain any spaces." << endl;
+            } else if (line.compare("") == 0){
+                cout << endl;
+                cout << "Please ensure that your username has at least one character in it." << endl;
+            } else {
+                Trader on;
+                for (int i = 0; i<this->traders.size(); i++){
+                    on = this->traders.at(i);
+                    if (on.getUsername().compare(line) == 0){
+                        this->setLoggedInTrader(this->traders.at(i));
+                        cout << endl;
+                        cout << on->getName();
+                        cout << this->loggedIn->getName();
+                        return;
+                    }
+                }
+                cout << endl;
+                cout << "Hmm, there doesn't seem to be a trader with that username. ";
+                cout << "Please try again." << endl;
+            }
         }
     }
 }
@@ -230,20 +269,40 @@ bool Simulator::addTrader(Trader t){
     /*Calculate the number of traders in teh simulator*/
     int numTraders = this->traders.size();
     /*Variable for keeping track of which trader looking at.*/
-    Trader *on;
+    Trader on;
     /*Iterate through the traders in the simulation.*/
     for (int i = 0; i<numTraders; i++){
         /*Get the trader on for this iteration.*/
         on = this->traders.at(i);
         /*Ensure that the username of the trader on, and the one trying to add do not match.*/
-        if (on->getUsername().compare(t.getUsername()) == 0){
+        if (on.getUsername().compare(t.getUsername()) == 0){
             /*Print an error message and return false if usernames match.*/
             cout << "It appears that username already exists, please try again." << endl;
             return false;
         }
     }
     /*Add the trader to the traders vector of the simulation.*/
-    this->traders.push_back(&t);
+    this->traders.push_back(t);
+    return true;
+}
+
+/**
+ * A getter to retrieve the user logged in to the simulator. 
+ * 
+ * @return -> Returns a pointer to the trader who is logged in.
+ */
+Trader* Simulator::getLoggedInTrader(){
+    cout << this->loggedIn->getName();
+    return this->loggedIn;
+}
+
+/**
+ * A setter for the trader logged in to the simulator. 
+ * 
+ * @param -> The Trader to set as logged in
+ */
+void Simulator::setLoggedInTrader(Trader *t){
+    this->loggedIn = t;
 }
 
 /**
@@ -310,9 +369,12 @@ int main(){
     /*Setup a few traders in the simulator.*/
     exampleTraderSetup(&s);
 
+    s.loginScreen();
+    cout << endl;
+    cout << "Login Successful, you are logged in as: " << s.getLoggedInTrader()->getName() << "." << endl;
+
     /*Get the next command to execute (will change this later).*/
     s.getNextCommand();
-
 
     return 0;
 }
