@@ -105,7 +105,7 @@ class Market {
         
     private:
         /*A vector that contains pointers to all the stocks in the simulation.*/
-        vector<Stock*> allStocks;
+        vector<Stock> allStocks;
         /*The seed used in the random number generator for stock price changes.*/
         int randSeed;
         /*The aggressiveness for the max stock price change allowed at a time.*/

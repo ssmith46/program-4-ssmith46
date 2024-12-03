@@ -31,6 +31,7 @@ using namespace std;
  * 
  * Member Functions:
  * - Stock(string symbol, double price, int shares) -> The Constructor for the Stock class.
+ * - Stock() -> A default constructor for the stock class.
  * - void setSymbol(string symbol) -> Setter for the symbol of a stock.
  * - string getSymbol() -> Getter for the symbol of a stock.
  * - void setPrice(double price) -> Setter for the price of a stock.
@@ -63,6 +64,10 @@ class Stock {
          * @param shares -> The number of remaining shares left of that stock.
          */
         Stock(string symbol, double price, int shares);
+        /**
+        * A default constructor for the stock class
+        */
+        Stock();
         /**
          * A setter for a stock's symbol
          * 

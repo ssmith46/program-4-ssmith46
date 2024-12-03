@@ -74,10 +74,7 @@ string BuyStockCommand::whichStock() {
     /*Parse the line for the stock that the user would like buy*/
     vector<string> parts;
 
-    /*Used to check whether a user has entered a valid stock name*/
-    bool validStock = false;
-
-    while (validStock == false) {
+    while (1) {
         cout << endl;
         cout << "Which stock would you like to buy shares of? ('l' to list options)";
         cout << endl;
@@ -86,10 +83,14 @@ string BuyStockCommand::whichStock() {
         /*Get a line of input from the user.*/
         getline(cin, line);
         parts = this->cf->parseLine(line);
+
         while (parts.size() != 1) {
+
             cout << endl;
-            cout << "A stock's name should be only one word long. ";
+            cout << "A stock's symbol should be only one word long. ";
             cout << "Please try again." << endl;
+            cout << "Which stock would you like to buy shares of? ('l' to list options)";
+            cout << endl;
 
             /*Indicate to user where to type.*/
             cout << "> ";
@@ -98,13 +99,16 @@ string BuyStockCommand::whichStock() {
 
             parts = this->cf->parseLine(line);
         }
+
         /*Check if the user changed their mind and would like to cancel*/
-        if (isCancel(parts.at(0))) {
+        if (Command::isCancel(parts.at(0))) {
             cout << endl;
             cout << "Transaction canceled." << endl;
             return ";;;";
         }
-        if (this->m->getStock(parts.at(0)) == nullptr) {
+
+        Stock* s = this->m->getStock(parts.at(0));
+        if (s == nullptr) {
             cout << endl;
             cout << "That doesn't seem to be a valid stock name. Please try again.";
         }
@@ -128,10 +132,7 @@ int BuyStockCommand::howMany(string stockName) {
     /*Parse the line for the stock that the user would like buy*/
     vector<string> parts;
 
-    /*Used to check whether a user has entered a valid stock name*/
-    bool validNumStocks = false;
-
-    while (validNumStocks == false) {
+    while (1) {
         cout << endl;
         cout << "How many shares of " << stockName << " stock would you like to buy?";
         cout << endl;
@@ -158,42 +159,42 @@ int BuyStockCommand::howMany(string stockName) {
             cout << "Transaction canceled." << endl;
             return -1;
         }
-        while (1) {
-            try {
-                int numToBuy = stoi(parts.at(0));
-                if (numToBuy == 0) {
+
+        try {
+            int numToBuy = stoi(parts.at(0));
+            if (numToBuy == 0) {
+                cout << endl;
+                cout << "I mean sure. I guess you can buy none. Waste of both our times. ";
+                cout << endl;
+                return -1;
+            }
+            else if (numToBuy < 0) {
+                cout << endl;
+                cout << "The number of stocks to buy has to be a positive number. ";
+                cout << "Please try again.";
+            }
+            else {
+                /*Need to check that there are that many shares or more left for purchase*/
+                int numSharesLeft = this->m->getStock(stockName)->getShares();
+                if (numSharesLeft < numToBuy) {
                     cout << endl;
-                    cout << "I mean sure. I guess you can buy none. Waste of both our times. ";
-                    cout << endl;
-                    return -1;
-                }
-                else if (numToBuy < 0) {
-                    cout << endl;
-                    cout << "The number of stocks to buy has to be a positive number. ";
-                    cout << "Please try again." << endl;
+                    cout << "There are only " << numSharesLeft << " shares left. " << endl;
+                    cout << "Please pick a number less than or equal to this total.";
                 }
                 else {
-                    /*Need to check that there are that many shares or more left for purchase*/
-                    int numSharesLeft = this->m->getStock(stockName)->getShares();
-                    if (numSharesLeft > numToBuy) {
-                        cout << endl;
-                        cout << "There are only " << numSharesLeft << " shares left. " << endl;
-                        cout << "Please pick a number less than or equal to this total." << endl;
-                    }
-                    else {
-                        return numToBuy;
-                    }
+                    return numToBuy;
                 }
             }
-            catch (const invalid_argument& e) {
-                cout << endl;
-                cout << "That doesn't seem to be a valid number of shares to buy." << endl;
-                cout << "Please enter a valid integer value. " << endl;
-            }
-            catch (const out_of_range& e) {
-                cout << endl;
-                cout << "That value seems to be too big. Please try a smaller one." << endl;
-            }
         }
+        catch (const invalid_argument& e) {
+            cout << endl;
+            cout << "That doesn't seem to be a valid number of shares to buy." << endl;
+            cout << "Please enter a valid integer value. ";
+        }
+        catch (const out_of_range& e) {
+            cout << endl;
+            cout << "That value seems to be too big. Please try a smaller one.";
+        }
+     
     }
 }

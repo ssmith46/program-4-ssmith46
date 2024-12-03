@@ -32,6 +32,11 @@ Stock::Stock(string symbol, double price, int shares){
 }
 
 /**
+*A default constructor for the stock class
+*/
+Stock::Stock(){ }
+
+/**
 * A setter for a stock's symbol
 * 
 * @param symbol -> The symbol to set as the stock's symbol.

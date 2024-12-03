@@ -35,9 +35,9 @@ string Market::stocks_toString(){
         /*Go through all the stocks in the simulation and get their 'to_string()' equivalents.*/
         /*This 'if' is to help format the string correctly with a '\n' character*/
         if (i == this->allStocks.size()-1){
-            retVal += (this->allStocks.at(i))->toString();
+            retVal += (this->allStocks.at(i)).toString();
         } else {
-            retVal += (this->allStocks.at(i))->toString() + "\n";
+            retVal += (this->allStocks.at(i)).toString() + "\n";
         }
     }
     /*Returns the string that was created above.*/
@@ -59,14 +59,14 @@ bool Market::addStock(Stock toAdd){
       same symbol as the one that is trying to be added, as they must each
       be unique.*/
     for (int i = 0; i<this->allStocks.size(); i++){
-        if ((this->allStocks.at(i))->getSymbol().compare(uniqueSymbol) == 0){
+        if ((this->allStocks.at(i)).getSymbol().compare(uniqueSymbol) == 0){
             /*Indicate that the stock could not be added successfully.*/
             return false;
         }
     }
 
     /*Upon reaching this point, it's ok to the stock to the allStocks vector.*/
-    this->allStocks.push_back(&toAdd);
+    this->allStocks.push_back(toAdd);
 
     /*Indicate that the stock was added successfully.*/
     return true;
@@ -83,14 +83,14 @@ Stock* Market::getStock(string symbol){
     /*The number of stocks in allStocks (the size).*/
     int numStocks = this->allStocks.size();
     /*The stock pointer on for this iteration.*/
-    Stock *on;
+    Stock on;
     /*Iterate through all the stocks.*/
     for(int i = 0; i<numStocks; i++){
         /*Get the stock on for this iteration.*/
         on = this->allStocks.at(i);
         /*Check if it's the stock that is being looked for. Return if so.*/
-        if (on->getSymbol().compare(symbol) == 0){
-            return on;
+        if (on.getSymbol().compare(symbol) == 0){
+            return &(this->allStocks.at(i));
         }
     }
 
@@ -137,14 +137,14 @@ void Market::randomlyUpdateStocks(){
     /*Create a variable for the aggressiveness of the stock price chagne.*/
     double growth;
     /*Variable for stock on clarity during loop.*/
-    Stock *s;
+    Stock s;
 
     /*Loop through all of the stocks in the market*/
     for (int i = 0; i<this->allStocks.size(); i++){
 
         /*Get the stock on for this iteration.*/
         s = this->allStocks.at(i);
-        
+        randNum = rand();
         /*Get a random number to calculate whether the price change will be positive or
           negative. This algorithm results in a 1/3 chance of negative growth. This can 
           be changed by tweaking the below variable. */
@@ -160,6 +160,6 @@ void Market::randomlyUpdateStocks(){
         growth *= (randNum/(double)100);
         
         /*Change the stock price using the above calculated.*/
-        *s *= growth;
+        s *= growth;
     }
 }
