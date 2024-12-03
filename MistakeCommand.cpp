@@ -9,6 +9,7 @@
 #include "Command.h"
 #include "MistakeCommand.h"
 #include "Market.h"
+#include "CommandFactory.h"
 #include "Simulator.h"
 #include <vector>
 #include <string>
@@ -23,10 +24,11 @@ using namespace std;
 * @param m -> The market that the command can influence.
 * @param s -> The simulator that the command can influence.
 */
-MistakeCommand::MistakeCommand(vector<string> args, Market *m, Simulator *s){
+MistakeCommand::MistakeCommand(vector<string> args, Market *m, Simulator *s, CommandFactory *cf){
     this->args = args;
     this->m = m;
     this->s = s;
+    this->cf = cf;
 }
 
 /**

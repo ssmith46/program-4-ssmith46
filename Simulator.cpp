@@ -355,7 +355,7 @@ void createAllObjectTypes(){
     StockPortfolio spf;
     Command c;
     vector<string> svec;
-    MistakeCommand mc(svec, &m, &sim);
+    MistakeCommand mc(svec, &m, &sim, &cf);
     cout << "All object types created successfully!" << endl;
 }
 

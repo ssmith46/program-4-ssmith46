@@ -18,6 +18,7 @@ class MistakeCommand;
 #include "Command.h"
 #include "Market.h"
 #include "Simulator.h"
+#include "CommandFactory.h"
 
 using namespace std;
 
@@ -30,6 +31,7 @@ using namespace std;
  * - vector<string> args -> The arguments to explain how the command was wrong
  * - Market *m -> The market that the command can influence
  * - Simulator *s -> The simulator the command can influence
+ * - CommandFactory *cf -> The command factory the command can use for parsing user input.
  * 
  * Member Functions:
  * - MistakeCommand(vector<string> args, Market *m, Simulator *s) -> The constructor
@@ -48,7 +50,7 @@ class MistakeCommand : public Command {
          * @param m -> The market that the command can influence.
          * @param s -> The simulator that the command can influence.
          */
-        MistakeCommand(vector<string> args, Market *m, Simulator *s);
+        MistakeCommand(vector<string> args, Market *m, Simulator *s, CommandFactory *cf);
         /**
          * This method overrides the base Command class's execute method.
          */
@@ -60,5 +62,7 @@ class MistakeCommand : public Command {
         Market *m;
         /*The Simulator that the command can execute.*/
         Simulator *s;
+        /*The command factory that can be used for parsing user input.*/
+        CommandFactory* cf;
 };
 #endif

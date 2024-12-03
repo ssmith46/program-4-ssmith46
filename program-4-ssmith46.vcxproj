@@ -119,6 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BuyStockCommand.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommandFactory.cpp" />
     <ClCompile Include="Market.cpp" />
@@ -129,6 +130,7 @@
     <ClCompile Include="Trader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BuyStockCommand.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommandFactory.h" />
     <ClInclude Include="Market.h" />

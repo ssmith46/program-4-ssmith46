@@ -24,9 +24,10 @@ Command::Command(){ }
 * @param m -> The Market the command manipulates upon execution.
 * @param s -> The Simulator the command manipulates upon execution.
 */
-Command::Command(vector<string> args, Market *m, Simulator *s){
+Command::Command(vector<string> args, Market *m, Simulator *s, CommandFactory *cf){
     this->m = m;
     this->s = s;
+    this->cf = cf;
     this->args = args;
 }
 
@@ -35,3 +36,21 @@ Command::Command(vector<string> args, Market *m, Simulator *s){
 * by child classes that inherit from it.
 */
 void Command::execute(){ cout << "Parent" << endl; /*Override in children*/ }
+
+/**
+* Checks whether the user's entered command is "cancel" or some variant.
+*
+* @param word -> The word to check whether it's a cancel or not.
+* @return -> A boolean on whether the user wishes to cancel the transaction or not.
+*/
+bool Command::isCancel(string word) {
+    /*If it's a cancel word, return true*/
+    if ((word.compare("cancel") == 0) ||
+        (word.compare("Cancel") == 0) ||
+        (word.compare("c") == 0) ||
+        (word.compare("C") == 0) ||
+        (word.compare("stop") == 0)) {
+        return true;
+    }
+    return false;
+}

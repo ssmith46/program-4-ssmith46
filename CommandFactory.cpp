@@ -12,6 +12,7 @@
 #include "Simulator.h"
 #include "Command.h"
 #include "MistakeCommand.h"
+#include "BuyStockCommand.h"
 #include "CommandFactory.h"
 #include <vector>
 
@@ -107,8 +108,36 @@ Command* CommandFactory::getCommand(string line){
     /*Create the command pointer for returning*/
     Command *retVal;
 
-    /*This will create a 'mistake' command for now. In future, branch based on the arguments*/
-    retVal = new MistakeCommand(allParts, this->getMarket(), this->getSimulator());
+    /*This is where the first mistake command check can occur*/
+    if (allParts.size() < 1) {
+        /*This will create a 'mistake' command for now. In future, branch based on the arguments*/
+        retVal = new MistakeCommand(allParts, this->getMarket(), this->getSimulator(), this);
+    }
+    /*Handle the case that the user wants to execute a "buy" command*/
+    else if ((allParts.size() == 2) 
+        && 
+        (
+        (allParts.at(0).compare("buy") == 0) ||
+        (allParts.at(0).compare("Buy") == 0) ||
+        (allParts.at(0).compare("purchase") == 0) ||
+        (allParts.at(0).compare("Purchase") == 0)
+        ) 
+        && 
+        (
+        (allParts.at(1).compare("Stocks") == 0) ||
+        (allParts.at(1).compare("stocks") == 0) ||
+        (allParts.at(1).compare("Stock") == 0) ||
+        (allParts.at(1).compare("stock") == 0) )
+        ){
+
+        /*Create a BuyStockCommand for the retval*/
+        retVal = new BuyStockCommand(allParts, this->getMarket(), this->getSimulator(), this);
+    }
+    else {
+        /*This will create a 'mistake' command for now. In future, branch based on the arguments*/
+        retVal = new MistakeCommand(allParts, this->getMarket(), this->getSimulator(), this);
+    }
+    
 
     /*Return the created command*/
     return retVal;

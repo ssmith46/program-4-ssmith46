@@ -79,7 +79,8 @@ class CommandFactory {
          * @return -> Returns a vector of strings, where each string in the vector 
          * is a word from the line.
          */
-        vector<string> parseLine(string line);
+         vector<string> parseLine(string line);
+
         /**
          * Takes a string as input and returns a command object that will fulfill
          * the needs of that line of text.

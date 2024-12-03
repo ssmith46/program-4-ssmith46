@@ -30,12 +30,14 @@ using namespace std;
  * - Simulator s -> The simulator that the command will be able to manipulate.
  * - Market m -> The market that the command will be able to manipulate.
  * - vector<string> args -> Arguments needed to execute the command.
+ * - CommandFactory *cf -> The command factory the command can use for parsing user input.
  * 
  * Member Functions:
  * - Command() -> A default constructor so the compiler doesn't complain.
  * - Command(vector<string> args, Market *m, Simulator *s)
  *      -> The constructor for the command object. 
  * - void execute() -> A void abstract method that is overidden by child commands
+ * - boolean isCancel(string word) -> Returns whether a user is trying to cancel a transaction.
  * 
  * Class Usage:
  * - This class is used to manipulate the simulation based off of
@@ -53,14 +55,23 @@ class Command {
          * @param args -> The arguments to execute the Command.
          * @param m -> The Market the command manipulates upon execution.
          * @param s -> The Simulator the command manipulates upon execution.
+         * @param f -> The CommandFactory that can be used for parsing user input.
          */
-        Command(vector<string> args, Market *m, Simulator *s);
+        Command(vector<string> args, Market *m, Simulator *s, CommandFactory *cf);
 
         /**
          * The execute method for the command. Virtual, and will be overrided
          * by child classes that inherit from it.
          */
         virtual void execute();
+
+        /**
+        * Checks whether the user's entered command is "cancel" or some variant.
+        * 
+        * @param word -> The word to check whether it's a cancel or not.
+        * @return -> A boolean on whether the user wishes to cancel the transaction or not.
+        */
+        bool isCancel(string word);
     private:
         /**
          * This is the Simulator that the command is able to manipulate
@@ -72,6 +83,10 @@ class Command {
          * during execution.
          */
         Market *m;
+        /**
+        *This is the Command Factory that can be used for parsing user input.
+        */
+        CommandFactory* cf;
         /**
          * The arguements associated with executing this command 
          */
