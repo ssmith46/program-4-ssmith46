@@ -142,3 +142,8 @@ Command* CommandFactory::getCommand(string line){
     /*Return the created command*/
     return retVal;
 }
+
+Command CommandFactory::getBaseCommand() {
+    vector<string> allParts;
+    return Command(allParts, this->getMarket(), this->getSimulator(), this);
+}

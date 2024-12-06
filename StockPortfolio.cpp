@@ -112,7 +112,32 @@ string StockPortfolio::sellStock(string symbol, int amount){
 * in the format of a message. 
 */
 string StockPortfolio::buyStocks(Stock* s, int amount){
-    return "";
+    PortfolioEntry on;
+    int posFound = -1;
+    string onSymbol;
+    string symbolLookingFor = s->getSymbol();
+    for (int i = 0; i < this->portEnts.size(); i++) {
+        on = this->portEnts.at(i);
+        onSymbol = on.stock->getSymbol();
+
+        if (onSymbol.compare(symbolLookingFor) == 0) {
+            posFound = i;
+        }
+    }
+
+    /*This means need to create a new entry for that stock.*/
+    if (posFound == -1) {
+
+        return "Successful Purchase.";
+    }
+    else {
+        PortfolioEntry* updating = &(this->portEnts.at(posFound));
+        updating->amountOwned += amount;
+        return "Successful Purchase.";
+    }
+
+    return "Fail.";
+
 }
 
 /**

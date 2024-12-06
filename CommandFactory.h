@@ -89,6 +89,8 @@ class CommandFactory {
          * along with the parameters to fulfill that command.
          */
         Command* getCommand(string line);
+
+        Command getBaseCommand();
     private:
         /**
         * This is the Market that will be given to commands to manipulate.

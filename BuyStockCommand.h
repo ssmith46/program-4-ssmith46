@@ -36,9 +36,6 @@ using namespace std;
  * - BuyStockCommand(vector<string> args, Market *m, Simulator *s) -> The constructor
  *   for a mistake command.
  * - void execute() -> The override of the base command execute method.
- * - string whichStock() -> Returns the stock name the user would like to purchase.
- * - int howMany(string stockName) -> Returns an int for the number of shares of a specific
- *   stock a user would like to purchase.
  *
  * Class Usage:
  * - This class is used to allow users to buy stocks by specifying their symbol and amount.
@@ -57,18 +54,7 @@ public:
      * This method overrides the base Command class's execute method.
      */
     void execute();
-    /**
-    * Get the name of the stock the user would like to purchase.
-    * 
-    * @return -> A string for the stock the user would like to purchase.
-    */
-    string whichStock();
-    /**
-    * Get the number of shares of a stock the user would like to purchase.
-    * 
-    * @return -> An int for the number of shares the user would like to purchase.
-    */
-    int howMany(string stockName);
+    
 private:
     /*The arguments that lead to an error for the command.*/
     vector<string> args;

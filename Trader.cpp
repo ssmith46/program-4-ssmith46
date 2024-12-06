@@ -74,7 +74,13 @@ double Trader::getBalance(){
 * @param quantity -> The number of shares of the specified stock wanting to be bought. 
 */
 void Trader::buyStock(Stock *stock, int amount){
-    
+    double accountBalance = this->getBalance();
+    double purchasePrice = (stock->getPrice() * amount);
+    this->setBalance(accountBalance - purchasePrice);
+
+    if (this->sp->buyStocks(stock, amount).compare("Fail") == 0) {
+        cout << "Failed to buy the stock." << endl;
+    }
 }
 
 /**
