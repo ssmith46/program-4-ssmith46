@@ -78,11 +78,17 @@ void BuyStockCommand::execute() {
     ss.str("");
     ss << fixed << setprecision(2) << accountBalance;
     ss >> accountBalance;
-    accountBalance += .01;
+
 
     /*Handles the case that they don't have enough money in their account.*/
-    if ((totalCost != accountBalance) && (accountBalance - totalCost < 0)) {
-        accountBalance -= .01;
+    if (((accountBalance - totalCost < 0) && (accountBalance - totalCost > -0.001)) ||
+        (accountBalance - totalCost >= 0)) {
+        cout << "Buying " << numSharesToBuy << " shares of " << strStockToBuy << " stock..." << endl;
+        t->buyStock(s, numSharesToBuy);
+        s->removeShares(numSharesToBuy);
+        cout << "Purchase complete!"; cout << endl;
+    }
+    else { /*They don't have enough money in their account.*/
         cout << endl;
         cout << "Unfortunately, you don't have enough funds to make this purchase.";
         cout << endl;
@@ -97,12 +103,6 @@ void BuyStockCommand::execute() {
         cout << "your account." << endl;
         cout << "Please deposit more money, or lower your purchase price.";
         cout << endl;
-    }
-    else { /*They have enough money in their account.*/
-        cout << "Buying " << numSharesToBuy << " shares of " << strStockToBuy << " stock..." << endl;
-        t->buyStock(s, numSharesToBuy);
-        s->removeShares(numSharesToBuy);
-        cout << "Purchase complete!"; cout << endl;
     }
 
    

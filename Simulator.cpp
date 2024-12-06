@@ -314,7 +314,7 @@ void Simulator::setLoggedInTrader(Trader *t){
  */
 void exampleStockSetup(Market *m){
     /*Create a few stocks as examples in the simulation*/
-    Stock s1("TSLA", 330.05, 1000);
+    Stock s1("TSLA", 330.06, 1000);
     Stock s2("AAPL", 234.20, 1500);
     Stock s3("NVDA", 132.10, 2000);
     Stock s4("S&P_500", 5989.83, 10000);
@@ -404,7 +404,6 @@ int main(){
             c->execute();
             /*Since dealing with a pointer on free store, delete it after use.*/
             delete c;
-            cout << "The trader's account balance has: " << s.getLoggedInTrader()->getBalance() << endl;
         }
     }
 
