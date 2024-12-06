@@ -311,7 +311,7 @@ void exampleStockSetup(Market *m){
     Stock s1("TSLA", 330.05, 1000);
     Stock s2("AAPL", 234.20, 1500);
     Stock s3("NVDA", 132.10, 2000);
-    Stock s4("S&P 500", 5989.83, 10000);
+    Stock s4("S&P_500", 5989.83, 10000);
     Stock s5("DIS", 116.89, 5000);
     Stock s6("BA", 151.91, 1400);
 

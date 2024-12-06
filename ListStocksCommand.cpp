@@ -37,5 +37,4 @@ ListStocksCommand::ListStocksCommand(vector<string> args, Market* m, Simulator* 
 void ListStocksCommand::execute() {
     cout << endl;
     cout << this->m->stocks_toString();
-    cout << endl;
 }

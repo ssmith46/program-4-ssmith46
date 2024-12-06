@@ -10,6 +10,8 @@
 #include "Stock.h"
 #include <string>
 #include <iostream>
+#include <sstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -22,24 +24,116 @@ Market::Market(){
     /*Initialize the randomness of stock change value.*/
     this->marketViolence = 10;
 }
+
+string get_seperator(int length) {
+    string retVal = "-";
+    for (int i = 0; i < length; i++) {
+        retVal += "-";
+    }
+    return retVal;
+}
+
+string get_spacedWord(string word, int length) {
+    int numSpaces = length - word.length();
+    string retVal = "";
+    for (int i = 0; i < numSpaces; i++) {
+        retVal += " ";
+    }
+    retVal += word;
+    retVal += " ";
+
+    return retVal;
+}
+
 /**
 * Converts all the stocks in the simulation to their 'to_string()' equivalents.
 * 
 * @return -> Returns the string resembeling all of the Stocks in the simulation.
 */
 string Market::stocks_toString(){
+
+
+    if (this->allStocks.size() == 0) {
+        return "There are currently no stocks in the simulation.\n";
+    }
+
     /*Initialize the string to be returned as the empty string.*/
     string retVal = "";
+
+    int longestLengthName = 8;
+    int longestLengthPrice = 13;
+    int longestLengthShares = 12;
+    Stock on;
+    for (int i = 0; i < this->allStocks.size(); i++) {
+        on = this->allStocks.at(i);
+        if (on.getSymbol().length() > longestLengthName) {
+            longestLengthName = on.getSymbol().length();
+        }
+        int places = 3;
+        double price = (int)on.getPrice();
+        while (price >= 1.0) {
+            price *= .1;
+            places += 1;
+        }
+        if (places > longestLengthPrice) {
+            longestLengthPrice = places;
+        }
+        places = 1;
+        int sharesLeft = on.getShares();
+        while (sharesLeft >= 1.0) {
+            sharesLeft *= .1;
+            places += 1;
+        }
+        if (places > longestLengthShares) {
+            longestLengthShares = places;
+        }
+    }
+
+    string sep = "";
+
+    sep += "+";
+    sep += get_seperator(longestLengthName);
+    sep += "+";
+    sep += get_seperator(longestLengthPrice);
+    sep += "+";
+    sep += get_seperator(longestLengthShares);
+    sep += "+";
+    sep += "\n";
+
+    retVal += sep;
+
+    retVal += "|";
+    retVal += get_spacedWord("Symbols", longestLengthName);
+    retVal += "|";
+    retVal += get_spacedWord("Stock Prices", longestLengthPrice);
+    retVal += "|"; 
+    retVal += get_spacedWord("Shares Left", longestLengthShares);
+    retVal += "|";
+    retVal += "\n";
+
+    retVal += sep;
+
+    
     /*Iterate over all the stocks in the allStocks vector.*/
     for (int i = 0; i<this->allStocks.size(); i++){
         /*Go through all the stocks in the simulation and get their 'to_string()' equivalents.*/
         /*This 'if' is to help format the string correctly with a '\n' character*/
-        if (i == this->allStocks.size()-1){
-            retVal += (this->allStocks.at(i)).toString();
-        } else {
-            retVal += (this->allStocks.at(i)).toString() + "\n";
-        }
+        on = allStocks.at(i);
+        retVal += "|";
+        retVal += get_spacedWord(on.getSymbol(), longestLengthName);
+        retVal += "|";
+        stringstream ss;
+        ss << fixed << setprecision(2) << on.getPrice();
+        string fixedPrice = "$" + ss.str();
+        retVal += get_spacedWord(fixedPrice, longestLengthPrice);
+        retVal += "|";
+        retVal += get_spacedWord(to_string(on.getShares()), longestLengthShares);
+        retVal += "|";
+        retVal += "\n";
     }
+
+    retVal += sep;
+
     /*Returns the string that was created above.*/
     return retVal;
 }
