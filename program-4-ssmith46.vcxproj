@@ -122,6 +122,7 @@
     <ClCompile Include="BuyStockCommand.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommandFactory.cpp" />
+    <ClCompile Include="FluctuateStocksCommand.cpp" />
     <ClCompile Include="ListPortfolioCommand.cpp" />
     <ClCompile Include="ListStocksCommand.cpp" />
     <ClCompile Include="LogoutCommand.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="BuyStockCommand.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommandFactory.h" />
+    <ClInclude Include="FluctuateStocksCommand.h" />
     <ClInclude Include="ListPortfolioCommand.h" />
     <ClInclude Include="ListStocksCommand.h" />
     <ClInclude Include="LogoutCommand.h" />

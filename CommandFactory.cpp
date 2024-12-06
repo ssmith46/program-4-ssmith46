@@ -15,6 +15,7 @@
 #include "BuyStockCommand.h"
 #include "ListStocksCommand.h"
 #include "ListPortfolioCommand.h"
+#include "FluctuateStocksCommand.h"
 #include "LogoutCommand.h"
 #include "CommandFactory.h"
 #include <vector>
@@ -144,7 +145,9 @@ Command* CommandFactory::getCommand(string line) {
             (allParts.at(0).compare("See") == 0) ||
             (allParts.at(0).compare("View") == 0) ||
             (allParts.at(0).compare("list") == 0) ||
-            (allParts.at(0).compare("List") == 0)
+            (allParts.at(0).compare("List") == 0) ||
+            (allParts.at(0).compare("Show") == 0) ||
+            (allParts.at(0).compare("show") == 0)
          )
         &&
         (
@@ -177,14 +180,39 @@ Command* CommandFactory::getCommand(string line) {
             (allParts.at(0).compare("See") == 0) ||
             (allParts.at(0).compare("View") == 0) ||
             (allParts.at(0).compare("list") == 0) ||
-            (allParts.at(0).compare("List") == 0)
-            )
+            (allParts.at(0).compare("List") == 0) ||
+            (allParts.at(0).compare("Show") == 0) ||
+            (allParts.at(0).compare("show") == 0)
+             )
         &&
         (
             (allParts.at(1).compare("portfolio") == 0) ||
             (allParts.at(1).compare("Portfolio") == 0)
         )) {
         retVal = new ListPortfolioCommand(allParts, this->getMarket(), this->getSimulator(), this);
+    }
+    else if (
+        (allParts.size() == 2)
+        &&
+        (
+            (allParts.at(0).compare("fluctuate") == 0) ||
+            (allParts.at(0).compare("Fluctuate") == 0) ||
+            (allParts.at(0).compare("F") == 0) ||
+            (allParts.at(0).compare("f") == 0) ||
+            (allParts.at(0).compare("change") == 0) ||
+            (allParts.at(0).compare("Change") == 0)
+            )
+        &&
+        (
+            (allParts.at(1).compare("Market") == 0) ||
+            (allParts.at(1).compare("market") == 0) ||
+            (allParts.at(1).compare("portfolio") == 0) ||
+            (allParts.at(1).compare("Portfolio") == 0) ||
+            (allParts.at(1).compare("stocks") == 0) ||
+            (allParts.at(1).compare("Stocks") == 0)
+         )) {
+
+        retVal = new FluctuateStocksCommand(allParts, this->getMarket(), this->getSimulator(), this);
     }
     else {
         /*This will create a 'mistake' command for now. In future, branch based on the arguments*/

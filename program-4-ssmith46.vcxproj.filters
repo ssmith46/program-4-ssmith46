@@ -51,6 +51,9 @@
     <ClCompile Include="ListPortfolioCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FluctuateStocksCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command.h">
@@ -87,6 +90,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ListPortfolioCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FluctuateStocksCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
