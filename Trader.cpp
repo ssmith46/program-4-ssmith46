@@ -79,7 +79,16 @@ double Trader::getBalance(){
 void Trader::buyStock(Stock *stock, int amount){
     double accountBalance = this->getBalance();
     double purchasePrice = (stock->getPrice() * amount);
-    this->setBalance(accountBalance - purchasePrice);
+
+    int actualPurchasePrice = (int)purchasePrice * 100;
+    int actualAccountBalance = (int)accountBalance * 100;
+
+    if (actualAccountBalance - actualPurchasePrice == 0) {
+        this->setBalance(0);
+    }
+    else {
+        this->setBalance(accountBalance - purchasePrice);
+    }
     if (this->sp.buyStocks(stock, amount).compare("Fail") == 0) {
         cout << "Failed to buy the stock." << endl;
     }

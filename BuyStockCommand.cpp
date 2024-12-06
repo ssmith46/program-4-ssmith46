@@ -14,6 +14,8 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <iomanip>
+#include <sstream>
 #include <cmath>
 
 using namespace std;
@@ -64,10 +66,17 @@ void BuyStockCommand::execute() {
 
     double stockPrice = s->getPrice();
 
-    double totalCost = round((stockPrice * numSharesToBuy)*100.0)/100.0;
+    stringstream ss;
+    double totalCost = (stockPrice * numSharesToBuy) + 0.00000001;
+    ss << fixed << setprecision(2) << totalCost;
+    ss >> totalCost;
+
+    int actualCost = (int)totalCost * 100;
+    int actualAccountBalance = (int)accountBalance * 100;
 
     /*Handles the case that they don't have enough money in their account.*/
-    if (totalCost > accountBalance) {
+    if (actualAccountBalance - actualCost < 0) {
+        cout << totalCost << "-" << accountBalance << "=" << totalCost - accountBalance;
         cout << endl;
         cout << "Unfortuneatly, you don't have enough funds to make this purchase.";
         cout << endl;
@@ -78,8 +87,8 @@ void BuyStockCommand::execute() {
         }
         cout << "To buy " << numSharesToBuy << " " << correctShares;
         cout << " of " << strStockToBuy << " would cost ";
-        cout << "$" << totalCost << endl;
-        cout << "You only have $" << accountBalance << " in ";
+        cout << "$" << fixed <<setprecision(2) << totalCost << endl;
+        cout << "You have $" << accountBalance << " in ";
         cout << "your account." << endl;
         cout << "Please deposit more money, or lower your purchase price.";
         cout << endl;
