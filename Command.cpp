@@ -103,13 +103,20 @@ string Command::whichStock() {
             return ";;;";
         }
 
-        Stock* s = this->m->getStock(parts.at(0));
-        if (s == nullptr) {
+        if (parts.at(0).compare("l") == 0) {
             cout << endl;
-            cout << "That doesn't seem to be a valid stock name. Please try again.";
+            cout << "Listing stocks...";
         }
         else {
-            return parts.at(0);
+
+            Stock* s = this->m->getStock(parts.at(0));
+            if (s == nullptr) {
+                cout << endl;
+                cout << "That doesn't seem to be a valid stock name. Please try again.";
+            }
+            else {
+                return parts.at(0);
+            }
         }
     }
 }
