@@ -81,13 +81,13 @@ class Command {
         *
         * @return -> A string for the stock the user would like to purchase.
         */
-        string whichStock();
+        string whichStock(string prompt);
         /**
         * Get the number of shares of a stock the user would like to purchase.
         *
         * @return -> An int for the number of shares the user would like to purchase.
         */
-        int howMany(string stockName);
+        int howManyShares(string stockName, string prompt);
     private:
         /**
          * This is the Simulator that the command is able to manipulate

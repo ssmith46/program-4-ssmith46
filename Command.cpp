@@ -60,7 +60,7 @@ bool Command::isCancel(string word) {
 *
 * @return -> A string for the stock the user would like to purchase/sell.
 */
-string Command::whichStock() {
+string Command::whichStock(string prompt) {
 
     /*The string to return to the client code.*/
     string retVal = "";
@@ -72,7 +72,7 @@ string Command::whichStock() {
 
     while (1) {
         cout << endl;
-        cout << "Which stock would you like to buy shares of? ('l' to list options)";
+        cout << prompt;
         cout << endl;
         /*Indicate to user where to type.*/
         cout << "> ";
@@ -85,7 +85,7 @@ string Command::whichStock() {
             cout << endl;
             cout << "A stock's symbol should be only one word long. ";
             cout << "Please try again." << endl;
-            cout << "Which stock would you like to buy shares of? ('l' to list options)";
+            cout << prompt;
             cout << endl;
 
             /*Indicate to user where to type.*/
@@ -105,7 +105,7 @@ string Command::whichStock() {
 
         if (parts.at(0).compare("l") == 0) {
             cout << endl;
-            cout << "Listing stocks...";
+            cout << this->m->stocks_toString();
         }
         else {
 
@@ -126,7 +126,7 @@ string Command::whichStock() {
 *
 * @return -> An int for the number of shares the user would like to purchase/sell.
 */
-int Command::howMany(string stockName) {
+int Command::howManyShares(string stockName, string prompt) {
     /*The number of shares of that stock to buy*/
     int retVal = 0;
 
@@ -137,7 +137,7 @@ int Command::howMany(string stockName) {
 
     while (1) {
         cout << endl;
-        cout << "How many shares of " << stockName << " stock would you like to buy?";
+        cout << prompt;
         cout << endl;
         /*Indicate to user where to type.*/
         cout << "> ";
@@ -146,7 +146,7 @@ int Command::howMany(string stockName) {
         parts = this->cf->parseLine(line);
         while (parts.size() != 1) {
             cout << endl;
-            cout << "There should only be one argument for the number of stocks to buy. ";
+            cout << "There should only be one argument for the number of stocks. ";
             cout << "Please try again." << endl;
 
             /*Indicate to user where to type.*/
@@ -167,13 +167,13 @@ int Command::howMany(string stockName) {
             int numToBuy = stoi(parts.at(0));
             if (numToBuy == 0) {
                 cout << endl;
-                cout << "I mean sure. I guess you can buy none. Waste of both our times. ";
+                cout << "I mean sure. I guess you can choose none. Wastes both our times. ";
                 cout << endl;
                 return -1;
             }
             else if (numToBuy < 0) {
                 cout << endl;
-                cout << "The number of stocks to buy has to be a positive number. ";
+                cout << "The number of stocks has to be a positive number. ";
                 cout << "Please try again.";
             }
             else {
@@ -191,7 +191,7 @@ int Command::howMany(string stockName) {
         }
         catch (const invalid_argument& e) {
             cout << endl;
-            cout << "That doesn't seem to be a valid number of shares to buy." << endl;
+            cout << "That doesn't seem to be a valid number of shares." << endl;
             cout << "Please enter a valid integer value. ";
         }
         catch (const out_of_range& e) {

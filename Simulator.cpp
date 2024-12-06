@@ -314,6 +314,7 @@ void exampleStockSetup(Market *m){
     Stock s4("S&P_500", 5989.83, 10000);
     Stock s5("DIS", 116.89, 5000);
     Stock s6("BA", 151.91, 1400);
+    Stock s7("Very_long_stock_name_test", 100000000.99, 9999999999999);
 
     /*Add the stocks created above to the market.*/
     m->addStock(s1);
@@ -322,6 +323,7 @@ void exampleStockSetup(Market *m){
     m->addStock(s4);
     m->addStock(s5);
     m->addStock(s6);
+    m->addStock(s7);
 }
 
 /**

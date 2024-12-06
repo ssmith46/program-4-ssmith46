@@ -26,7 +26,7 @@ Market::Market(){
 }
 
 string get_seperator(int length) {
-    string retVal = "-";
+    string retVal = "--";
     for (int i = 0; i < length; i++) {
         retVal += "-";
     }
@@ -35,7 +35,7 @@ string get_seperator(int length) {
 
 string get_spacedWord(string word, int length) {
     int numSpaces = length - word.length();
-    string retVal = "";
+    string retVal = " ";
     for (int i = 0; i < numSpaces; i++) {
         retVal += " ";
     }
@@ -63,6 +63,7 @@ string Market::stocks_toString(){
     int longestLengthName = 8;
     int longestLengthPrice = 13;
     int longestLengthShares = 12;
+    int longestLastChange = 17;
     Stock on;
     for (int i = 0; i < this->allStocks.size(); i++) {
         on = this->allStocks.at(i);
@@ -87,12 +88,23 @@ string Market::stocks_toString(){
         if (places > longestLengthShares) {
             longestLengthShares = places;
         }
+        double lastChange = (int)on.getLastChange();
+        places = 4;
+        while (lastChange >= 1.0) {
+            lastChange *= .1;
+            places += 1;
+        }
+        if (places > longestLastChange) {
+            longestLastChange = places;
+        }
     }
 
     string sep = "";
 
     sep += "+";
     sep += get_seperator(longestLengthName);
+    sep += "+";
+    sep += get_seperator(longestLastChange);
     sep += "+";
     sep += get_seperator(longestLengthPrice);
     sep += "+";
@@ -104,6 +116,8 @@ string Market::stocks_toString(){
 
     retVal += "|";
     retVal += get_spacedWord("Symbols", longestLengthName);
+    retVal += "|";
+    retVal += get_spacedWord("Last Value Change", longestLastChange);
     retVal += "|";
     retVal += get_spacedWord("Stock Prices", longestLengthPrice);
     retVal += "|"; 
@@ -123,6 +137,16 @@ string Market::stocks_toString(){
         retVal += get_spacedWord(on.getSymbol(), longestLengthName);
         retVal += "|";
         stringstream ss;
+        double lastChange = on.getLastChange();
+        char changeSym = on.getGrowthSymbol();
+        if (changeSym == '-') {
+            changeSym = ' ';
+        }
+        ss << fixed << setprecision(2) << lastChange;
+        string fixedChange = changeSym + ss.str() + "%";
+        retVal += get_spacedWord(fixedChange, longestLastChange);
+        retVal += "|";
+        ss.str("");
         ss << fixed << setprecision(2) << on.getPrice();
         string fixedPrice = "$" + ss.str();
         retVal += get_spacedWord(fixedPrice, longestLengthPrice);

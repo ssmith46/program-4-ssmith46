@@ -38,21 +38,26 @@ BuyStockCommand::BuyStockCommand(vector<string> args, Market* m, Simulator* s, C
 * This method overrides the base Command class's execute method.
 */
 void BuyStockCommand::execute() {
+    string stockNamePrompt = "Which stock would you like to buy shares of? ";
+    stockNamePrompt += "('l' to list stock options)";
+
     /*args[0] should be 'buy' or 'purchase' at this point.*/
     /*args[1] should be 'stock' or 'stocks' at this point.*/
 
     Command c = cf->getBaseCommand();
 
     /*Get the string name of the stock the user would like to buy*/
-    string strStockToBuy = c.whichStock();
+    string strStockToBuy = c.whichStock(stockNamePrompt);
 
     /*Handle the case that the user entered a cancel during the buying of the stock*/
     if (strStockToBuy.compare(";;;") == 0) {
         return;
     }
 
+    string numSharesToBuyPrompt = "";
+    numSharesToBuyPrompt += "How many shares of " + strStockToBuy + " would you like to buy?";
     /*Get the number of shares of that stock the user wants to buy*/
-    int numSharesToBuy = c.howMany(strStockToBuy);
+    int numSharesToBuy = c.howManyShares(strStockToBuy, numSharesToBuyPrompt);
 
     /*Handles the case the user canceled*/
     if (numSharesToBuy == -1) {
