@@ -80,10 +80,9 @@ void Trader::buyStock(Stock *stock, int amount){
     double accountBalance = this->getBalance();
     double purchasePrice = (stock->getPrice() * amount);
 
-    unsigned long actualPurchasePrice = (unsigned long)purchasePrice * 100;
-    unsigned long actualAccountBalance = (unsigned long)accountBalance * 100;
-
-    if (actualAccountBalance - actualPurchasePrice == 0) {
+    cout << accountBalance;
+    cout << endl << purchasePrice;
+    if ((accountBalance - purchasePrice < 0) && (accountBalance - purchasePrice > -0.99)) {
         this->setBalance(0);
     }
     else {

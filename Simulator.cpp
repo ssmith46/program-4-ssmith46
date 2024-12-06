@@ -191,7 +191,13 @@ void Simulator::loginScreen(){
                         if (round(balance / 0.01) * 0.01 < .01) {
                             cout << endl;
                             cout << "Please ensure that your balance is at least one penny.";
-                        } else {
+                        }
+                        else if (balance > 1000000000000){
+                            cout << endl;
+                            cout << "Please ensure that your balance is less than ";
+                            cout << "one trillion dollars." << endl;
+                        }
+                        else {
                             /*Calculate the balance for rounding to the nearest penny.*/
                             balance = round(balance / 0.01) * 0.01;
                             validInput = true;
@@ -398,6 +404,7 @@ int main(){
             c->execute();
             /*Since dealing with a pointer on free store, delete it after use.*/
             delete c;
+            cout << "The trader's account balance has: " << s.getLoggedInTrader()->getBalance() << endl;
         }
     }
 

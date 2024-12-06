@@ -75,12 +75,14 @@ void BuyStockCommand::execute() {
     double totalCost = (stockPrice * numSharesToBuy) + 0.00000001;
     ss << fixed << setprecision(2) << totalCost;
     ss >> totalCost;
-
-    unsigned long actualCost = (unsigned long)totalCost * 100;
-    unsigned long actualAccountBalance = (unsigned long)accountBalance * 100;
+    ss.str("");
+    ss << fixed << setprecision(2) << accountBalance;
+    ss >> accountBalance;
+    accountBalance += .01;
 
     /*Handles the case that they don't have enough money in their account.*/
-    if (actualAccountBalance - actualCost < (long) 0) {
+    if ((totalCost != accountBalance) && (accountBalance - totalCost < 0)) {
+        accountBalance -= .01;
         cout << endl;
         cout << "Unfortunately, you don't have enough funds to make this purchase.";
         cout << endl;
