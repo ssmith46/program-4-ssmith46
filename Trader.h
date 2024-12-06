@@ -103,6 +103,8 @@ class Trader {
          * @param quantity -> The number of shares of the specified stock wanting to be bought. 
          */
         void buyStock(Stock *stock, int quantity);
+
+        StockPortfolio* getPortfolio();
     private:
         /*The name of the Trader.*/
         string name;

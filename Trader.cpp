@@ -108,3 +108,8 @@ void Trader::setUsername(string username){
 string Trader::getUsername(){
     return this->username;
 }
+
+
+StockPortfolio* Trader::getPortfolio() {
+    return &(this->sp);
+}

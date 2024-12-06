@@ -8,6 +8,7 @@
 */
 #include "StockPortfolio.h"
 #include "Trader.h"
+#include "Market.h"
 #include "Stock.h"
 #include <string>
 #include <iostream>
@@ -55,6 +56,8 @@ int StockPortfolio::howMuchStockOwned(string symbol){
 * @return string -> Signifies whether the stock was sold or not.
 */
 string StockPortfolio::sellStock(string symbol, int amount){
+
+
     /*Calculate the size of the portfolio.*/
     int entries = this->portEnts.size();
     /*Create a variable for the currently on portEnt.*/
@@ -154,45 +157,157 @@ string StockPortfolio::buyStocks(Stock* s, int amount){
 * @return -> The human readable format of the worth of each stock. 
 */
 string StockPortfolio::stocks_toString(){
-    /*Calculate the size of the portfolio*/
-    int entries = this->portEnts.size();
-    /*Create a variable for referring the portfolio entry on.*/
-    struct PortfolioEntry pe;
-    /*Create a variable for the symbol of a Stock.*/
-    string symbol;
-    /*Create a variable for the amount of a Stock that is owned.*/
-    int amount;
-    /*Create a variable for the current price of a Stock.*/
-    double price;
-    /*Define the shitespace amount to be between each column.*/
-    int ws = 4;
-    /*Create a string for the return value of the stock portfolio.*/
+
+    if (this->portEnts.size() == 0) {
+        return "There are currently no stocks in your portfolio.\n";
+    }
+
     string retVal = "";
-    /*Create a stringStream and give the return string as input.*/
-    stringstream s(retVal);
 
-    /*Add text to the stringStream.*/
-    s << setw(ws) << "Symbol" << setw(ws) << "Shares" << setw(ws) << "Value" << endl;
-
-    /*Iterate through all the entries in the portfolio.*/
-    for (int i = 0; i<entries; i++){
-        /*Get the portfolio entry on.*/
+    double totalValue = 0.00;
+    /*Calculate the size of the portfolio.*/
+    int entries = this->portEnts.size();
+    /*Create a variable for the currently on portEnt.*/
+    struct PortfolioEntry pe;
+    for (int i = 0; i < entries; i++) {
         pe = this->portEnts.at(i);
-        /*Get data about the portfolio entry, and fill variables.*/
-        symbol = pe.stock->getSymbol();
-        amount = pe.amountOwned;
-        price = pe.stock->getPrice();
-        /*Put the data into the string stream.*/
-        s << setw(ws) << symbol;
-        s << setw(ws) << amount << setw(ws) << setprecision(2) << (price*amount) << endl;
+        totalValue += (pe.stock->getPrice()*pe.amountOwned);
+    }
+    
+    stringstream ss;
+    ss << fixed << setprecision(2) << totalValue;
+
+    retVal += "Total portfolio worth: $" + ss.str() + "\n";
+
+    string symbolTitle = "Symbols";
+    string changeTitle = "Last Value Change";
+    string priceTitle = "Stock Prices";
+    string sharesTitle = "Shares Own";
+    string stockSharesTitle = "Stock Shares Worth";
+
+
+
+    int longestLengthName = symbolTitle.length() + 1;
+    int longestLengthPrice = priceTitle.length() + 1;
+    int longestLengthShares = sharesTitle.length() + 1;
+    int longestLastChange = changeTitle.length() + 1;
+    int longestStockShares = stockSharesTitle.length() + 1;
+
+    PortfolioEntry on;
+    for (int i = 0; i < this->portEnts.size(); i++) {
+        on = this->portEnts.at(i);
+        if (on.stock->getSymbol().length() > longestLengthName) {
+            longestLengthName = on.stock->getSymbol().length();
+        }
+        int places = 3;
+        double price = (int)on.stock->getPrice();
+        while (price >= 1.0) {
+            price *= .1;
+            places += 1;
+        }
+        if (places > longestLengthPrice) {
+            longestLengthPrice = places;
+        }
+        places = 1;
+        int sharesOwned = on.amountOwned;
+        while (sharesOwned >= 1.0) {
+            sharesOwned *= .1;
+            places += 1;
+        }
+        if (places > longestLengthShares) {
+            longestLengthShares = places;
+        }
+        double lastChange = (int)on.stock->getLastChange();
+        places = 4;
+        while (lastChange >= 1.0) {
+            lastChange *= .1;
+            places += 1;
+        }
+        if (places > longestLastChange) {
+            longestLastChange = places;
+        }
+        places = 3;
+        price = ((int)on.stock->getPrice() * on.amountOwned);
+        while (price >= 1.0) {
+            price *= .1;
+            places += 1;
+        }
+        if (places > longestStockShares) {
+            longestStockShares = places;
+        }
     }
 
-    /*Get all the pieces out of the string stream, and put them in the retVal string.*/
-    string piece = "";
-    while (s >> piece){
-        retVal += piece + " ";
+
+    string sep = "";
+
+    Market m;
+
+    sep += "+";
+    sep += m.get_seperator(longestLengthName);
+    sep += "+";
+    sep += m.get_seperator(longestLastChange);
+    sep += "+";
+    sep += m.get_seperator(longestLengthPrice);
+    sep += "+";
+    sep += m.get_seperator(longestLengthShares);
+    sep += "+";
+    sep += m.get_seperator(longestStockShares);
+    sep += "+";
+    sep += "\n";
+
+    retVal += sep;
+
+    retVal += "|";
+    retVal += m.get_spacedWord(symbolTitle, longestLengthName);
+    retVal += "|";
+    retVal += m.get_spacedWord(changeTitle, longestLastChange);
+    retVal += "|";
+    retVal += m.get_spacedWord(priceTitle, longestLengthPrice);
+    retVal += "|";
+    retVal += m.get_spacedWord(sharesTitle, longestLengthShares);
+    retVal += "|";
+    retVal += m.get_spacedWord(stockSharesTitle, longestStockShares);
+    retVal += "|";
+    retVal += "\n";
+
+    retVal += sep;
+
+
+    /*Iterate over all the stocks in the allStocks vector.*/
+    for (int i = 0; i < this->portEnts.size(); i++) {
+        /*Go through all the stocks in the simulation and get their 'to_string()' equivalents.*/
+        /*This 'if' is to help format the string correctly with a '\n' character*/
+        on = portEnts.at(i);
+        retVal += "|";
+        retVal += m.get_spacedWord(on.stock->getSymbol(), longestLengthName);
+        retVal += "|";
+        stringstream ss;
+        double lastChange = on.stock->getLastChange();
+        char changeSym = on.stock->getGrowthSymbol();
+        if (changeSym == '-') {
+            changeSym = ' ';
+        }
+        ss << fixed << setprecision(2) << lastChange;
+        string fixedChange = changeSym + ss.str() + "%";
+        retVal += m.get_spacedWord(fixedChange, longestLastChange);
+        retVal += "|";
+        ss.str("");
+        ss << fixed << setprecision(2) << on.stock->getPrice();
+        string fixedPrice = "$" + ss.str();
+        retVal += m.get_spacedWord(fixedPrice, longestLengthPrice);
+        retVal += "|";
+        retVal += m.get_spacedWord(to_string(on.amountOwned), longestLengthShares);
+        retVal += "|";
+        ss.str("");
+        ss << fixed << setprecision(2) << (on.stock->getPrice()*on.amountOwned);
+        fixedPrice = "$" + ss.str();
+        retVal += m.get_spacedWord(fixedPrice, longestStockShares);
+        retVal += "|";
+        retVal += "\n";
     }
 
-    /*Return the portfolio string, but get rid of the last new line character.*/
-    return retVal.substr(0, retVal.length()-1);
+    retVal += sep;
+
+    return retVal;
+
 }

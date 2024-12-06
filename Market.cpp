@@ -60,10 +60,18 @@ string Market::stocks_toString(){
     /*Initialize the string to be returned as the empty string.*/
     string retVal = "";
 
-    int longestLengthName = 8;
-    int longestLengthPrice = 13;
-    int longestLengthShares = 12;
-    int longestLastChange = 17;
+
+    string symbolTitle = "Symbols";
+    string changeTitle = "Last Value Change";
+    string priceTitle = "Stock Prices";
+    string sharesTitle = "Shares Left";
+
+
+
+    int longestLengthName = symbolTitle.length() + 1;
+    int longestLengthPrice = priceTitle.length() + 1;
+    int longestLengthShares = sharesTitle.length() + 1;
+    int longestLastChange = changeTitle.length() +1;
     Stock on;
     for (int i = 0; i < this->allStocks.size(); i++) {
         on = this->allStocks.at(i);
@@ -115,13 +123,13 @@ string Market::stocks_toString(){
     retVal += sep;
 
     retVal += "|";
-    retVal += this->get_spacedWord("Symbols", longestLengthName);
+    retVal += this->get_spacedWord(symbolTitle, longestLengthName);
     retVal += "|";
-    retVal += this->get_spacedWord("Last Value Change", longestLastChange);
+    retVal += this->get_spacedWord(changeTitle, longestLastChange);
     retVal += "|";
-    retVal += this->get_spacedWord("Stock Prices", longestLengthPrice);
+    retVal += this->get_spacedWord(priceTitle, longestLengthPrice);
     retVal += "|"; 
-    retVal += this->get_spacedWord("Shares Left", longestLengthShares);
+    retVal += this->get_spacedWord(sharesTitle, longestLengthShares);
     retVal += "|";
     retVal += "\n";
 

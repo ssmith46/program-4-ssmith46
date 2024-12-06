@@ -15,6 +15,7 @@ class StockPortfolio;
 #include <string>
 #include <vector>
 #include "Stock.h"
+#include "Market.h"
 
 using namespace std;
 

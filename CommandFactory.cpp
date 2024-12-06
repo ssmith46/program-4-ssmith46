@@ -14,6 +14,7 @@
 #include "MistakeCommand.h"
 #include "BuyStockCommand.h"
 #include "ListStocksCommand.h"
+#include "ListPortfolioCommand.h"
 #include "LogoutCommand.h"
 #include "CommandFactory.h"
 #include <vector>
@@ -144,7 +145,7 @@ Command* CommandFactory::getCommand(string line) {
             (allParts.at(0).compare("View") == 0) ||
             (allParts.at(0).compare("list") == 0) ||
             (allParts.at(0).compare("List") == 0)
-            )
+         )
         &&
         (
             (allParts.at(1).compare("stock") == 0) ||
@@ -166,6 +167,24 @@ Command* CommandFactory::getCommand(string line) {
         )) {
         /*Create a LogoutCommand for the retval*/
         retVal = new LogoutCommand(allParts, this->getMarket(), this->getSimulator(), this);
+    }
+    else if (
+        (allParts.size() == 2)
+        &&
+        (
+            (allParts.at(0).compare("see") == 0) ||
+            (allParts.at(0).compare("view") == 0) ||
+            (allParts.at(0).compare("See") == 0) ||
+            (allParts.at(0).compare("View") == 0) ||
+            (allParts.at(0).compare("list") == 0) ||
+            (allParts.at(0).compare("List") == 0)
+            )
+        &&
+        (
+            (allParts.at(1).compare("portfolio") == 0) ||
+            (allParts.at(1).compare("Portfolio") == 0)
+        )) {
+        retVal = new ListPortfolioCommand(allParts, this->getMarket(), this->getSimulator(), this);
     }
     else {
         /*This will create a 'mistake' command for now. In future, branch based on the arguments*/
