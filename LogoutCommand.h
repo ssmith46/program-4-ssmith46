@@ -3,15 +3,15 @@
  * Author: Sullivan Smith
  * Date: December 6, 2024
  *
- * File: ListStocksCommand.h
- * Purpose: Contains the declaration of the abstract 'ListStocksCommand' class.
+ * File: LogoutCommand.h
+ * Purpose: Contains the declaration of the abstract 'LogoutCommand' class.
 */
 
-#ifndef ListStocksCommand_H
-#define ListStocksCommand_H
+#ifndef LogoutCommand_H
+#define LogoutCommand_H
 
 /*Forward declare class so it will compile.*/
-class ListStocksCommand;
+class LogoutCommand;
 
 #include <string>
 #include <sstream>
@@ -21,10 +21,11 @@ class ListStocksCommand;
 
 using namespace std;
 
+
 /**
  * Purpose:
- * - The purpose of this class is to allow the user to see all the available
- *   stocks currently in the market.
+ * - The purpose of this class is to allow the user to logout and login as a
+ *   different trader.
  *
  * Data Members:
  * - vector<string> args -> The arguments to explain how the command was wrong
@@ -33,14 +34,15 @@ using namespace std;
  * - CommandFactory *cf -> The command factory the command can use for parsing user input.
  *
  * Member Functions:
- * - ListStocksCommand(vector<string> args, Market *m, Simulator *s) -> The constructor
- *   for a list stocks command.
+ * - LogoutCommand(vector<string> args, Market *m, Simulator *s) -> The constructor
+ *   for a logout command.
  * - void execute() -> The override of the base command execute method.
  *
  * Class Usage:
- * - This class is used to allow users to view the stocks in the market.
+ * - This class is used to allow users to login as a different trader
+ *   than was selected at startup of the simulation.
 */
-class ListStocksCommand : public Command {
+class LogoutCommand : public Command {
 public:
     /**
      * The constructor for a List Stocks Command object.
@@ -49,7 +51,7 @@ public:
      * @param m -> The market that the command can influence.
      * @param s -> The simulator that the command can influence.
      */
-    ListStocksCommand(vector<string> args, Market* m, Simulator* s, CommandFactory* cf);
+    LogoutCommand(vector<string> args, Market* m, Simulator* s, CommandFactory* cf);
     /**
      * This method overrides the base Command class's execute method.
      */

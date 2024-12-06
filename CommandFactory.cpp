@@ -14,6 +14,7 @@
 #include "MistakeCommand.h"
 #include "BuyStockCommand.h"
 #include "ListStocksCommand.h"
+#include "LogoutCommand.h"
 #include "CommandFactory.h"
 #include <vector>
 
@@ -155,6 +156,16 @@ Command* CommandFactory::getCommand(string line) {
         )) {
         /*Create a BuyStockCommand for the retval*/
         retVal = new ListStocksCommand(allParts, this->getMarket(), this->getSimulator(), this);
+    }
+    else if (
+        (allParts.size() == 1)
+        &&
+        (
+            (allParts.at(0).compare("logout") == 0) ||
+            (allParts.at(0).compare("Logout") == 0)
+        )) {
+        /*Create a LogoutCommand for the retval*/
+        retVal = new LogoutCommand(allParts, this->getMarket(), this->getSimulator(), this);
     }
     else {
         /*This will create a 'mistake' command for now. In future, branch based on the arguments*/
