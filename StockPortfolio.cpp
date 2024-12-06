@@ -15,7 +15,11 @@
 #include <vector>
 #include <iomanip>
 
-/**
+StockPortfolio::StockPortfolio() { 
+    this->totalVal = 0;
+}
+
+    /**
 * Calculate how much stock of a certain symbol a trader has in their portfolio. 
 * 
 * @param symbol -> The Stock that would like to be figured out how much is owned. 
@@ -117,6 +121,7 @@ string StockPortfolio::buyStocks(Stock* s, int amount){
     string onSymbol;
     string symbolLookingFor = s->getSymbol();
     for (int i = 0; i < this->portEnts.size(); i++) {
+        cout << i;
         on = this->portEnts.at(i);
         onSymbol = on.stock->getSymbol();
 
@@ -127,6 +132,10 @@ string StockPortfolio::buyStocks(Stock* s, int amount){
 
     /*This means need to create a new entry for that stock.*/
     if (posFound == -1) {
+        PortfolioEntry newEnt;
+        newEnt.stock = s;
+        newEnt.amountOwned = amount;
+        this->portEnts.push_back(newEnt);
 
         return "Successful Purchase.";
     }

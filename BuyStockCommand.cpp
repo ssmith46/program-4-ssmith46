@@ -14,7 +14,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include <cstdlib>
+#include <cmath>
 
 using namespace std;
 
@@ -64,7 +64,7 @@ void BuyStockCommand::execute() {
 
     double stockPrice = s->getPrice();
 
-    double totalCost = stockPrice * numSharesToBuy;
+    double totalCost = round((stockPrice * numSharesToBuy)*100.0)/100.0;
 
     /*Handles the case that they don't have enough money in their account.*/
     if (totalCost > accountBalance) {
@@ -87,9 +87,10 @@ void BuyStockCommand::execute() {
     else { /*They have enough money in their account.*/
         t->buyStock(s, numSharesToBuy);
         s->removeShares(numSharesToBuy);
+        cout << "Fin. Buying " << numSharesToBuy << " shares of " << strStockToBuy << " stock." << endl;
     }
 
-    cout << "Fin. Buying " << numSharesToBuy << " shares of " << strStockToBuy << " stock." << endl;
+   
 
 
     

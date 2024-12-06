@@ -24,11 +24,14 @@ Trader::Trader(){ }
 * @param username -> The username that this trader will have during the simulation. 
 * @param accountBalance -> The starting account balance of this Trader. 
 */
-Trader::Trader(string name, string username, double accountBalance){
+Trader::Trader(string name, string username, double accountBalance) {
     /*Initialize the fields with the given arguments.*/
     this->name = name;
     this->username = username;
     this->balance = accountBalance;
+    StockPortfolio s;
+    this->sp = s;
+
 }
 
 /**
@@ -77,8 +80,7 @@ void Trader::buyStock(Stock *stock, int amount){
     double accountBalance = this->getBalance();
     double purchasePrice = (stock->getPrice() * amount);
     this->setBalance(accountBalance - purchasePrice);
-
-    if (this->sp->buyStocks(stock, amount).compare("Fail") == 0) {
+    if (this->sp.buyStocks(stock, amount).compare("Fail") == 0) {
         cout << "Failed to buy the stock." << endl;
     }
 }

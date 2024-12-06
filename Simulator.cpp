@@ -331,7 +331,7 @@ void exampleStockSetup(Market *m){
  */
 void exampleTraderSetup(Simulator *s){
     /*Create a few traders as examples in the simulation*/
-    Trader t1("Bob", "bobby123", 3765.80);
+    Trader t1("Bob", "bobby123", 329719.95);
     Trader t2("Jane", "janeSmith", 14897.63);
     Trader t3("Bill", "bill", 2508.63);
     Trader t4("Karl", "karls", 57.03);

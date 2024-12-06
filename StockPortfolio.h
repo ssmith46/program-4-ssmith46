@@ -14,7 +14,6 @@ class StockPortfolio;
 
 #include <string>
 #include <vector>
-#include "Trader.h"
 #include "Stock.h"
 
 using namespace std;
@@ -63,6 +62,7 @@ struct PortfolioEntry {
 */
 class StockPortfolio {
     public:
+        StockPortfolio();
         /**
          * Calculate how much stock of a certain symbol a trader has in their portfolio. 
          * 
@@ -102,7 +102,5 @@ class StockPortfolio {
         vector<PortfolioEntry> portEnts;
         /*The current worth of the portfolio, as calculated by current stock price.*/
         double totalVal;
-        /*Owner of the stock portfolio.*/
-        Trader *t;
 };
 #endif

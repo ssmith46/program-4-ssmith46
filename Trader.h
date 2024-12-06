@@ -111,6 +111,6 @@ class Trader {
         /*The account balance of the Trader.*/
         double balance;
         /*The stock portfolio of the trader.*/
-        StockPortfolio *sp;
+        StockPortfolio sp;
 };
 #endif
