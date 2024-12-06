@@ -323,7 +323,7 @@ void exampleStockSetup(Market *m){
     m->addStock(s4);
     m->addStock(s5);
     m->addStock(s6);
-    m->addStock(s7);
+    //m->addStock(s7);
 }
 
 /**

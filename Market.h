@@ -102,6 +102,10 @@ class Market {
          * A method used to randomly change the stock prices of the simulation.
          */
         void randomlyUpdateStocks();
+
+        string get_spacedWord(string word, int length);
+
+        string Market::get_seperator(int length);
         
     private:
         /*A vector that contains pointers to all the stocks in the simulation.*/

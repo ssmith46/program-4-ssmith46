@@ -121,7 +121,6 @@ string StockPortfolio::buyStocks(Stock* s, int amount){
     string onSymbol;
     string symbolLookingFor = s->getSymbol();
     for (int i = 0; i < this->portEnts.size(); i++) {
-        cout << i;
         on = this->portEnts.at(i);
         onSymbol = on.stock->getSymbol();
 

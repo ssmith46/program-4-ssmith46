@@ -25,7 +25,7 @@ Market::Market(){
     this->marketViolence = 10;
 }
 
-string get_seperator(int length) {
+string Market::get_seperator(int length) {
     string retVal = "--";
     for (int i = 0; i < length; i++) {
         retVal += "-";
@@ -33,7 +33,7 @@ string get_seperator(int length) {
     return retVal;
 }
 
-string get_spacedWord(string word, int length) {
+string Market::get_spacedWord(string word, int length) {
     int numSpaces = length - word.length();
     string retVal = " ";
     for (int i = 0; i < numSpaces; i++) {
@@ -102,26 +102,26 @@ string Market::stocks_toString(){
     string sep = "";
 
     sep += "+";
-    sep += get_seperator(longestLengthName);
+    sep += this->get_seperator(longestLengthName);
     sep += "+";
-    sep += get_seperator(longestLastChange);
+    sep += this->get_seperator(longestLastChange);
     sep += "+";
-    sep += get_seperator(longestLengthPrice);
+    sep += this->get_seperator(longestLengthPrice);
     sep += "+";
-    sep += get_seperator(longestLengthShares);
+    sep += this->get_seperator(longestLengthShares);
     sep += "+";
     sep += "\n";
 
     retVal += sep;
 
     retVal += "|";
-    retVal += get_spacedWord("Symbols", longestLengthName);
+    retVal += this->get_spacedWord("Symbols", longestLengthName);
     retVal += "|";
-    retVal += get_spacedWord("Last Value Change", longestLastChange);
+    retVal += this->get_spacedWord("Last Value Change", longestLastChange);
     retVal += "|";
-    retVal += get_spacedWord("Stock Prices", longestLengthPrice);
+    retVal += this->get_spacedWord("Stock Prices", longestLengthPrice);
     retVal += "|"; 
-    retVal += get_spacedWord("Shares Left", longestLengthShares);
+    retVal += this->get_spacedWord("Shares Left", longestLengthShares);
     retVal += "|";
     retVal += "\n";
 
@@ -134,7 +134,7 @@ string Market::stocks_toString(){
         /*This 'if' is to help format the string correctly with a '\n' character*/
         on = allStocks.at(i);
         retVal += "|";
-        retVal += get_spacedWord(on.getSymbol(), longestLengthName);
+        retVal += this->get_spacedWord(on.getSymbol(), longestLengthName);
         retVal += "|";
         stringstream ss;
         double lastChange = on.getLastChange();
@@ -144,14 +144,14 @@ string Market::stocks_toString(){
         }
         ss << fixed << setprecision(2) << lastChange;
         string fixedChange = changeSym + ss.str() + "%";
-        retVal += get_spacedWord(fixedChange, longestLastChange);
+        retVal += this->get_spacedWord(fixedChange, longestLastChange);
         retVal += "|";
         ss.str("");
         ss << fixed << setprecision(2) << on.getPrice();
         string fixedPrice = "$" + ss.str();
-        retVal += get_spacedWord(fixedPrice, longestLengthPrice);
+        retVal += this->get_spacedWord(fixedPrice, longestLengthPrice);
         retVal += "|";
-        retVal += get_spacedWord(to_string(on.getShares()), longestLengthShares);
+        retVal += this->get_spacedWord(to_string(on.getShares()), longestLengthShares);
         retVal += "|";
         retVal += "\n";
     }
