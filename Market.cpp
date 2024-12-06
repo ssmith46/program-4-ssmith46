@@ -11,6 +11,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <cmath>
 #include <iomanip>
 
 using namespace std;
@@ -145,11 +146,8 @@ string Market::stocks_toString(){
         retVal += this->get_spacedWord(on.getSymbol(), longestLengthName);
         retVal += "|";
         stringstream ss;
-        double lastChange = on.getLastChange();
+        double lastChange = abs(on.getLastChange());
         char changeSym = on.getGrowthSymbol();
-        if (changeSym == '-') {
-            changeSym = ' ';
-        }
         ss << fixed << setprecision(2) << lastChange;
         string fixedChange = changeSym + ss.str() + "%";
         retVal += this->get_spacedWord(fixedChange, longestLastChange);
@@ -267,14 +265,13 @@ void Market::randomlyUpdateStocks(){
 
     /*Loop through all of the stocks in the market*/
     for (int i = 0; i<this->allStocks.size(); i++){
-
         /*Get the stock on for this iteration.*/
         s = this->allStocks.at(i);
         randNum = rand();
         /*Get a random number to calculate whether the price change will be positive or
           negative. This algorithm results in a 1/3 chance of negative growth. This can 
           be changed by tweaking the below variable. */
-        int oneInXNeg = 3;
+        int oneInXNeg = 2;
         if (randNum % oneInXNeg == 0){
             growth = -1;
         } else {
@@ -286,6 +283,6 @@ void Market::randomlyUpdateStocks(){
         growth *= (randNum/(double)100);
         
         /*Change the stock price using the above calculated.*/
-        s *= growth;
+        this->allStocks.at(i).change(growth);
     }
 }

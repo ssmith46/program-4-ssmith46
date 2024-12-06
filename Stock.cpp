@@ -149,13 +149,13 @@ double Stock::getLastChange(){
 * 
 * @return -> The new price of the stock.
 */
-double Stock::operator*=(double amountToChangeBy){
+void Stock::change(double amountToChangeBy){
     /*Calculate the literal change of the stock price.*/
     double change = this->getPrice();
     change *= amountToChangeBy;
 
     /*Make sure stock price doesn't dip below or to zero, as it can't grow from that point.*/
-    if (this->getPrice() - change <= 0){
+    if (this->getPrice() + change <= 0){
         this->price = 0.01;
     } else {
         this->price += change;
@@ -170,9 +170,6 @@ double Stock::operator*=(double amountToChangeBy){
 
     /*Update the last change amount.*/
     this->setLastChange(amountToChangeBy);
-
-    /*Return the new price.*/
-    return this->price;
 }
 
 /**

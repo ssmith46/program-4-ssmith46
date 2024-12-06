@@ -122,8 +122,8 @@ void FluctuateStocksCommand::execute() {
                     cout << "Why? .....Just..... why?" << endl;
                     cycles = inputNum;
                 }
-                else if (inputNum > 10000) {
-                    cout << "Please enter a number smaller than 10001.";
+                else if (inputNum > 100) {
+                    cout << "Please enter a number smaller than 101.";
                     cout << endl;
                 }
                 else {
@@ -155,29 +155,29 @@ void FluctuateStocksCommand::execute() {
         toExecute = &(ListPortfolioCommand(this->args, this->m, this->s, this->cf));
         toExecute->execute();
         for (int i = 0; i < cycles; i++) {
-            cout << endl << endl << endl << endl << endl << endl << endl << endl << endl;
             this->m->randomlyUpdateStocks();
+            cout << endl << endl << endl << endl;
             toExecute->execute();
+            for (int wait = 0; wait < 100000000; wait++) {}
         }
     }
     else if (option == 2) {
         toExecute = &(ListStocksCommand(this->args, this->m, this->s, this->cf));
         toExecute->execute();
         for (int i = 0; i < cycles; i++) {
-            cout << endl << endl << endl << endl << endl << endl << endl << endl << endl;
             this->m->randomlyUpdateStocks();
+            cout << endl << endl << endl << endl;
             toExecute->execute();
-
+            
+            
         }
     }
     else if (option == 3) {
-        cout << "Fluctuating Stocks..." << endl;
         for (int i = 0; i < cycles; i++) {
-            cout << ".";
             this->m->randomlyUpdateStocks();
         }
         cout << endl;
-        cout << "Fluctuating Complete.";
+        cout << "Fluctuating Complete." << endl;
     }
     else {
         cout << "There was an error fluctuating the prices." << endl;

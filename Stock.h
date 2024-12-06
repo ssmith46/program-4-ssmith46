@@ -145,7 +145,7 @@ class Stock {
          * 
          * @return -> The new price of the stock.
          */
-        double operator*=(double amountToChangeBy);
+        void change(double amountToChangeBy);
         /**
          * A toString method that allows a stock to be transformed into a human readable format.
          * 
