@@ -4,7 +4,7 @@
  * Date: December 7, 2024
  *
  * File: OptionsCommand.cpp
- * Purpose: Contains the implementation of the abstract 'OptionsCommand' class.
+ * Purpose: Contains the implementation of the 'OptionsCommand' class.
 */
 #include "Command.h"
 #include "CommandFactory.h"
@@ -21,13 +21,15 @@
 using namespace std;
 
 /**
-* The constructor for a Add Stock Command object.
+* The constructor for an Options Stock Command object.
 *
-* @param args -> The arguments that lead to the mistake command.
+* @param args -> The arguments that lead to the options command.
 * @param m -> The market that the command can influence.
 * @param s -> The simulator that the command can influence.
 */
 OptionsCommand::OptionsCommand(vector<string> args, Market* m, Simulator* s, CommandFactory* cf) {
+    /*Assign arguments to data members of object*/
+
     this->args = args;
     this->m = m;
     this->s = s;
@@ -36,9 +38,10 @@ OptionsCommand::OptionsCommand(vector<string> args, Market* m, Simulator* s, Com
 
 /**
 * This method overrides the base Command class's execute method.
+* In this case, all the available commands supported by the simulation are given
 */
 void OptionsCommand::execute() {
-
+    /*Print out all the commands currently supported by the simulation*/
     cout << endl;
     cout << "'see portfolio' -> See your account balance and stock shares.";
     cout << endl;

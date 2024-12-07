@@ -4,7 +4,7 @@
  * Date: December 7, 2024
  *
  * File: SellStockCommand.cpp
- * Purpose: Contains the implementation of the abstract 'SellStockCommand' class.
+ * Purpose: Contains the implementation of the 'SellStockCommand' class.
 */
 #include "Command.h"
 #include "CommandFactory.h"
@@ -21,13 +21,16 @@
 using namespace std;
 
 /**
-* The constructor for a Buy Stock Command object.
+* The constructor for a Sell Stock Command object.
 *
-* @param args -> The arguments that lead to the mistake command.
+* @param args -> The arguments that lead to the sell stock command.
 * @param m -> The market that the command can influence.
 * @param s -> The simulator that the command can influence.
 */
-SellStockCommand::SellStockCommand(vector<string> args, Market* m, Simulator* s, CommandFactory* cf) {
+SellStockCommand::SellStockCommand(vector<string> args, Market* m, 
+    Simulator* s, CommandFactory* cf) {
+    /*Assign arguments to data members of object*/
+
     this->args = args;
     this->m = m;
     this->s = s;
@@ -36,28 +39,33 @@ SellStockCommand::SellStockCommand(vector<string> args, Market* m, Simulator* s,
 
 /**
 * This method overrides the base Command class's execute method.
+* In this case, this method allows the user to specify which stock they would
+* like to buy, and updates their portfolio and account balance to reflect this purchase
 */
 void SellStockCommand::execute() {
+    /*The prompt that will be used to get user input for the stock symbol to sell*/
     string stockNamePrompt = "Which stock would you like to sell shares of? ";
     stockNamePrompt += "('l' to list stock options)";
 
-    /*args[0] should be 'buy' or 'purchase' at this point.*/
-    /*args[1] should be 'stock' or 'stocks' at this point.*/
-
+    /*Get a command object for method usage*/
     Command c = cf->getBaseCommand();
 
-    bool ownSomeOfThatStock = false;
+    /*A variable for understanding how many shares of that stock are own*/
     int numSharesOwn = 0;
 
+    /*Get a pointer to the logged in trader*/
     Trader* t = this->s->getLoggedInTrader();
 
+    /*A string for the stock symbol of the stock to sell*/
     string strStockToSell;
 
+    /*Keep looping until the number of shares own is not 0, or the user cancels*/
     while (numSharesOwn == 0) {
+
         /*Get the string name of the stock the user would like to buy*/
         strStockToSell = c.whichStock(stockNamePrompt, "sell");
 
-        /*Handle the case that the user entered a cancel during the buying of the stock*/
+        /*Handle the case that the user entered a cancel during the selling of the stock*/
         if (strStockToSell.compare(";;;") == 0) {
             return;
         }
@@ -66,8 +74,10 @@ void SellStockCommand::execute() {
         * user actually owns some of that stock before continuing.
         */
 
+        /*Calculate the number of shares of that stock the user owns*/
         numSharesOwn = t->getPortfolio()->howMuchStockOwned(strStockToSell);
 
+        /*Check if that number is zero, and indicate this if so*/
         if (numSharesOwn == 0) {
             cout << endl;
             cout << "It seems you don't own any shares of " << strStockToSell;
@@ -77,16 +87,35 @@ void SellStockCommand::execute() {
 
     }
 
+    /*Create a prompt for finding the number of shares the user would like to sell*/
     string numSharesToSellPrompt = "";
     numSharesToSellPrompt += "How many shares of " + strStockToSell + " would you like to sell?";
+
+    /*Set the number of shares to sell to -3 (-1 taken)*/
     int numSharesToSell = -3;
+    /*Keep looping until the */
     while ((numSharesToSell == -3) || (numSharesToSell > numSharesOwn)) {
         /*Get the number of shares of that stock the user wants to sell*/
-        numSharesToSell = c.howManyShares(strStockToSell, numSharesToSellPrompt);
+        numSharesToSell = c.howManyShares(strStockToSell, numSharesToSellPrompt, "sell");
 
         /*Handles the case the user canceled*/
         if (numSharesToSell == -1) {
             return;
+        }
+        /*Handle if the user tries to sell more shares than they own.*/
+        else if (numSharesToSell > numSharesOwn) {
+            /*Use the correct word "share" vs "shares" in output message.*/
+            string correct = "share";
+            if (numSharesOwn > 1) {
+                correct += "s";
+            }
+            /*Indicate to the user that they don't own that number of stocks.*/
+            cout << endl;
+            cout << "You only have " << numSharesOwn << " " << correct;
+            cout << " of " << strStockToSell << " stock.";
+            cout << endl;
+            cout << "Please pick a number less than or equal to this.";
+            cout << endl;
         }
     }
     

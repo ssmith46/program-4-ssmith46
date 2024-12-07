@@ -4,7 +4,7 @@
  * Date: November 26, 2024
  * 
  * File: MistakeCommand.h
- * Purpose: Contains the declaration of the abstract 'MistakeCommand' class.
+ * Purpose: Contains the declaration of the 'MistakeCommand' class.
 */
 
 #ifndef MistakeCommand_H

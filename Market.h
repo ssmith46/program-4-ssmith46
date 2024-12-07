@@ -49,7 +49,7 @@ using namespace std;
  *   randomly based on the random seed.
  * - string get_spacedWord(string word, int length) -> Convert the passed word into a left space
  *   padded string that is of length 'length'
- * - string get_seperator(int length) -> Create a string of '-' symbol of specified length
+ * - string get_seperator(int length) -> Create a string of '-' symbol of specified ('length' + 2)
  * 
  * Class Usage:
  * - This class is used to help manage all the Stocks, as well as their price changes,
@@ -114,7 +114,7 @@ class Market {
         */
         string get_spacedWord(string word, int length);
         /**
-        * Get a string of '-' that is of length 'length'
+        * Get a string of '-' that is of length ('length' + 2)
         */
         string get_seperator(int length);
         

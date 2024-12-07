@@ -66,7 +66,7 @@ void BuyStockCommand::execute() {
     numSharesToBuyPrompt += "How many shares of " + strStockToBuy + " would you like to buy?";
 
     /*Get the number of shares of that stock the user wants to buy*/
-    int numSharesToBuy = c.howManyShares(strStockToBuy, numSharesToBuyPrompt);
+    int numSharesToBuy = c.howManyShares(strStockToBuy, numSharesToBuyPrompt, "buy");
 
     /*Handles the case the user canceled*/
     if (numSharesToBuy == -1) {

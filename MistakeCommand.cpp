@@ -33,8 +33,11 @@ MistakeCommand::MistakeCommand(vector<string> args, Market *m, Simulator *s, Com
 
 /**
 * This method overrides the base Command class's execute method.
+* In this case, an error message is displayed to the user to indicate
+* that their input wasn't understood.
 */
 void MistakeCommand::execute(){
-    /*Can change later to be more specific about why command failed.*/
-    cout << endl << "Mistake Command Executed." << endl;
+    /*Indicate that their input wasn't understood and give nudge towards help*/
+    cout << endl << "Hmm, I don't know how to do that." << endl;
+    cout << "For help on what I can do, enter: options" << endl;
 }

@@ -38,8 +38,8 @@ using namespace std;
  *      -> The constructor for the command object. 
  * - void execute() -> A void abstract method that is overidden by child commands
  * - boolean isCancel(string word) -> Returns whether a user is trying to cancel a transaction.
- * - string whichStock() -> Returns the stock name the user would like to interact with.
- * - int howMany(string stockName) -> Returns an int for the number of shares of a specific
+ * - string whichStock(string prompt, string whichUse) -> Returns the stock name the user would like to interact with.
+ * - int howManyShares(string stockName, string prompt, string whichUse) -> Returns an int for the number of shares of a specific
  *   stock a user would like to interact with.
  * 
  * Class Usage:
@@ -87,7 +87,7 @@ class Command {
         *
         * @return -> An int for the number of shares the user would like to interact with.
         */
-        int howManyShares(string stockName, string prompt);
+        int howManyShares(string stockName, string prompt, string whichUse);
     private:
         /**
          * This is the Simulator that the command is able to manipulate

@@ -151,7 +151,7 @@ string Command::whichStock(string prompt, string whichUse) {
 *
 * @return -> An int for the number of shares the user would like to purchase/sell.
 */
-int Command::howManyShares(string stockName, string prompt) {
+int Command::howManyShares(string stockName, string prompt, string whichUse) {
     /*The number of shares of that stock to buy/sell*/
     int retVal = 0;
     /*Create a variable for the line of input from the user.*/
@@ -211,16 +211,23 @@ int Command::howManyShares(string stockName, string prompt) {
             }
             /*This case is that they entered a valid number*/
             else {
-                /*Need to check that there are that many shares or more left for purchase*/
-                int numSharesLeft = this->m->getStock(stockName)->getShares();
-                /*Indicate that there aren't that number of shares left to purchase.*/
-                if (numSharesLeft < numToBuy) {
-                    cout << endl;
-                    cout << "There are only " << numSharesLeft << " shares left. " << endl;
-                    cout << "Please pick a number less than or equal to this total.";
+                /*Handle the case of buying a stock*/
+                if (whichUse.compare("buy") == 0){
+                    /*Need to check that there are that many shares or more left for purchase*/
+                    int numSharesLeft = this->m->getStock(stockName)->getShares();
+                    /*Indicate that there aren't that number of shares left to purchase.*/
+                    if (numSharesLeft < numToBuy) {
+                        cout << endl;
+                        cout << "There are only " << numSharesLeft << " shares left. " << endl;
+                        cout << "Please pick a number less than or equal to this total.";
+                    }
+                    else {
+                        /*Return the number of shares the user entered*/
+                        return numToBuy;
+                    }
                 }
-                else {
-                    /*Return the number of shares the user entered*/
+                /*Handle the case of selling a stock*/
+                else if (whichUse.compare("sell") == 0) {
                     return numToBuy;
                 }
             }
