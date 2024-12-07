@@ -26,6 +26,7 @@ using namespace std;
 Simulator::Simulator(Market *m){
     this->market = m;
     this->simulatorName = "";
+    this->running = true;
 }
 
 /**
@@ -369,6 +370,14 @@ void createAllObjectTypes(){
     cout << "All object types created successfully!" << endl;
 }
 
+void Simulator::setRunning(bool state) {
+    this->running = state;
+}
+
+bool Simulator::isRunning() {
+    return this->running;
+}
+
 /*The actual execution of the entire simulator.*/
 int main(){
 
@@ -400,7 +409,7 @@ int main(){
     cout << "." << endl;
 
     /*Get the next command to execute and execute it.*/
-    while (1){
+    while (s.isRunning()){
         Command *c = s.getNextCommand();
         if (c != nullptr){
             c->execute();
@@ -408,6 +417,10 @@ int main(){
             delete c;
         }
     }
+
+    cout << endl;
+    cout << "Thank you for using the Stock Simulator!";
+    cout << endl;
 
     return 0;
 }

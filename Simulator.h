@@ -106,6 +106,9 @@ class Simulator {
         */
         void setLoggedInTrader(Trader *t);
 
+        void setRunning(bool state);
+        bool isRunning();
+
     private:
         /*The market used to interact with Stocks during the simulation.*/
         Market *market;
@@ -117,6 +120,8 @@ class Simulator {
         string simulatorName;
         /*The trader who is currently logged in for the simulation.*/
         Trader *loggedIn;
+        
+        bool running;
 
 };
 #endif

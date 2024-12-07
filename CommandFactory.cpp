@@ -22,6 +22,7 @@
 #include "LogoutCommand.h"
 #include "AddStockCommand.h"
 #include "SetSeedCommand.h"
+#include "DoneCommand.h"
 #include "CommandFactory.h"
 #include <vector>
 
@@ -333,6 +334,24 @@ Command* CommandFactory::getCommand(string line) {
         )
         ) {
             retVal = new SetSeedCommand(allParts, this->getMarket(), this->getSimulator(), this);
+        }
+    else if (
+        (allParts.size() == 1)
+        &&
+        (
+        (allParts.at(0).compare("done") == 0) ||
+        (allParts.at(0).compare("Done") == 0) ||
+        (allParts.at(0).compare("stop") == 0) ||
+        (allParts.at(0).compare("Stop") == 0) ||
+        (allParts.at(0).compare("exit") == 0) ||
+        (allParts.at(0).compare("Exit") == 0) ||
+        (allParts.at(0).compare("end") == 0) ||
+        (allParts.at(0).compare("End") == 0) ||
+        (allParts.at(0).compare("finish") == 0) ||
+        (allParts.at(0).compare("Finish") == 0) 
+        )
+        ) {
+            retVal = new DoneCommand(allParts, this->getMarket(), this->getSimulator(), this);
         }
     else {
         /*This will create a 'mistake' command for now. In future, branch based on the arguments*/
