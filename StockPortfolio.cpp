@@ -191,7 +191,7 @@ string StockPortfolio::stocks_toString(){
         if (places > longestLengthShares) {
             longestLengthShares = places;
         }
-        double lastChange = (on.stock->getLastChange()*100);
+        double lastChange = on.stock->getLastChange();
         places = 4;
         while (lastChange >= 1.0) {
             lastChange *= .1;
@@ -261,7 +261,7 @@ string StockPortfolio::stocks_toString(){
         if (changeSym == '-') {
             changeSym = ' ';
         }
-        ss << fixed << setprecision(2) << lastChange;
+        ss << fixed << setprecision(2) << (lastChange*100);
         string fixedChange = changeSym + ss.str() + "%";
         retVal += m.get_spacedWord(fixedChange, longestLastChange);
         retVal += "|";

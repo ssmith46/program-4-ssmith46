@@ -47,6 +47,9 @@ using namespace std;
  *   stock price changes.
  * - void randomlyUpdateStocks() -> Fluctuate the prices of all the stocks in the simulation,
  *   randomly based on the random seed.
+ * - string get_spacedWord(string word, int length) -> Convert the passed word into a left space
+ *   padded string that is of length 'length'
+ * - string get_seperator(int length) -> Create a string of '-' symbol of specified length
  * 
  * Class Usage:
  * - This class is used to help manage all the Stocks, as well as their price changes,
@@ -102,10 +105,18 @@ class Market {
          * A method used to randomly change the stock prices of the simulation.
          */
         void randomlyUpdateStocks();
-
+        /**
+        * Get a string that is left space padded and of length 'length'
+        * 
+        * @param word -> The word to space pad
+        * @param length -> The length the resulting string should be after padding
+        * @return -> The left space padded string
+        */
         string get_spacedWord(string word, int length);
-
-        string Market::get_seperator(int length);
+        /**
+        * Get a string of '-' that is of length 'length'
+        */
+        string get_seperator(int length);
         
     private:
         /*A vector that contains pointers to all the stocks in the simulation.*/

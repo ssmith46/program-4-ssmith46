@@ -4,7 +4,7 @@
  * Date: December 6, 2024
  *
  * File: ListStocksCommand.h
- * Purpose: Contains the declaration of the abstract 'ListStocksCommand' class.
+ * Purpose: Contains the declaration of the 'ListStocksCommand' class.
 */
 
 #ifndef ListStocksCommand_H
@@ -27,7 +27,7 @@ using namespace std;
  *   stocks currently in the market.
  *
  * Data Members:
- * - vector<string> args -> The arguments to explain how the command was wrong
+ * - vector<string> args -> The arguments to explain how the command came to be
  * - Market *m -> The market that the command can influence
  * - Simulator *s -> The simulator the command can influence
  * - CommandFactory *cf -> The command factory the command can use for parsing user input.
@@ -45,7 +45,7 @@ public:
     /**
      * The constructor for a List Stocks Command object.
      *
-     * @param args -> The arguments that lead to the mistake command.
+     * @param args -> The arguments that lead to the command being created
      * @param m -> The market that the command can influence.
      * @param s -> The simulator that the command can influence.
      */
@@ -56,11 +56,11 @@ public:
     void execute();
 
 private:
-    /*The arguments that lead to an error for the command.*/
+    /*The arguments that lead to creating the command.*/
     vector<string> args;
-    /*The market that the command can execute.*/
+    /*The market that the command can manipulate.*/
     Market* m;
-    /*The Simulator that the command can execute.*/
+    /*The Simulator that the command can manipulate.*/
     Simulator* s;
     /*The CommandFactory that the command can use for parsing user input.*/
     CommandFactory* cf;
