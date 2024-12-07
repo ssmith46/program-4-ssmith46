@@ -27,14 +27,14 @@ using namespace std;
  *   it's symbol, as well as how many shares they would like to buy. 
  *
  * Data Members:
- * - vector<string> args -> The arguments to explain how the command was wrong
+ * - vector<string> args -> The arguments that lead to this command being created
  * - Market *m -> The market that the command can influence
  * - Simulator *s -> The simulator the command can influence
  * - CommandFactory *cf -> The command factory the command can use for parsing user input.
  *
  * Member Functions:
  * - BuyStockCommand(vector<string> args, Market *m, Simulator *s) -> The constructor
- *   for a mistake command.
+ *   for a buy stock command.
  * - void execute() -> The override of the base command execute method.
  *
  * Class Usage:
@@ -45,7 +45,7 @@ public:
     /**
      * The constructor for a Buy Stock Command object.
      *
-     * @param args -> The arguments that lead to the mistake command.
+     * @param args -> The arguments that lead to the buy stock command.
      * @param m -> The market that the command can influence.
      * @param s -> The simulator that the command can influence.
      */
@@ -56,7 +56,7 @@ public:
     void execute();
     
 private:
-    /*The arguments that lead to an error for the command.*/
+    /*The arguments that lead to the creation of the buy stock command.*/
     vector<string> args;
     /*The market that the command can execute.*/
     Market* m;
