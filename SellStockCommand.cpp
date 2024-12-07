@@ -72,7 +72,7 @@ void SellStockCommand::execute() {
             cout << endl;
             cout << "It seems you don't own any shares of " << strStockToSell;
             cout << "." << endl;
-            cout << "Try a choosing a different stock symbol." << endl;
+            cout << "Try a choosing a different stock symbol.";
         }
 
     }
@@ -104,31 +104,75 @@ void SellStockCommand::execute() {
     ss << fixed << setprecision(2) << accountBalance;
     ss >> accountBalance;
 
-
-    /*Handles the case that they don't have enough money in their account.*/
-    if (((accountBalance - totalCost < 0) && (accountBalance - totalCost > -0.001)) ||
-        (accountBalance - totalCost >= 0)) {
-        cout << endl;
-        cout << "Buying " << numSharesToBuy << " shares of " << strStockToBuy << " stock..." << endl;
-        t->buyStock(s, numSharesToBuy);
-        s->removeShares(numSharesToBuy);
-        cout << "Purchase complete!"; cout << endl;
+    string correctNotation = "share";
+    if (numSharesToSell > 1) {
+        correctNotation += "s";
     }
-    else { /*They don't have enough money in their account.*/
-        cout << endl;
-        cout << "Unfortunately, you don't have enough funds to make this purchase.";
-        cout << endl;
-        string correctShares = "share";
-        if (numSharesToBuy > 1) {
-            correctShares += "s";
+    else if (numSharesToSell == 0) {
+        return;
+    }
+    /*Handles the case that they don't have enough money in their account.*/
+    cout << endl;
+    cout << "You are about to sell " << numSharesToSell << " " << correctNotation;
+    cout << " of " << strStockToSell << " stock." << endl;
+    
+    string line;
+    vector<string> allParts;
+
+    while (1) {
+        cout << "Are you sure you want to continue? [y, n]" << endl;
+        cout << "> ";
+        getline(cin, line);
+        allParts = this->cf->parseLine(line);
+
+        if (allParts.size() != 1) {
+            cout << endl;
+            cout << "Please enter just one word for confirmation." << endl;
         }
-        cout << "To buy " << numSharesToBuy << " " << correctShares;
-        cout << " of " << strStockToBuy << " would cost ";
-        cout << "$" << fixed << setprecision(2) << totalCost << endl;
-        cout << "You have $" << fixed << setprecision(2) << accountBalance << " in ";
-        cout << "your account." << endl;
-        cout << "Please deposit more money, or lower your purchase price.";
-        cout << endl;
+        else {
+            string ans = allParts.at(0);
+            if (
+                (ans.compare("y") == 0) ||
+                (ans.compare("Y") == 0) ||
+                (ans.compare("Yes") == 0) ||
+                (ans.compare("yes") == 0)
+                ) {
+                cout << endl;
+                cout << "Confirmed. Selling shares... ";
+                /*Do the stuff to sell the shares here*/
+
+                /*Update the trader's account balance*/
+                double newTotal = accountBalance + totalVal;
+                t->setBalance(newTotal);
+                /*Update their stock portfolio to have less shares*/
+                t->getPortfolio()->sellStock(strStockToSell, numSharesToSell);
+                /*Update the number of shares available for that stock*/
+                this->m->getStock(strStockToSell)->addShares(numSharesToSell);
+                cout << "Shares have been sold!" << endl;
+                cout << "Your new account balance is: $";
+                cout << fixed << setprecision(2) << t->getBalance();
+                cout << endl;
+                return;
+            }
+            else if (
+                (ans.compare("n") == 0) ||
+                (ans.compare("N") == 0) ||
+                (ans.compare("No") == 0) ||
+                (ans.compare("no") == 0) ||
+                (Command::isCancel(ans))
+                ) {
+                cout << endl;
+                cout << "Understood. Selling stocks is a big deal." << endl;
+                cout << "If you change your mind, you can always come back!";
+                cout << endl;
+                return;
+            }
+            else {
+                cout << endl;
+                cout << "Hmm, I'm not sure I understand that. Please try again.";
+                cout << endl;
+            }
+        }
     }
 
 

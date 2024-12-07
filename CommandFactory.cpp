@@ -13,6 +13,7 @@
 #include "Command.h"
 #include "MistakeCommand.h"
 #include "BuyStockCommand.h"
+#include "SellStockCommand.h"
 #include "ListStocksCommand.h"
 #include "ListPortfolioCommand.h"
 #include "FluctuateStocksCommand.h"
@@ -242,6 +243,27 @@ Command* CommandFactory::getCommand(string line) {
         ))
     {
         retVal = new DepositCommand(allParts, this->getMarket(), this->getSimulator(), this);
+        }
+    else if (
+        (allParts.size() == 2)
+        &&
+        (
+        (allParts.at(0).compare("sell") == 0) ||
+        (allParts.at(0).compare("Sell") == 0) ||
+        (allParts.at(0).compare("trade") == 0) ||
+        (allParts.at(0).compare("Trade") == 0)
+        )
+        &&
+        (
+        (allParts.at(1).compare("stock") == 0) ||
+        (allParts.at(1).compare("Stock") == 0) ||
+        (allParts.at(1).compare("stocks") == 0) ||
+        (allParts.at(1).compare("Stocks") == 0) ||
+        (allParts.at(1).compare("shares") == 0) ||
+        (allParts.at(1).compare("Shares") == 0)
+        )
+        ) {
+            retVal = new SellStockCommand(allParts, this->getMarket(), this->getSimulator(), this);
     }
     else {
         /*This will create a 'mistake' command for now. In future, branch based on the arguments*/

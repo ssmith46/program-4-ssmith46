@@ -55,57 +55,31 @@ int StockPortfolio::howMuchStockOwned(string symbol){
 * @param amount -> The number of shares of the specified stock to sell. 
 * @return string -> Signifies whether the stock was sold or not.
 */
-string StockPortfolio::sellStock(string symbol, int amount){
-
-
-    /*Calculate the size of the portfolio.*/
-    int entries = this->portEnts.size();
-    /*Create a variable for the currently on portEnt.*/
-    struct PortfolioEntry pe;
-    /*Iterate through all the portEnts in the portfolio.*/
-    for (int i = 0; i<entries; i++){
-        /*Get the currently on portEnt.*/
-        pe = this->portEnts.at(i);
-        /*Check if the symbol of this stock matches what is trying to be sold, and
-          ensure that the trader actually owns some of that stock.*/
-        if ((pe.stock->getSymbol().compare(symbol) == 0) && (pe.amountOwned != 0)){
-            /*Check if they are trying to sell more than they have.*/
-            if (pe.amountOwned < amount){
-
-                /*Since they have less than they are trying to sell, see if they
-                  would just like to sell all the stock that they currently have.*/
-                cout << "Hmm, it seems that you only own : ";
-                cout << pe.amountOwned << " shares. would you like to sell them all?" << endl;
-                cout << "[yes, no] > ";
-
-                /*Get the trader's answer*/
-                string answer;
-                cin >> answer;
-
-                /*Check that they entered yes or no, loop if not*/
-                while ((answer.compare("yes") != 0) && (answer.compare("no") != 0)){
-                    cout << "That wasn't an option. Please try again." << endl;
-                    cout << "[yes, no] > ";
-                    cin >> answer;
-                }
-                /*Handle the case that they entered yes.*/
-                if (answer.compare("yes") == 0) {
-                    /*Update the correct spots:*/
-                        /*The stock shares left for sale*/
-                        /*The trader's account balance*/
-                        /*The portfolio entry*/
-                    return "Selling all shares of that stock.";
-                } else { /*answer == "no"*/
-                    /*Indicate that no stocks are being sold then.*/
-                    return "Confirmed. Not selling any stocks.";
-                }
-            } else { /*They own more stocks than they want to sell. Sell them.*/
-                return "Stocks sold successfully.";
+void StockPortfolio::sellStock(string symbol, int amount){
+    int numEnts = this->portEnts.size();
+    PortfolioEntry on;
+    for (int i = 0; i < numEnts; i++) {
+        on = this->portEnts.at(i);
+        if (on.stock->getSymbol().compare(symbol) == 0) {
+            /*This is the stock that is being sold*/
+            int newTot = on.amountOwned - amount;
+            if (newTot == 0) {
+                /*Need to remove the stock entry entirely*/
+                this->portEnts.erase(this->portEnts.begin() + i);
+                return;
+            }
+            else if (newTot > 0) {
+                /*Just update to the newTot*/
+                this->portEnts.at(0).amountOwned = newTot;
+                return;
+            }
+            else {
+                cout << endl;
+                cout << "Error: Selling more stock than currently have." << endl;
+                return;
             }
         }
     }
-    /*If making it to here, they do not have any of that stock in their portfolio.*/
-    return "Hmm, it seems that you don't own any of that stock. Please try selling a different stock that you own.";
 }
 
 /**

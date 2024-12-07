@@ -47,7 +47,7 @@ void BuyStockCommand::execute() {
     Command c = cf->getBaseCommand();
 
     /*Get the string name of the stock the user would like to buy*/
-    string strStockToBuy = c.whichStock(stockNamePrompt);
+    string strStockToBuy = c.whichStock(stockNamePrompt, "buy");
 
     /*Handle the case that the user entered a cancel during the buying of the stock*/
     if (strStockToBuy.compare(";;;") == 0) {
@@ -84,10 +84,10 @@ void BuyStockCommand::execute() {
     if (((accountBalance - totalCost < 0) && (accountBalance - totalCost > -0.001)) ||
         (accountBalance - totalCost >= 0)) {
         cout << endl;
-        cout << "Buying " << numSharesToBuy << " shares of " << strStockToBuy << " stock..." << endl;
+        cout << "Buying " << numSharesToBuy << " shares of " << strStockToBuy << " stock...";
         t->buyStock(s, numSharesToBuy);
         s->removeShares(numSharesToBuy);
-        cout << "Purchase complete!"; cout << endl;
+        cout << " Purchase complete!"; cout << endl;
     }
     else { /*They don't have enough money in their account.*/
         cout << endl;

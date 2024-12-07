@@ -80,7 +80,7 @@ class StockPortfolio {
          * @param amount -> The number of shares of the specified stock to sell. 
          * @return string -> Signifies whether the stock was sold or not.
          */
-        string sellStock(string symbol, int amount);
+        void sellStock(string symbol, int amount);
         /**
          * Buys the specifies amount of shares of the specified stock. Creates a new entry in
          * the portEnts if there isn't currently an entry to match the stock being bought. 

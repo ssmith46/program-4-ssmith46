@@ -112,7 +112,7 @@ string Command::whichStock(string prompt, string whichUse) {
                 cout << this->s->getLoggedInTrader()->getPortfolio()->stocks_toString();
             }
             else {
-                cout << "There was an issue listing out the stocks."
+                cout << "There was an issue listing out the stocks.";
             }
             
         }
