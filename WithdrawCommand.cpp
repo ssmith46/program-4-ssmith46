@@ -1,14 +1,14 @@
 /**
  * Project: Stock Simulator C++ Final Project
  * Author: Sullivan Smith
- * Date: December 6, 2024
+ * Date: December 7, 2024
  *
- * File: DepositCommand.cpp
- * Purpose: Contains the implementation of the abstract 'DepositCommand' class.
+ * File: WithdrawCommand.cpp
+ * Purpose: Contains the implementation of the abstract 'WithdrawCommand' class.
 */
 #include "Command.h"
 #include "CommandFactory.h"
-#include "DepositCommand.h"
+#include "WithdrawCommand.h"
 #include "Market.h"
 #include "Simulator.h"
 #include <vector>
@@ -25,7 +25,7 @@ using namespace std;
 * @param m -> The market that the command can influence.
 * @param s -> The simulator that the command can influence.
 */
-DepositCommand::DepositCommand(vector<string> args, Market* m, Simulator* s, CommandFactory* cf) {
+WithdrawCommand::WithdrawCommand(vector<string> args, Market* m, Simulator* s, CommandFactory* cf) {
     this->args = args;
     this->m = m;
     this->s = s;
@@ -34,13 +34,13 @@ DepositCommand::DepositCommand(vector<string> args, Market* m, Simulator* s, Com
 /**
  * This method overrides the base Command class's execute method.
  */
-void DepositCommand::execute() {
+void WithdrawCommand::execute() {
 
     string line;
     vector<string> allParts;
     while (1) {
         cout << endl;
-        cout << "How much money would you like to deposit?" << endl;
+        cout << "How much money would you like to withdraw?" << endl;
         cout << "> ";
         getline(cin, line);
         allParts = this->cf->parseLine(line);
@@ -50,11 +50,11 @@ void DepositCommand::execute() {
         }
         else if (Command::isCancel(allParts.at(0)) == true) {
             cout << endl;
-            cout << "Canceling deposit." << endl;
+            cout << "Canceling withdraw." << endl;
             return;
         }
         else if (allParts.size() != 1) {
-            cout << "Please enter one valid number to deposit.";
+            cout << "Please enter one valid number to withdraw.";
             cout << endl;
         }
         else {
@@ -67,16 +67,14 @@ void DepositCommand::execute() {
 
                 if (inputNum < 0) {
                     cout << endl;
-                    cout << "For negative numbers, try making a withdraw instead.";
-                    cout << endl;
+                    cout << "For negative numbers, try making a deposit instead.";
                 }
                 else if (round(inputNum / 0.01) * 0.01 < .01) {
                     cout << endl;
-                    cout << "Please ensure that your deposit is at least one penny.";
-                    cout << endl;
+                    cout << "Please ensure that your withdraw is at least one penny.";
                 }
                 else if (inputNum == 0) {
-                    cout << "Why? .....Just..... why?" << endl;
+                    cout << "Why? .....Just..... why? Sure I guess." << endl;
                     return;
                 }
                 else if (inputNum > 100000) {
@@ -89,15 +87,28 @@ void DepositCommand::execute() {
                     Trader* t;
                     t = this->s->getLoggedInTrader();
                     inputNum = round(inputNum / 0.01) * 0.01;
-                    inputNum += t->getBalance();
-                    ss << fixed << setprecision(2) << inputNum;
-                    ss >> inputNum;
-                    this->s->getLoggedInTrader()->setBalance(inputNum);
+
+                    double newTot = t->getBalance() - inputNum;
                     
-                    cout << endl;
-                    cout << "The money has been deposited." << endl;
-                    cout << "Your new balance is: " << fixed << setprecision(2) << inputNum << endl;
-                    return;
+                    if (((newTot < 0) && (newTot > -0.001)) || (newTot >= 0)) {
+                        cout << endl;
+                        cout << "Making withdraw... ";
+                        ss << fixed << setprecision(2) << newTot;
+                        ss >> inputNum;
+                        this->s->getLoggedInTrader()->setBalance(newTot);
+                        cout << "Complete!";
+                        cout << endl;
+                        cout << "Your new account balance is: $";
+                        cout << fixed << setprecision(2) << t->getBalance();
+                        cout << endl;
+                        return;
+                    }
+                    else {
+                        cout << endl;
+                        cout << "You only have $" << fixed << setprecision(2);
+                        cout << t->getBalance() << " in your account." << endl;
+                        cout << "Please enter a a value less than or equal to this.";
+                    }
                 }
             }
             catch (...) {

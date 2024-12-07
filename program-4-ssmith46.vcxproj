@@ -134,6 +134,7 @@
     <ClCompile Include="Stock.cpp" />
     <ClCompile Include="StockPortfolio.cpp" />
     <ClCompile Include="Trader.cpp" />
+    <ClCompile Include="WithdrawCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BuyStockCommand.h" />
@@ -151,6 +152,7 @@
     <ClInclude Include="Stock.h" />
     <ClInclude Include="StockPortfolio.h" />
     <ClInclude Include="Trader.h" />
+    <ClInclude Include="WithdrawCommand.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -18,6 +18,7 @@
 #include "ListPortfolioCommand.h"
 #include "FluctuateStocksCommand.h"
 #include "DepositCommand.h"
+#include "WithdrawCommand.h"
 #include "LogoutCommand.h"
 #include "CommandFactory.h"
 #include <vector>
@@ -264,7 +265,35 @@ Command* CommandFactory::getCommand(string line) {
         )
         ) {
             retVal = new SellStockCommand(allParts, this->getMarket(), this->getSimulator(), this);
-    }
+            }
+    else if ((
+        (allParts.size() == 1)
+        &&
+        (
+        (allParts.at(0).compare("withdraw") == 0) ||
+        (allParts.at(0).compare("Withdraw") == 0) ||
+        (allParts.at(0).compare("w") == 0) ||
+        (allParts.at(0).compare("W") == 0)
+        )) || (
+        (allParts.size() == 2)
+        &&
+        (
+        (allParts.at(0).compare("withdraw") == 0) ||
+        (allParts.at(0).compare("Withdraw") == 0) ||
+        (allParts.at(0).compare("W") == 0) ||
+        (allParts.at(0).compare("w") == 0)
+        )
+        &&
+        (
+        (allParts.at(1).compare("money") == 0) ||
+        (allParts.at(1).compare("Money") == 0) ||
+        (allParts.at(1).compare("M") == 0) ||
+        (allParts.at(1).compare("m") == 0)
+        )
+        ))
+        {
+            retVal = new WithdrawCommand(allParts, this->getMarket(), this->getSimulator(), this);
+        }
     else {
         /*This will create a 'mistake' command for now. In future, branch based on the arguments*/
         retVal = new MistakeCommand(allParts, this->getMarket(), this->getSimulator(), this);

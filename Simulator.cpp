@@ -191,6 +191,7 @@ void Simulator::loginScreen(){
                         if (round(balance / 0.01) * 0.01 < .01) {
                             cout << endl;
                             cout << "Please ensure that your balance is at least one penny.";
+                            cout << endl;
                         }
                         else if (balance > 1000000000000){
                             cout << endl;
@@ -215,7 +216,8 @@ void Simulator::loginScreen(){
             /*Set this trader as the logged in trader (Will be the last trader in vector).*/
             this->setLoggedInTrader(&(this->traders.at(this->traders.size()-1)));
             /*Indicate to the user that the account was added successfully.*/
-            cout << "New user added successfully!" << endl;
+            cout << endl;
+            cout << "New user added successfully!";
 
             return;
         } else {/*Code to login as an existing user here*/
