@@ -20,6 +20,7 @@
 #include "DepositCommand.h"
 #include "WithdrawCommand.h"
 #include "LogoutCommand.h"
+#include "AddStockCommand.h"
 #include "CommandFactory.h"
 #include <vector>
 
@@ -293,6 +294,25 @@ Command* CommandFactory::getCommand(string line) {
         ))
         {
             retVal = new WithdrawCommand(allParts, this->getMarket(), this->getSimulator(), this);
+        }
+    else if (
+        (allParts.size() == 2)
+        &&
+        (
+        (allParts.at(0).compare("add")) ||
+        (allParts.at(0).compare("Add")) ||
+        (allParts.at(0).compare("new")) ||
+        (allParts.at(0).compare("New")) ||
+        (allParts.at(0).compare("create")) ||
+        (allParts.at(0).compare("Create"))
+        )
+        &&
+        (
+        (allParts.at(1).compare("stock")) ||
+        (allParts.at(1).compare("Stock"))
+        )
+        ) {
+            retVal = new AddStockCommand(allParts, this->getMarket(), this->getSimulator(), this);
         }
     else {
         /*This will create a 'mistake' command for now. In future, branch based on the arguments*/
