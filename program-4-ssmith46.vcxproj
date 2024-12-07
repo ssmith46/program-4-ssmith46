@@ -131,6 +131,7 @@
     <ClCompile Include="LogoutCommand.cpp" />
     <ClCompile Include="Market.cpp" />
     <ClCompile Include="MistakeCommand.cpp" />
+    <ClCompile Include="OptionsCommand.cpp" />
     <ClCompile Include="SellStockCommand.cpp" />
     <ClCompile Include="SetSeedCommand.cpp" />
     <ClCompile Include="Simulator.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="LogoutCommand.h" />
     <ClInclude Include="Market.h" />
     <ClInclude Include="MistakeCommand.h" />
+    <ClInclude Include="OptionsCommand.h" />
     <ClInclude Include="SellStockCommand.h" />
     <ClInclude Include="SetSeedCommand.h" />
     <ClInclude Include="Simulator.h" />

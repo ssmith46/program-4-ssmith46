@@ -23,6 +23,7 @@
 #include "AddStockCommand.h"
 #include "SetSeedCommand.h"
 #include "DoneCommand.h"
+#include "OptionsCommand.h"
 #include "CommandFactory.h"
 #include <vector>
 
@@ -352,6 +353,20 @@ Command* CommandFactory::getCommand(string line) {
         )
         ) {
             retVal = new DoneCommand(allParts, this->getMarket(), this->getSimulator(), this);
+            }
+    else if (
+        (allParts.size() == 1)
+        &&
+        (
+        (allParts.at(0).compare("help") == 0) ||
+        (allParts.at(0).compare("Help") == 0) ||
+        (allParts.at(0).compare("options") == 0) ||
+        (allParts.at(0).compare("Options") == 0) ||
+        (allParts.at(0).compare("O") == 0) ||
+        (allParts.at(0).compare("o") == 0)
+        )
+        ) {
+            retVal = new OptionsCommand(allParts, this->getMarket(), this->getSimulator(), this);
         }
     else {
         /*This will create a 'mistake' command for now. In future, branch based on the arguments*/
