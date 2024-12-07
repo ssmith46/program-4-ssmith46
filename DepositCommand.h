@@ -4,7 +4,7 @@
  * Date: December 6, 2024
  *
  * File: DepositCommand.h
- * Purpose: Contains the declaration of the abstract 'DepositCommand' class.
+ * Purpose: Contains the declaration of the 'DepositCommand' class.
 */
 
 #ifndef DepositCommand_H
@@ -23,29 +23,29 @@ using namespace std;
 
 /**
  * Purpose:
- * - The purpose of this class is to allow the user to see all the available
- *   stocks currently in the market.
+ * - The purpose of this class is to allow the user to make deposits during the 
+ *   run of the simulation.
  *
  * Data Members:
- * - vector<string> args -> The arguments to explain how the command was wrong
+ * - vector<string> args -> The arguments that lead to the creation of the deposit command
  * - Market *m -> The market that the command can influence
  * - Simulator *s -> The simulator the command can influence
  * - CommandFactory *cf -> The command factory the command can use for parsing user input.
  *
  * Member Functions:
- * - ListStocksCommand(vector<string> args, Market *m, Simulator *s) -> The constructor
- *   for a list stocks command.
+ * - DepositCommand(vector<string> args, Market *m, Simulator *s) -> The constructor
+ *   for a deposit command.
  * - void execute() -> The override of the base command execute method.
  *
  * Class Usage:
- * - This class is used to allow users to view the stocks in the market.
+ * - This class is used to allow users to deposit money into their account.
 */
 class DepositCommand : public Command {
 public:
     /**
-     * The constructor for a List Stocks Command object.
+     * The constructor for a Deposit Command object.
      *
-     * @param args -> The arguments that lead to the mistake command.
+     * @param args -> The arguments that lead to the deposit command.
      * @param m -> The market that the command can influence.
      * @param s -> The simulator that the command can influence.
      */
@@ -56,7 +56,7 @@ public:
     void execute();
 
 private:
-    /*The arguments that lead to an error for the command.*/
+    /*The arguments that lead to the creation of a deposit command.*/
     vector<string> args;
     /*The market that the command can execute.*/
     Market* m;

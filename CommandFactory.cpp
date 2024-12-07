@@ -6,10 +6,14 @@
  * File: CommandFactory.cpp
  * Purpose: Contains the implementation of the 'CommandFactory' class.
 */
+
 #include <string>
 #include <sstream>
 #include "Market.h"
 #include "Simulator.h"
+#include "CommandFactory.h"
+#include <vector>
+/*All the includes for the commands this class creates*/
 #include "Command.h"
 #include "MistakeCommand.h"
 #include "BuyStockCommand.h"
@@ -24,8 +28,7 @@
 #include "SetSeedCommand.h"
 #include "DoneCommand.h"
 #include "OptionsCommand.h"
-#include "CommandFactory.h"
-#include <vector>
+
 
 using namespace std;
 
@@ -125,26 +128,28 @@ Command* CommandFactory::getCommand(string line) {
         retVal = new MistakeCommand(allParts, this->getMarket(), this->getSimulator(), this);
     }
     /*Handle the case that the user wants to execute a "buy" command*/
-    else if ((allParts.size() == 2)
+    else if (
+        (allParts.size() == 2)
         &&
         (
             (allParts.at(0).compare("buy") == 0) ||
             (allParts.at(0).compare("Buy") == 0) ||
             (allParts.at(0).compare("purchase") == 0) ||
             (allParts.at(0).compare("Purchase") == 0)
-            )
+         )
         &&
         (
             (allParts.at(1).compare("Stocks") == 0) ||
             (allParts.at(1).compare("stocks") == 0) ||
             (allParts.at(1).compare("Stock") == 0) ||
-            (allParts.at(1).compare("stock") == 0))
-        ) {
-
-        /*Create a BuyStockCommand for the retval*/
-        retVal = new BuyStockCommand(allParts, this->getMarket(), this->getSimulator(), this);
+            (allParts.at(1).compare("stock") == 0)
+        )) {
+            /*Create a BuyStockCommand for the retval*/
+            retVal = new BuyStockCommand(allParts, this->getMarket(), this->getSimulator(), this);
     }
-    else if ((allParts.size() == 2)
+    /*Handle the case that the user wants to execute a "see market" command*/
+    else if (
+        (allParts.size() == 2)
         &&
         (
             (allParts.at(0).compare("see") == 0) ||
@@ -165,9 +170,12 @@ Command* CommandFactory::getCommand(string line) {
             (allParts.at(1).compare("market") == 0) ||
             (allParts.at(1).compare("Market") == 0)
         )) {
-        /*Create a BuyStockCommand for the retval*/
-        retVal = new ListStocksCommand(allParts, this->getMarket(), this->getSimulator(), this);
+
+            /*Create a ListStocksCommand for the retval*/
+            retVal = new ListStocksCommand(allParts, 
+                this->getMarket(), this->getSimulator(), this);
     }
+    /*Handles the case that the user wants to execute a "logout" command*/
     else if (
         (allParts.size() == 1)
         &&
@@ -175,9 +183,10 @@ Command* CommandFactory::getCommand(string line) {
             (allParts.at(0).compare("logout") == 0) ||
             (allParts.at(0).compare("Logout") == 0)
         )) {
-        /*Create a LogoutCommand for the retval*/
-        retVal = new LogoutCommand(allParts, this->getMarket(), this->getSimulator(), this);
+            /*Create a LogoutCommand for the retval*/
+            retVal = new LogoutCommand(allParts, this->getMarket(), this->getSimulator(), this);
     }
+    /*Handles the case that the user wants to execute a "see portfolio" command*/
     else if (
         (allParts.size() == 2)
         &&
@@ -190,14 +199,17 @@ Command* CommandFactory::getCommand(string line) {
             (allParts.at(0).compare("List") == 0) ||
             (allParts.at(0).compare("Show") == 0) ||
             (allParts.at(0).compare("show") == 0)
-             )
+         )
         &&
         (
             (allParts.at(1).compare("portfolio") == 0) ||
             (allParts.at(1).compare("Portfolio") == 0)
         )) {
-        retVal = new ListPortfolioCommand(allParts, this->getMarket(), this->getSimulator(), this);
+            /*Create a ListPortfolioCommand for the retval*/
+            retVal = new ListPortfolioCommand(allParts, this->getMarket(), 
+                this->getSimulator(), this);
     }
+    /*Handles the case that the user wants to execute a "fluctuate stocks" command*/
     else if (
         (allParts.size() == 2)
         &&
@@ -219,166 +231,190 @@ Command* CommandFactory::getCommand(string line) {
             (allParts.at(1).compare("Stocks") == 0)
          )) {
 
-        retVal = new FluctuateStocksCommand(allParts, this->getMarket(), this->getSimulator(), this);
+            /*Create a FluctuateStocksCommand for the retval*/
+            retVal = new FluctuateStocksCommand(allParts, this->getMarket(), 
+                this->getSimulator(), this);
     }
-    else if ( (
-        (allParts.size() == 1)
-        &&
-        (
-        (allParts.at(0).compare("deposit") == 0) ||
-        (allParts.at(0).compare("Deposit") == 0) ||
-        (allParts.at(0).compare("D") == 0) ||
-        (allParts.at(0).compare("d") == 0) 
-        )) || (
-        (allParts.size() == 2)
-        &&
-        (
-        (allParts.at(0).compare("deposit") == 0) ||
-        (allParts.at(0).compare("Deposit") == 0) ||
-        (allParts.at(0).compare("D") == 0) ||
-        (allParts.at(0).compare("d") == 0)
-        )
-        &&
-        (
-        (allParts.at(1).compare("money") == 0) ||
-        (allParts.at(1).compare("Money") == 0) ||
-        (allParts.at(1).compare("M") == 0) ||
-        (allParts.at(1).compare("m") == 0)
-        )
-        ))
-    {
-        retVal = new DepositCommand(allParts, this->getMarket(), this->getSimulator(), this);
-        }
+    /*Handles the case that the user wants to execute a "depost" command*/
+    else if (
+         (
+            (allParts.size() == 1)
+            &&
+            (
+                (allParts.at(0).compare("deposit") == 0) ||
+                (allParts.at(0).compare("Deposit") == 0) ||
+                (allParts.at(0).compare("D") == 0) ||
+                (allParts.at(0).compare("d") == 0) 
+            ) 
+         ) 
+         || 
+         (
+            (allParts.size() == 2)
+            &&
+            (
+                (allParts.at(0).compare("deposit") == 0) ||
+                (allParts.at(0).compare("Deposit") == 0) ||
+                (allParts.at(0).compare("D") == 0) ||
+                (allParts.at(0).compare("d") == 0)
+            )
+            &&
+            (
+                (allParts.at(1).compare("money") == 0) ||
+                (allParts.at(1).compare("Money") == 0) ||
+                (allParts.at(1).compare("M") == 0) ||
+                (allParts.at(1).compare("m") == 0)
+            )
+        )) {
+            /*Create a DepositCommand for the retval*/
+            retVal = new DepositCommand(allParts, this->getMarket(), this->getSimulator(), this);
+    }
+    /*Handles the case that the user wants to execute a "sell stock" command*/
     else if (
         (allParts.size() == 2)
         &&
         (
-        (allParts.at(0).compare("sell") == 0) ||
-        (allParts.at(0).compare("Sell") == 0) ||
-        (allParts.at(0).compare("trade") == 0) ||
-        (allParts.at(0).compare("Trade") == 0)
+            (allParts.at(0).compare("sell") == 0) ||
+            (allParts.at(0).compare("Sell") == 0) ||
+            (allParts.at(0).compare("trade") == 0) ||
+            (allParts.at(0).compare("Trade") == 0)
         )
         &&
         (
-        (allParts.at(1).compare("stock") == 0) ||
-        (allParts.at(1).compare("Stock") == 0) ||
-        (allParts.at(1).compare("stocks") == 0) ||
-        (allParts.at(1).compare("Stocks") == 0) ||
-        (allParts.at(1).compare("shares") == 0) ||
-        (allParts.at(1).compare("Shares") == 0)
-        )
-        ) {
-            retVal = new SellStockCommand(allParts, this->getMarket(), this->getSimulator(), this);
-            }
-    else if ((
-        (allParts.size() == 1)
-        &&
+            (allParts.at(1).compare("stock") == 0) ||
+            (allParts.at(1).compare("Stock") == 0) ||
+            (allParts.at(1).compare("stocks") == 0) ||
+            (allParts.at(1).compare("Stocks") == 0) ||
+            (allParts.at(1).compare("shares") == 0) ||
+            (allParts.at(1).compare("Shares") == 0)
+        )) {
+            /*Create a SellStocksCommand for the retval*/
+            retVal = new SellStockCommand(allParts, this->getMarket(), 
+                this->getSimulator(), this);
+    }
+    /*Handles the case that the user wants to execute a "withdraw" command*/
+    else if (
         (
-        (allParts.at(0).compare("withdraw") == 0) ||
-        (allParts.at(0).compare("Withdraw") == 0) ||
-        (allParts.at(0).compare("w") == 0) ||
-        (allParts.at(0).compare("W") == 0)
-        )) || (
-        (allParts.size() == 2)
-        &&
+            (allParts.size() == 1)
+            &&
+            (
+                (allParts.at(0).compare("withdraw") == 0) ||
+                (allParts.at(0).compare("Withdraw") == 0) ||
+                (allParts.at(0).compare("w") == 0) ||
+                (allParts.at(0).compare("W") == 0)
+            )
+        ) 
+        ||
         (
-        (allParts.at(0).compare("withdraw") == 0) ||
-        (allParts.at(0).compare("Withdraw") == 0) ||
-        (allParts.at(0).compare("W") == 0) ||
-        (allParts.at(0).compare("w") == 0)
-        )
-        &&
-        (
-        (allParts.at(1).compare("money") == 0) ||
-        (allParts.at(1).compare("Money") == 0) ||
-        (allParts.at(1).compare("M") == 0) ||
-        (allParts.at(1).compare("m") == 0)
-        )
-        ))
-        {
+            (allParts.size() == 2)
+            &&
+            (
+                (allParts.at(0).compare("withdraw") == 0) ||
+                (allParts.at(0).compare("Withdraw") == 0) ||
+                (allParts.at(0).compare("W") == 0) ||
+                (allParts.at(0).compare("w") == 0)
+            )
+            &&
+            (
+                (allParts.at(1).compare("money") == 0) ||
+                (allParts.at(1).compare("Money") == 0) ||
+                (allParts.at(1).compare("M") == 0) ||
+                (allParts.at(1).compare("m") == 0)
+            )
+        )) {
+            /*Create a WithdrawCommand for the retval*/
             retVal = new WithdrawCommand(allParts, this->getMarket(), this->getSimulator(), this);
-        }
+    }
+    /*Handles the case that the user wants to execute an "add stock" command*/
     else if (
         (allParts.size() == 2)
         &&
         (
-        (allParts.at(0).compare("add") == 0) ||
-        (allParts.at(0).compare("Add") == 0) ||
-        (allParts.at(0).compare("new") == 0) ||
-        (allParts.at(0).compare("New") == 0) ||
-        (allParts.at(0).compare("create") == 0) ||
-        (allParts.at(0).compare("Create") == 0)
+            (allParts.at(0).compare("add") == 0) ||
+            (allParts.at(0).compare("Add") == 0) ||
+            (allParts.at(0).compare("new") == 0) ||
+            (allParts.at(0).compare("New") == 0) ||
+            (allParts.at(0).compare("create") == 0) ||
+            (allParts.at(0).compare("Create") == 0)
         )
         &&
         (
-        (allParts.at(1).compare("stock") == 0) ||
-        (allParts.at(1).compare("Stock") == 0)
-        )
-        ) {
+            (allParts.at(1).compare("stock") == 0) ||
+            (allParts.at(1).compare("Stock") == 0)
+        )) {
+            /*Create an AddStockCommand for the retval*/
             retVal = new AddStockCommand(allParts, this->getMarket(), this->getSimulator(), this);
-        }
+    }
+    /*Handles the case that the user wants to execute a "set seed" command*/
     else if (
         (allParts.size() == 2)
         &&
         (
-        (allParts.at(0).compare("set") == 0) ||
-        (allParts.at(0).compare("Set") == 0) ||
-        (allParts.at(0).compare("change") == 0) ||
-        (allParts.at(0).compare("Change") == 0)
+            (allParts.at(0).compare("set") == 0) ||
+            (allParts.at(0).compare("Set") == 0) ||
+            (allParts.at(0).compare("change") == 0) ||
+            (allParts.at(0).compare("Change") == 0)
         )
         &&
         (
-        (allParts.at(1).compare("seed") == 0) ||
-        (allParts.at(1).compare("Seed") == 0) ||
-        (allParts.at(1).compare("violence") == 0) ||
-        (allParts.at(1).compare("Violence") == 0)
-        )
-        ) {
+            (allParts.at(1).compare("seed") == 0) ||
+            (allParts.at(1).compare("Seed") == 0) ||
+            (allParts.at(1).compare("violence") == 0) ||
+            (allParts.at(1).compare("Violence") == 0)
+        )) {
+            /*Create a SetSeedCommand for the retval*/
             retVal = new SetSeedCommand(allParts, this->getMarket(), this->getSimulator(), this);
-        }
+    }
+    /*Handles the case that the user wants to execute an "exit" command*/
     else if (
         (allParts.size() == 1)
         &&
         (
-        (allParts.at(0).compare("done") == 0) ||
-        (allParts.at(0).compare("Done") == 0) ||
-        (allParts.at(0).compare("stop") == 0) ||
-        (allParts.at(0).compare("Stop") == 0) ||
-        (allParts.at(0).compare("exit") == 0) ||
-        (allParts.at(0).compare("Exit") == 0) ||
-        (allParts.at(0).compare("end") == 0) ||
-        (allParts.at(0).compare("End") == 0) ||
-        (allParts.at(0).compare("finish") == 0) ||
-        (allParts.at(0).compare("Finish") == 0) 
-        )
-        ) {
+            (allParts.at(0).compare("done") == 0) ||
+            (allParts.at(0).compare("Done") == 0) ||
+            (allParts.at(0).compare("stop") == 0) ||
+            (allParts.at(0).compare("Stop") == 0) ||
+            (allParts.at(0).compare("exit") == 0) ||
+            (allParts.at(0).compare("Exit") == 0) ||
+            (allParts.at(0).compare("end") == 0) ||
+            (allParts.at(0).compare("End") == 0) ||
+            (allParts.at(0).compare("finish") == 0) ||
+            (allParts.at(0).compare("Finish") == 0) 
+        )) {
+            /*Create a DoneCommand for the retval*/
             retVal = new DoneCommand(allParts, this->getMarket(), this->getSimulator(), this);
-            }
+    }
+    /*Handles the case that the user wants to execute an "options" command*/
     else if (
         (allParts.size() == 1)
         &&
         (
-        (allParts.at(0).compare("help") == 0) ||
-        (allParts.at(0).compare("Help") == 0) ||
-        (allParts.at(0).compare("options") == 0) ||
-        (allParts.at(0).compare("Options") == 0) ||
-        (allParts.at(0).compare("O") == 0) ||
-        (allParts.at(0).compare("o") == 0)
-        )
-        ) {
+            (allParts.at(0).compare("help") == 0) ||
+            (allParts.at(0).compare("Help") == 0) ||
+            (allParts.at(0).compare("options") == 0) ||
+            (allParts.at(0).compare("Options") == 0) ||
+            (allParts.at(0).compare("O") == 0) ||
+            (allParts.at(0).compare("o") == 0)
+        )) {
+            /*Create an OptionsCommand for the retval*/
             retVal = new OptionsCommand(allParts, this->getMarket(), this->getSimulator(), this);
-        }
+    }
+    /*Handles the case that an "unknown" string of words was entered*/
     else {
         /*This will create a 'mistake' command for now. In future, branch based on the arguments*/
         retVal = new MistakeCommand(allParts, this->getMarket(), this->getSimulator(), this);
     }
     
-
     /*Return the created command*/
     return retVal;
 }
 
+/**
+* Returns a command object in order to access class methods
+*
+* @return -> A command object for method uses
+*/
 Command CommandFactory::getBaseCommand() {
+    /*Create a plain command and return it to the caller*/
     vector<string> allParts;
     return Command(allParts, this->getMarket(), this->getSimulator(), this);
 }

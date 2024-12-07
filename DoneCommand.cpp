@@ -4,7 +4,7 @@
  * Date: December 7, 2024
  *
  * File: DoneCommand.cpp
- * Purpose: Contains the implementation of the abstract 'DoneCommand' class.
+ * Purpose: Contains the implementation of the 'DoneCommand' class.
 */
 #include "Command.h"
 #include "CommandFactory.h"
@@ -21,13 +21,15 @@
 using namespace std;
 
 /**
-* The constructor for a Add Stock Command object.
+* The constructor for a Done Command object.
 *
-* @param args -> The arguments that lead to the mistake command.
+* @param args -> The arguments that lead to the creation of the done command.
 * @param m -> The market that the command can influence.
 * @param s -> The simulator that the command can influence.
 */
 DoneCommand::DoneCommand(vector<string> args, Market* m, Simulator* s, CommandFactory* cf) {
+    /*Assign data members based on arguments*/
+
     this->args = args;
     this->m = m;
     this->s = s;
@@ -36,7 +38,10 @@ DoneCommand::DoneCommand(vector<string> args, Market* m, Simulator* s, CommandFa
 
 /**
 * This method overrides the base Command class's execute method.
+* In this case, it simply changes the state of the simulator's 'running'
+* bool to false, to end the simulation.
 */
 void DoneCommand::execute() {
+    /*Turn the simulator's running to false*/
     this->s->setRunning(false);
 }

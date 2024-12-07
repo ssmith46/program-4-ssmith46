@@ -22,9 +22,9 @@ using namespace std;
 
 /**
  * Purpose:
- * - This class acts are the factory for creating command objects.
+ * - This class acts as the factory for creating command objects.
  * - This class will take a string of command line input, and convert it to a
- *   an executable command which 
+ *   an executable command which can be executed by the simulator
  * 
  * Data Members:
  * - Market m -> This is the Market that will be passed to created commands
@@ -41,12 +41,14 @@ using namespace std;
  * - vector<string> parseLine(string line) -> Given a user entered line of text,
  *   parse it for all words sepereated by spaces. This will allow the factory to 
  *   create commands specific to the action that the user entered.
- * - Command getCommand(string) -> This will be the method where most of the magic for
+ * - Command* getCommand(string) -> This will be the method where most of the magic for
  *   this class happens. Calling this with a raw string of input from the user will yield
  *   the coresponding command to execute which will fullfill the request of the user. 
+ * - Command getBaseCommand() -> Returns a plain base command object in order to access member
+ *   methods.
  * 
  * Class Usage:
- * - This class will be a singleton class that is responsible for creating commands
+ * - This class will essentially be a 'singleton' class that is responsible for creating commands
  *   that will make the simulation work.
 */
 class CommandFactory {
@@ -90,6 +92,11 @@ class CommandFactory {
          */
         Command* getCommand(string line);
 
+        /**
+        * Returns a command object in order to access class methods
+        * 
+        * @return -> A command object for method uses
+        */
         Command getBaseCommand();
     private:
         /**
