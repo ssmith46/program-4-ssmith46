@@ -79,8 +79,8 @@ string Market::stocks_toString(){
         if (on.getSymbol().length() > longestLengthName) {
             longestLengthName = on.getSymbol().length();
         }
-        int places = 3;
-        double price = (int)on.getPrice();
+        int places = 4;
+        double price = on.getPrice();
         while (price >= 1.0) {
             price *= .1;
             places += 1;
@@ -148,7 +148,7 @@ string Market::stocks_toString(){
         stringstream ss;
         double lastChange = abs(on.getLastChange());
         char changeSym = on.getGrowthSymbol();
-        ss << fixed << setprecision(2) << lastChange;
+        ss << fixed << setprecision(2) << (lastChange*100);
         string fixedChange = changeSym + ss.str() + "%";
         retVal += this->get_spacedWord(fixedChange, longestLastChange);
         retVal += "|";
@@ -272,6 +272,12 @@ void Market::randomlyUpdateStocks(){
           negative. This algorithm results in a 1/3 chance of negative growth. This can 
           be changed by tweaking the below variable. */
         int oneInXNeg = 2;
+        if (s.getPrice() < 50) {
+            oneInXNeg = 4;
+        }
+        else if (s.getPrice() > 1000000) {
+            oneInXNeg = 1;
+        }
         if (randNum % oneInXNeg == 0){
             growth = -1;
         } else {
@@ -281,6 +287,9 @@ void Market::randomlyUpdateStocks(){
         /*Using the market violence, calculate the change of the stock price.*/
         randNum = rand() % this->getMarketViolence();
         growth *= (randNum/(double)100);
+        
+        randNum = rand() % 100;
+        growth += ((randNum * .01)/100);
         
         /*Change the stock price using the above calculated.*/
         this->allStocks.at(i).change(growth);

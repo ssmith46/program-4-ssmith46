@@ -122,8 +122,8 @@ void FluctuateStocksCommand::execute() {
                     cout << "Why? .....Just..... why?" << endl;
                     cycles = inputNum;
                 }
-                else if (inputNum > 100) {
-                    cout << "Please enter a number smaller than 101.";
+                else if (inputNum > 1000) {
+                    cout << "Please enter a number smaller than 1001.";
                     cout << endl;
                 }
                 else {
@@ -158,7 +158,6 @@ void FluctuateStocksCommand::execute() {
             this->m->randomlyUpdateStocks();
             cout << endl << endl << endl << endl;
             toExecute->execute();
-            for (int wait = 0; wait < 100000000; wait++) {}
         }
     }
     else if (option == 2) {
@@ -168,8 +167,6 @@ void FluctuateStocksCommand::execute() {
             this->m->randomlyUpdateStocks();
             cout << endl << endl << endl << endl;
             toExecute->execute();
-            
-            
         }
     }
     else if (option == 3) {

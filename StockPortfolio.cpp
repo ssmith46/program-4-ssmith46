@@ -199,8 +199,8 @@ string StockPortfolio::stocks_toString(){
         if (on.stock->getSymbol().length() > longestLengthName) {
             longestLengthName = on.stock->getSymbol().length();
         }
-        int places = 3;
-        double price = (int)on.stock->getPrice();
+        int places = 4;
+        double price = on.stock->getPrice();
         while (price >= 1.0) {
             price *= .1;
             places += 1;
@@ -217,7 +217,7 @@ string StockPortfolio::stocks_toString(){
         if (places > longestLengthShares) {
             longestLengthShares = places;
         }
-        double lastChange = (int)on.stock->getLastChange();
+        double lastChange = (on.stock->getLastChange()*100);
         places = 4;
         while (lastChange >= 1.0) {
             lastChange *= .1;
@@ -226,8 +226,8 @@ string StockPortfolio::stocks_toString(){
         if (places > longestLastChange) {
             longestLastChange = places;
         }
-        places = 3;
-        price = ((int)on.stock->getPrice() * on.amountOwned);
+        places = 4;
+        price = (on.stock->getPrice() * on.amountOwned);
         while (price >= 1.0) {
             price *= .1;
             places += 1;
