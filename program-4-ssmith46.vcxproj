@@ -119,6 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AddStockCommand.cpp" />
     <ClCompile Include="BuyStockCommand.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommandFactory.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="WithdrawCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddStockCommand.h" />
     <ClInclude Include="BuyStockCommand.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommandFactory.h" />

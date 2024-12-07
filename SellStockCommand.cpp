@@ -175,8 +175,4 @@ void SellStockCommand::execute() {
         }
     }
 
-
-
-
-
 }
