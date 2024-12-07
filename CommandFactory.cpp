@@ -21,6 +21,7 @@
 #include "WithdrawCommand.h"
 #include "LogoutCommand.h"
 #include "AddStockCommand.h"
+#include "SetSeedCommand.h"
 #include "CommandFactory.h"
 #include <vector>
 
@@ -299,20 +300,39 @@ Command* CommandFactory::getCommand(string line) {
         (allParts.size() == 2)
         &&
         (
-        (allParts.at(0).compare("add")) ||
-        (allParts.at(0).compare("Add")) ||
-        (allParts.at(0).compare("new")) ||
-        (allParts.at(0).compare("New")) ||
-        (allParts.at(0).compare("create")) ||
-        (allParts.at(0).compare("Create"))
+        (allParts.at(0).compare("add") == 0) ||
+        (allParts.at(0).compare("Add") == 0) ||
+        (allParts.at(0).compare("new") == 0) ||
+        (allParts.at(0).compare("New") == 0) ||
+        (allParts.at(0).compare("create") == 0) ||
+        (allParts.at(0).compare("Create") == 0)
         )
         &&
         (
-        (allParts.at(1).compare("stock")) ||
-        (allParts.at(1).compare("Stock"))
+        (allParts.at(1).compare("stock") == 0) ||
+        (allParts.at(1).compare("Stock") == 0)
         )
         ) {
             retVal = new AddStockCommand(allParts, this->getMarket(), this->getSimulator(), this);
+        }
+    else if (
+        (allParts.size() == 2)
+        &&
+        (
+        (allParts.at(0).compare("set") == 0) ||
+        (allParts.at(0).compare("Set") == 0) ||
+        (allParts.at(0).compare("change") == 0) ||
+        (allParts.at(0).compare("Change") == 0)
+        )
+        &&
+        (
+        (allParts.at(1).compare("seed") == 0) ||
+        (allParts.at(1).compare("Seed") == 0) ||
+        (allParts.at(1).compare("violence") == 0) ||
+        (allParts.at(1).compare("Violence") == 0)
+        )
+        ) {
+            retVal = new SetSeedCommand(allParts, this->getMarket(), this->getSimulator(), this);
         }
     else {
         /*This will create a 'mistake' command for now. In future, branch based on the arguments*/
