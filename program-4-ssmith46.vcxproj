@@ -129,6 +129,7 @@
     <ClCompile Include="LogoutCommand.cpp" />
     <ClCompile Include="Market.cpp" />
     <ClCompile Include="MistakeCommand.cpp" />
+    <ClCompile Include="SellStockCommand.cpp" />
     <ClCompile Include="Simulator.cpp" />
     <ClCompile Include="Stock.cpp" />
     <ClCompile Include="StockPortfolio.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="LogoutCommand.h" />
     <ClInclude Include="Market.h" />
     <ClInclude Include="MistakeCommand.h" />
+    <ClInclude Include="SellStockCommand.h" />
     <ClInclude Include="Simulator.h" />
     <ClInclude Include="Stock.h" />
     <ClInclude Include="StockPortfolio.h" />

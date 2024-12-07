@@ -81,7 +81,7 @@ class Command {
         *
         * @return -> A string for the stock the user would like to purchase.
         */
-        string whichStock(string prompt);
+        string whichStock(string prompt, string whichUse);
         /**
         * Get the number of shares of a stock the user would like to purchase.
         *

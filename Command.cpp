@@ -60,7 +60,7 @@ bool Command::isCancel(string word) {
 *
 * @return -> A string for the stock the user would like to purchase/sell.
 */
-string Command::whichStock(string prompt) {
+string Command::whichStock(string prompt, string whichUse) {
 
     /*The string to return to the client code.*/
     string retVal = "";
@@ -105,7 +105,16 @@ string Command::whichStock(string prompt) {
 
         if (parts.at(0).compare("l") == 0) {
             cout << endl;
-            cout << this->m->stocks_toString();
+            if (whichUse.compare("buy") == 0) {
+                cout << this->m->stocks_toString();
+            }
+            else if (whichUse.compare("sell") == 0) {
+                cout << this->s->getLoggedInTrader()->getPortfolio()->stocks_toString();
+            }
+            else {
+                cout << "There was an issue listing out the stocks."
+            }
+            
         }
         else {
 
