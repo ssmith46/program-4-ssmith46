@@ -39,7 +39,7 @@ FluctuateStocksCommand::FluctuateStocksCommand(vector<string> args, Market* m, S
 void FluctuateStocksCommand::execute() {
 
     int option = -1;
-
+    cout << endl;
     string line;
     vector<string> allParts;
     while (option == -1) {
@@ -55,6 +55,11 @@ void FluctuateStocksCommand::execute() {
             cout << endl;
             cout << "It seems you did not enter anything. ";
             cout << "Please try again." << endl;
+        }
+        else if (Command::isCancel(allParts.at(0)) == true) {
+            cout << endl;
+            cout << "Canceling Fluctuation." << endl;
+            return;
         }
         else if (allParts.size() == 1) {
             string entered = allParts.at(0);
@@ -97,7 +102,7 @@ void FluctuateStocksCommand::execute() {
     }
 
 
-    
+    cout << endl;
     int cycles = -1;
     int inputNum;
     while (cycles == -1) {
@@ -115,14 +120,17 @@ void FluctuateStocksCommand::execute() {
             try {
                 inputNum = stoi(allParts.at(0));
                 if (inputNum < 0) {
+                    cout << endl;
                     cout << "Please make sure that the number of cycles is a positive value.";
                     cout << endl;
                 }
                 else if (inputNum == 0) {
+                    cout << endl;
                     cout << "Why? .....Just..... why?" << endl;
                     cycles = inputNum;
                 }
                 else if (inputNum > 1000) {
+                    cout << endl;
                     cout << "Please enter a number smaller than 1001.";
                     cout << endl;
                 }

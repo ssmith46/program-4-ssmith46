@@ -36,8 +36,7 @@ ListPortfolioCommand::ListPortfolioCommand(vector<string> args, Market* m, Simul
  */
 void ListPortfolioCommand::execute() {
     cout << endl;
-    cout << "Current Account Balance: $" << this->s->getLoggedInTrader()->getBalance();
+    cout << "Current Account Balance: $" << fixed << setprecision(2) << this->s->getLoggedInTrader()->getBalance();
     cout << endl;
     cout << this->s->getLoggedInTrader()->getPortfolio()->stocks_toString();
-    cout << endl;
 }

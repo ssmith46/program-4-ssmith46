@@ -83,6 +83,7 @@ void BuyStockCommand::execute() {
     /*Handles the case that they don't have enough money in their account.*/
     if (((accountBalance - totalCost < 0) && (accountBalance - totalCost > -0.001)) ||
         (accountBalance - totalCost >= 0)) {
+        cout << endl;
         cout << "Buying " << numSharesToBuy << " shares of " << strStockToBuy << " stock..." << endl;
         t->buyStock(s, numSharesToBuy);
         s->removeShares(numSharesToBuy);

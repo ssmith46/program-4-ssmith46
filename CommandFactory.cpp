@@ -16,6 +16,7 @@
 #include "ListStocksCommand.h"
 #include "ListPortfolioCommand.h"
 #include "FluctuateStocksCommand.h"
+#include "DepositCommand.h"
 #include "LogoutCommand.h"
 #include "CommandFactory.h"
 #include <vector>
@@ -201,7 +202,7 @@ Command* CommandFactory::getCommand(string line) {
             (allParts.at(0).compare("f") == 0) ||
             (allParts.at(0).compare("change") == 0) ||
             (allParts.at(0).compare("Change") == 0)
-            )
+        )
         &&
         (
             (allParts.at(1).compare("Market") == 0) ||
@@ -213,6 +214,34 @@ Command* CommandFactory::getCommand(string line) {
          )) {
 
         retVal = new FluctuateStocksCommand(allParts, this->getMarket(), this->getSimulator(), this);
+    }
+    else if ( (
+        (allParts.size() == 1)
+        &&
+        (
+        (allParts.at(0).compare("deposit") == 0) ||
+        (allParts.at(0).compare("Deposit") == 0) ||
+        (allParts.at(0).compare("D") == 0) ||
+        (allParts.at(0).compare("d") == 0) 
+        )) || (
+        (allParts.size() == 2)
+        &&
+        (
+        (allParts.at(0).compare("deposit") == 0) ||
+        (allParts.at(0).compare("Deposit") == 0) ||
+        (allParts.at(0).compare("D") == 0) ||
+        (allParts.at(0).compare("d") == 0)
+        )
+        &&
+        (
+        (allParts.at(1).compare("money") == 0) ||
+        (allParts.at(1).compare("Money") == 0) ||
+        (allParts.at(1).compare("M") == 0) ||
+        (allParts.at(1).compare("m") == 0)
+        )
+        ))
+    {
+        retVal = new DepositCommand(allParts, this->getMarket(), this->getSimulator(), this);
     }
     else {
         /*This will create a 'mistake' command for now. In future, branch based on the arguments*/

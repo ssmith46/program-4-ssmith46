@@ -256,7 +256,7 @@ Command* Simulator::getNextCommand(){
     /*Create a variable for the line of input from the user.*/
     string line;
     /*Indicate to user where to type.*/
-    cout << "> ";
+    cout << "home> ";
     /*Get a line of input from the user.*/
     getline(cin, line);
     /*Get the command based off the text entered by the user.*/
