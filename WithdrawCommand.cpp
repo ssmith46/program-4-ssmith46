@@ -100,12 +100,6 @@ void WithdrawCommand::execute() {
                     cout << "Why? .....Just..... why? Sure I guess." << endl;
                     return;
                 }
-                /*Check and indicate if the user entered too large a number*/
-                else if (inputNum > 100000) {
-                    cout << "Please enter an amount less than one hundred thousand dollars.";
-                    cout << " (We get charged crazy fees otherwise).";
-                    cout << endl;
-                }
                 else {
                     /*Create a string stream for getting the correct number of decimal places*/
                     stringstream ss;

@@ -353,7 +353,7 @@ void exampleStockSetup(Market *m){
  */
 void exampleTraderSetup(Simulator *s){
     /*Create a few traders as examples in the simulation*/
-    Trader t1("Bob", "bobby123", 329719.95, s->getMarket());
+    Trader t1("Bobby", "bobby123", 329719.95, s->getMarket());
     Trader t2("Jane", "janeSmith", 14897.63, s->getMarket());
     Trader t3("Bill", "bill", 2508.63, s->getMarket());
     Trader t4("Karl", "karls", 57.03, s->getMarket());
