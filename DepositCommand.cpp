@@ -125,7 +125,7 @@ void DepositCommand::execute() {
                     /*Indicate to the user that the transaction was completed successfully*/
                     cout << endl;
                     cout << "The money has been deposited." << endl;
-                    cout << "Your new balance is: " << fixed << setprecision(2);
+                    cout << "Your new balance is: $" << fixed << setprecision(2);
                     cout << inputNum << endl;
                     return;
                 }
