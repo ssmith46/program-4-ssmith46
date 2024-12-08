@@ -15,7 +15,10 @@ using namespace std;
 /**
 * A default Constructor so the compiler is happy. 
 */
-Trader::Trader(){ }
+Trader::Trader(Market *m){ 
+    StockPortfolio s(m);
+    this->sp = s;
+}
 
 /**
 * A constructor for a Trader instance. 
@@ -24,14 +27,14 @@ Trader::Trader(){ }
 * @param username -> The username that this trader will have during the simulation. 
 * @param accountBalance -> The starting account balance of this Trader. 
 */
-Trader::Trader(string name, string username, double accountBalance) {
+Trader::Trader(string name, string username, double accountBalance, Market *m) {
     /*Initialize the fields with the given arguments.*/
 
     this->name = name;
     this->username = username;
     this->balance = accountBalance;
 
-    StockPortfolio s;
+    StockPortfolio s(m);
     this->sp = s;
 
 }

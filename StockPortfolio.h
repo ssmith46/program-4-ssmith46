@@ -27,7 +27,7 @@ using namespace std;
  * @member amountOwned -> The number of shares of that stock that are owned by the trader.
  */
 struct PortfolioEntry {
-    Stock* stock;
+    string stockSymbol;
     int amountOwned;
 };
 
@@ -42,6 +42,7 @@ struct PortfolioEntry {
  *   entry, as defined above. 
  * - double totalVal -> The current totalValue of the stock portfolio.
  * - Trader t -> The owner of the stock portfolio.
+ * - Market m -> The market this portfolio uses to reference stocks.
  * 
  * Member Functions:
  * - int howMuchStockOwned(string symbol) -> Given the symbol of a stock, return how many shares
@@ -63,10 +64,13 @@ struct PortfolioEntry {
 */
 class StockPortfolio {
     public:
+
+        StockPortfolio();
+
         /**
         * The default constructor for a strock portfolio so compiler doesn't complain
         */
-        StockPortfolio();
+        StockPortfolio(Market *m);
         /**
          * Calculate how much stock of a certain symbol a trader has in their portfolio. 
          * 
@@ -106,5 +110,7 @@ class StockPortfolio {
         vector<PortfolioEntry> portEnts;
         /*The current worth of the portfolio, as calculated by current stock price.*/
         double totalVal;
+        /*The market this portfolio uses to reference stocks*/
+        Market *m;
 };
 #endif

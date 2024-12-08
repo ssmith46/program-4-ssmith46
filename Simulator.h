@@ -119,6 +119,8 @@ class Simulator {
         */
         bool isRunning();
 
+        Market* getMarket();
+
     private:
         /*The market used to interact with Stocks during the simulation.*/
         Market *market;

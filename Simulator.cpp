@@ -80,7 +80,11 @@ bool hasWhiteSpace(string line){
 /**
 * The method used to get a user logged in as a particular trader.
 */
-void Simulator::loginScreen(){
+void
+Simulator::loginScreen(){
+
+    this->loggedIn = nullptr;
+
     /*Give a welcome message to the user.*/
     cout << endl;
     /*Boolean for tracking whether the user has given a successful login yet.*/
@@ -152,7 +156,7 @@ void Simulator::loginScreen(){
                         cout << "Please enter at least one character." << endl;
                     } else {
                         /*Loop through the traders to make sure it's a new username.*/
-                        Trader on;
+                        Trader on(this->market);
                         for (int i = 0; i<this->traders.size(); i++){
                             on = this->traders.at(i);
                             if (on.getUsername().compare(username) == 0){
@@ -214,7 +218,7 @@ void Simulator::loginScreen(){
                 }
             }
             /*Create a new trader with the information obtained from the user.*/
-            Trader newT(name, username, balance);
+            Trader newT(name, username, balance, this->market);
             /*Add this new trader to the vector of traders.*/
             this->addTrader(newT);
             /*Set this trader as the logged in trader (Will be the last trader in vector).*/
@@ -234,7 +238,7 @@ void Simulator::loginScreen(){
                 cout << "Please ensure that your username has at least one character in it." << endl;
             } else {
                 /*Loop through all the traders and find the one matching the username.*/
-                Trader on;
+                Trader on(this->market);
                 for (int i = 0; i<this->traders.size(); i++){
                     on = this->traders.at(i);
                     /*When the usernames, match, this is the logged in user.*/
@@ -278,7 +282,7 @@ bool Simulator::addTrader(Trader t){
     /*Calculate the number of traders in teh simulator*/
     int numTraders = this->traders.size();
     /*Variable for keeping track of which trader looking at.*/
-    Trader on;
+    Trader on(this->market);
     /*Iterate through the traders in the simulation.*/
     for (int i = 0; i<numTraders; i++){
         /*Get the trader on for this iteration.*/
@@ -313,6 +317,10 @@ void Simulator::setLoggedInTrader(Trader *t){
     this->loggedIn = t;
 }
 
+Market* Simulator::getMarket() {
+    return this->market;
+}
+
 /**
  * A function used to add stocks to the Market for an example run of the Simulator
  * 
@@ -345,10 +353,10 @@ void exampleStockSetup(Market *m){
  */
 void exampleTraderSetup(Simulator *s){
     /*Create a few traders as examples in the simulation*/
-    Trader t1("Bob", "bobby123", 329719.95);
-    Trader t2("Jane", "janeSmith", 14897.63);
-    Trader t3("Bill", "bill", 2508.63);
-    Trader t4("Karl", "karls", 57.03);
+    Trader t1("Bob", "bobby123", 329719.95, s->getMarket());
+    Trader t2("Jane", "janeSmith", 14897.63, s->getMarket());
+    Trader t3("Bill", "bill", 2508.63, s->getMarket());
+    Trader t4("Karl", "karls", 57.03, s->getMarket());
 
     /*Add the traders to the simulator.*/
     s->addTrader(t1);
@@ -362,11 +370,11 @@ void exampleTraderSetup(Simulator *s){
  */
 void createAllObjectTypes(){
     Stock s("E", 12.00, 5);
-    Trader t("Kyle", "kyle123", 125.00);
+    //Trader t("Kyle", "kyle123", 125.00);
     CommandFactory cf;
     Market m;
     Simulator sim(&m);
-    StockPortfolio spf;
+    //StockPortfolio spf;
     Command c;
     vector<string> svec;
     MistakeCommand mc(svec, &m, &sim, &cf);

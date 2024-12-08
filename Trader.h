@@ -53,7 +53,7 @@ class Trader {
         /**
          * A default Constructor so the compiler is happy. 
          */
-        Trader();
+        Trader(Market *m);
         /**
          * A constructor for a Trader instance. 
          * 
@@ -61,7 +61,7 @@ class Trader {
          * @param username -> The username that this trader will have during the simulation. 
          * @param accountBalance -> The starting account balance of this Trader. 
          */
-        Trader(string name, string username, double accountBalance);
+        Trader(string name, string username, double accountBalance, Market *m);
         /**
          * A getter for the current balance of a Trader. 
          * 
