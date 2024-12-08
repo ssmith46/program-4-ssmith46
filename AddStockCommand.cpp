@@ -107,7 +107,7 @@ void AddStockCommand::execute() {
             /*Indiciate that a stock already using that symbol exists.*/
             else {
                 std::cout << endl;
-                std::cout << "It seems that a stock already exists with that symbol.";
+                std::cout << "It seems that a stock already exists with that symbol. ";
                 std::cout << "Please try a different stock symbol.";
                 std::cout << endl;
             }

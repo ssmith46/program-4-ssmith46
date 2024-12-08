@@ -190,6 +190,7 @@ void SetSeedCommand::execute() {
 
     /*Handles the case the user wants to change the random seed*/
     if (whichSeedSet == 1) {
+        cout << endl;
         cout << "Setting Random Seed to: " << setSeedTo << "...";
         this->m->setMarketSeed(setSeedTo);
         cout << " Seed Set!";
@@ -197,6 +198,7 @@ void SetSeedCommand::execute() {
     }
     /*Handles the case the user wants to change the violence seed*/
     else if (whichSeedSet == 2) { /*Setting violence*/
+        cout << endl;
         cout << "Setting Violence Seed to: " << setSeedTo << "...";
         this->m->setMarketViolence(setSeedTo);
         cout << " Seed Set!";
