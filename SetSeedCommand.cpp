@@ -180,7 +180,7 @@ void SetSeedCommand::execute() {
             /*Catch exception and indicate if they don't enter a valid number*/
             catch (...) {
                 cout << endl;
-                cout << "Please ensure you enter a valid positive number.";
+                cout << "Please ensure you enter a valid positive number less than 1 million.";
                 cout << endl;
             }
         }

@@ -106,7 +106,7 @@ void BuyStockCommand::execute() {
         cout << endl;
         cout << "Buying " << numSharesToBuy << " shares of " << strStockToBuy << " stock...";
         /*Buy the stocks for the trader*/
-        t->buyStock(s, numSharesToBuy);
+        t->buyStock(this->m->getStock(strStockToBuy), numSharesToBuy);
         /*Remove the bought shares from the stock*/
         s->removeShares(numSharesToBuy);
         /*Indicate the the purchase was sucessful*/

@@ -44,7 +44,10 @@ void ListPortfolioCommand::execute() {
     cout << endl;
     cout << "Current Account Balance: $" << fixed << setprecision(2);
     cout << this->s->getLoggedInTrader()->getBalance();
+
+    cout << this->s->getLoggedInTrader()->getName() << endl;
+
     /*Display the stocks in the logged in trader's portfolio*/
     cout << endl;
-    cout << this->s->getLoggedInTrader()->getPortfolio()->stocks_toString();
+    cout << this->s->getLoggedInTrader()->listPortfolio();
 }

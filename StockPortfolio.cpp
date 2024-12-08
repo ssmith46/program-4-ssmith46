@@ -160,10 +160,18 @@ string StockPortfolio::buyStocks(Stock* s, int amount){
 */
 string StockPortfolio::stocks_toString(){
 
+    int i = 0;
+    cout << i;
+    i++;
+
+
     /*If there are no entries in the portfolio, indicate this*/
     if (this->portEnts.size() == 0) {
         return "There are currently no stocks in your portfolio.\n";
     }
+
+    cout << i;
+    i++;
 
     /*Create the string for the return value*/
     string retVal = "";
@@ -182,12 +190,18 @@ string StockPortfolio::stocks_toString(){
         totalValue += (pe.stock->getPrice()*pe.amountOwned);
     }
     
+    cout << i;
+    i++;
+
     /*Create a string stream for formatting doubles*/
     stringstream ss;
     ss << fixed << setprecision(2) << totalValue;
 
     /*Add the portfolio worth to the retval*/
     retVal += "Total portfolio worth: $" + ss.str() + "\n";
+
+    cout << i;
+    i++;
 
     /*Create titles for the columns of the portfolio table*/
     string symbolTitle = "Symbols";
@@ -196,6 +210,9 @@ string StockPortfolio::stocks_toString(){
     string sharesTitle = "Shares Own";
     string stockSharesTitle = "Stock Shares Worth";
 
+    cout << i;
+    i++;
+
     /*Calculate the size of the column titles, and default the longest length to these*/
     int longestLengthName = symbolTitle.length() + 1;
     int longestLengthPrice = priceTitle.length() + 1;
@@ -203,18 +220,33 @@ string StockPortfolio::stocks_toString(){
     int longestLastChange = changeTitle.length() + 1;
     int longestStockShares = stockSharesTitle.length() + 1;
 
+    cout << i;
+    i++;
+
+    cout << "There are: " << this->portEnts.size() << " portEnts" << endl;
+    //cout << "It is: " << this->portEnts.at(0).stock->getSymbol() << endl;
+
     /*Create a portfolio entry for the portEnt on*/
     PortfolioEntry on;
     /*Iterate through all the portfolio entries of the portfolio*/
     for (int i = 0; i < this->portEnts.size(); i++) {
+
+        cout << "On iteration: " << i << endl;
+
         /*Get the portfolio entry on for this iteration*/
         on = this->portEnts.at(i);
+
+        cout << "Grabbed it." << endl;
+
+        cout << "Looking at: " << on.amountOwned;
 
         /*Calculate the length of the symbol for this portfolio entry stock symbol*/
         if (on.stock->getSymbol().length() > longestLengthName) {
             /*Replace as the longest if longer than the old longest*/
             longestLengthName = on.stock->getSymbol().length();
         }
+
+        cout << "Done with symbol" << endl;
 
         /*Default the number of places for the price to 4*/
         int places = 4;
@@ -230,6 +262,8 @@ string StockPortfolio::stocks_toString(){
             longestLengthPrice = places;
         }
 
+        cout << "Done with price" << endl;
+
         /*Default the number of places for the number of shares for this portEnt*/
         places = 1;
         /*Get the number of shares owned for this portEnt*/
@@ -243,6 +277,8 @@ string StockPortfolio::stocks_toString(){
         if (places > longestLengthShares) {
             longestLengthShares = places;
         }
+
+        cout << "Done with number of shares" << endl;
 
         /*Get the last change for the stock on this iteration*/
         double lastChange = on.stock->getLastChange();
@@ -258,6 +294,8 @@ string StockPortfolio::stocks_toString(){
             longestLastChange = places;
         }
 
+        cout << "Done with last change" << endl;
+
         /*Default as 4 places for the value of the stock on this iteration*/
         places = 4;
         /*Calculate the value of this stock for the number of shares and price*/
@@ -271,7 +309,12 @@ string StockPortfolio::stocks_toString(){
         if (places > longestStockShares) {
             longestStockShares = places;
         }
+
+        cout << "Done with total worth" << endl;
     }
+
+    cout << i;
+    i++;
 
     /*Create the seperator for the table*/
     string sep = "";
@@ -293,6 +336,9 @@ string StockPortfolio::stocks_toString(){
     sep += "+";
     sep += "\n";
 
+    cout << i;
+    i++;
+
     /*Add the seperator to the retval*/
     retVal += sep;
 
@@ -313,6 +359,8 @@ string StockPortfolio::stocks_toString(){
     /*Add another seperator to the retval table*/
     retVal += sep;
 
+    cout << i;
+    i++;
 
     /*Iterate over all the stocks in the allStocks vector.*/
     for (int i = 0; i < this->portEnts.size(); i++) {
@@ -370,6 +418,9 @@ string StockPortfolio::stocks_toString(){
 
     /*Add the bottom seperator to the retval table*/
     retVal += sep;
+
+    cout << i;
+    i++;
 
     /*Return the created retval string*/
     return retVal;

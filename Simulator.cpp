@@ -82,7 +82,7 @@ bool hasWhiteSpace(string line){
 */
 void Simulator::loginScreen(){
     /*Give a welcome message to the user.*/
-    cout << "Welcome to the " << this->getSimulatorName() << " stock market." << endl << endl;
+    cout << endl;
     /*Boolean for tracking whether the user has given a successful login yet.*/
     bool loggedIn = false;
     /*A string to track what the user types in.*/
@@ -393,9 +393,6 @@ bool Simulator::isRunning() {
 
 /*The actual execution of the entire simulator.*/
 int main(){
-
-    /*Ensure that all the objects work and can be created.*/
-    createAllObjectTypes();
     
     /*Create the Market for the Simulation.*/
     Market m = Market();
@@ -415,6 +412,12 @@ int main(){
     exampleStockSetup(&m);
     /*Setup a few traders in the simulator.*/
     exampleTraderSetup(&s);
+
+    /*Set the simulator's name*/
+    s.setSimulatorName("Sully Simulation");
+
+    /*Welcome the user to the simulation*/
+    cout << "Welcome to the " << s.getSimulatorName() << " Stock Market.";
 
     /*Have the user login before continuing*/
     s.loginScreen();

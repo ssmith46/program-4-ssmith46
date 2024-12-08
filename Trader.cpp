@@ -30,6 +30,7 @@ Trader::Trader(string name, string username, double accountBalance) {
     this->name = name;
     this->username = username;
     this->balance = accountBalance;
+
     StockPortfolio s;
     this->sp = s;
 
@@ -124,4 +125,8 @@ string Trader::getUsername(){
 */
 StockPortfolio* Trader::getPortfolio() {
     return &(this->sp);
+}
+
+string Trader::listPortfolio() {
+    return this->sp.stocks_toString();
 }

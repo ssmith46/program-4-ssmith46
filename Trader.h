@@ -112,6 +112,8 @@ class Trader {
         * @return -> A pointer to a Trader's stock prtfolio
         */
         StockPortfolio* getPortfolio();
+
+        string listPortfolio();
     private:
         /*The name of the Trader.*/
         string name;
