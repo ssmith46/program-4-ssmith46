@@ -65,6 +65,6 @@ void OptionsCommand::execute() {
     cout << endl;
     cout << "'exit' -> End the program.";
     cout << endl;
-    cout << "'options' -> View the options for available actions. (Obviosuly)";
+    cout << "'options' -> View the options for available actions. (Obviously)";
     cout << endl;
 }

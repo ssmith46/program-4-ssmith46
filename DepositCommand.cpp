@@ -97,7 +97,7 @@ void DepositCommand::execute() {
                     return;
                 }
                 /*Check and indicate if the user is entering too much to deposit*/
-                else if (inputNum > 100000) {
+                else if (inputNum >= 100000) {
                     cout << "Please enter an amount less than one hundred thousand dollars.";
                     cout << " (We get charged crazy fees otherwise).";
                     cout << endl;

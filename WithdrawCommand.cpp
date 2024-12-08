@@ -152,7 +152,7 @@ void WithdrawCommand::execute() {
               to withdraw*/
             catch (...) {
                 cout << endl;
-                cout << "Please enter a valid amount to deposit." << endl;
+                cout << "Please enter a valid amount to withdraw.";
             }
         }
     }
