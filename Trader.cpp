@@ -26,6 +26,7 @@ Trader::Trader(){ }
 */
 Trader::Trader(string name, string username, double accountBalance) {
     /*Initialize the fields with the given arguments.*/
+
     this->name = name;
     this->username = username;
     this->balance = accountBalance;
@@ -77,15 +78,21 @@ double Trader::getBalance(){
 * @param quantity -> The number of shares of the specified stock wanting to be bought. 
 */
 void Trader::buyStock(Stock *stock, int amount){
+    /*Obtain the account Balance of this trader*/
     double accountBalance = this->getBalance();
+    /*Calculate the total purchase price of the purchase being made*/
     double purchasePrice = (stock->getPrice() * amount);
 
+    /*Give an extremely small room for double subtractiion issues*/
+    /*If it's close enough to zero, just set it to zero*/
     if ((accountBalance - purchasePrice < 0) && (accountBalance - purchasePrice > -0.001)) {
         this->setBalance(0);
     }
+    /*Otherwise, it's just a normal transaction.*/
     else {
         this->setBalance(accountBalance - purchasePrice);
     }
+    /*Check that the stock portfolio corrently buys the stock*/
     if (this->sp.buyStocks(stock, amount).compare("Fail") == 0) {
         cout << "Failed to buy the stock." << endl;
     }
@@ -109,7 +116,12 @@ string Trader::getUsername(){
     return this->username;
 }
 
-
+/**
+* A getter used to return a pointer to the
+* stock portfolio of a trader
+*
+* @return -> A pointer to a Trader's stock prtfolio
+*/
 StockPortfolio* Trader::getPortfolio() {
     return &(this->sp);
 }

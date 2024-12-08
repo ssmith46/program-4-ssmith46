@@ -40,6 +40,8 @@ using namespace std;
  * - void setUsername(string username) -> A setter for the username of a trader.
  * - string getUsername() -> A getter for the username of a trader.
  * - void buyStock(Stock *stock, int quantity) -> A method used to buy stock for a trader.
+ *  StockPortfolio* getPortfolio() -> A getter used to return a pointer to the
+ *  stock portfolio of a trader
  * 
  * Class Usage:
  * - This class is used to represent a user interacting with stocks within the simulation.
@@ -103,7 +105,12 @@ class Trader {
          * @param quantity -> The number of shares of the specified stock wanting to be bought. 
          */
         void buyStock(Stock *stock, int quantity);
-
+        /**
+        * A getter used to return a pointer to the
+        * stock portfolio of a trader
+        * 
+        * @return -> A pointer to a Trader's stock prtfolio
+        */
         StockPortfolio* getPortfolio();
     private:
         /*The name of the Trader.*/

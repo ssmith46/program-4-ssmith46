@@ -4,7 +4,7 @@
  * Date: December 7, 2024
  *
  * File: WithdrawCommand.h
- * Purpose: Contains the declaration of the abstract 'WithdrawCommand' class.
+ * Purpose: Contains the declaration of the 'WithdrawCommand' class.
 */
 
 #ifndef WithdrawCommand_H
@@ -23,17 +23,17 @@ using namespace std;
 
 /**
  * Purpose:
- * - The purpose of this class is to allow the user to see all the available
- *   stocks currently in the market.
+ * - The purpose of this class is to allow the user to withdraw money from their
+ *   account balance, during the simulation.
  *
  * Data Members:
- * - vector<string> args -> The arguments to explain how the command was wrong
+ * - vector<string> args -> The arguments to explain how the command was created
  * - Market *m -> The market that the command can influence
  * - Simulator *s -> The simulator the command can influence
  * - CommandFactory *cf -> The command factory the command can use for parsing user input.
  *
  * Member Functions:
- * - ListStocksCommand(vector<string> args, Market *m, Simulator *s) -> The constructor
+ * - WithdrawCommand(vector<string> args, Market *m, Simulator *s) -> The constructor
  *   for a list stocks command.
  * - void execute() -> The override of the base command execute method.
  *
@@ -43,9 +43,9 @@ using namespace std;
 class WithdrawCommand : public Command {
 public:
     /**
-     * The constructor for a List Stocks Command object.
+     * The constructor for a Withdraw Command object.
      *
-     * @param args -> The arguments that lead to the mistake command.
+     * @param args -> The arguments that lead to the command being created.
      * @param m -> The market that the command can influence.
      * @param s -> The simulator that the command can influence.
      */
@@ -56,11 +56,11 @@ public:
     void execute();
 
 private:
-    /*The arguments that lead to an error for the command.*/
+    /*The arguments that lead to the command's creation.*/
     vector<string> args;
-    /*The market that the command can execute.*/
+    /*The market that the command can manipulate.*/
     Market* m;
-    /*The Simulator that the command can execute.*/
+    /*The Simulator that the command can manipulate.*/
     Simulator* s;
     /*The CommandFactory that the command can use for parsing user input.*/
     CommandFactory* cf;
