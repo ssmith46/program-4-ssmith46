@@ -328,13 +328,13 @@ Market* Simulator::getMarket() {
  */
 void exampleStockSetup(Market *m){
     /*Create a few stocks as examples in the simulation*/
-    Stock s1("TSLA", 330.06, 1000);
+    Stock s1("TSLA", 330.05, 1000);
     Stock s2("AAPL", 234.20, 1500);
     Stock s3("NVDA", 132.10, 2000);
     Stock s4("S&P_500", 5989.83, 10000);
     Stock s5("DIS", 116.89, 5000);
     Stock s6("BA", 151.91, 1400);
-    Stock s7("Very_long_stock_name_test", 100000000.99, 9999999999999);
+    //Stock s7("Very_long_stock_name_test", 100000000.99, 9999999999999);
 
     /*Add the stocks created above to the market.*/
     m->addStock(s1);
@@ -432,6 +432,7 @@ int main(){
     cout << endl;
     cout << "Login Successful, you are logged in as: " << s.getLoggedInTrader()->getName();
     cout << "." << endl;
+    cout << "For available commands, enter 'options'." << endl;
 
     /*Get the next command to execute and execute it.*/
     /*Loop until no longer running*/
@@ -446,7 +447,7 @@ int main(){
 
     /*Indicate the simulation has ended*/
     cout << endl;
-    cout << "Thank you for using the Stock Simulator!";
+    cout << "Thank you for using the " << s.getSimulatorName() << " Stock Market Tool!";
     cout << endl;
 
     return 0;

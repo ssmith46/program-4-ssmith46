@@ -45,6 +45,8 @@ struct PortfolioEntry {
  * - Market m -> The market this portfolio uses to reference stocks.
  * 
  * Member Functions:
+ * - StockPortfolio() -> The default constructor
+ * - StockPortfolio(Market *m) -> The main constructor for the portfolio
  * - int howMuchStockOwned(string symbol) -> Given the symbol of a stock, return how many shares
  *   a trader currently has of that stock in their portfolio. If they do not currently have any
  *   shares of the specified stock, then zero is the return value. 
@@ -65,10 +67,15 @@ struct PortfolioEntry {
 class StockPortfolio {
     public:
 
+        /**
+        * The default constructor for a stock portfolio so compiler doesn't complain
+        */
         StockPortfolio();
 
         /**
-        * The default constructor for a strock portfolio so compiler doesn't complain
+        * The main constructor for a stock portfolio
+        * 
+        * @param m -> The market that will be used to reference stocks in the simulation.
         */
         StockPortfolio(Market *m);
         /**

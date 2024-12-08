@@ -130,6 +130,12 @@ StockPortfolio* Trader::getPortfolio() {
     return &(this->sp);
 }
 
+/**
+* A method that returns the toString method for the stock portfolio
+* of the logged in trader
+* 
+* @return -> The portfolio's toString method
+*/
 string Trader::listPortfolio() {
     return this->sp.stocks_toString();
 }

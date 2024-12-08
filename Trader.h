@@ -52,6 +52,8 @@ class Trader {
     public:
         /**
          * A default Constructor so the compiler is happy. 
+         * 
+         * @param m -> The market the stock portfolio can use for getting stock stats
          */
         Trader(Market *m);
         /**
@@ -60,6 +62,7 @@ class Trader {
          * @param name -> The name that this trader will have in the simulation. 
          * @param username -> The username that this trader will have during the simulation. 
          * @param accountBalance -> The starting account balance of this Trader. 
+         * @param m -> The Market the stock portfolio can use for getting stock stats
          */
         Trader(string name, string username, double accountBalance, Market *m);
         /**
@@ -112,7 +115,12 @@ class Trader {
         * @return -> A pointer to a Trader's stock prtfolio
         */
         StockPortfolio* getPortfolio();
-
+        /**
+        * A method that returns the toString method for the stock portfolio
+        * of the logged in trader
+        *
+        * @return -> The portfolio's toString method
+        */
         string listPortfolio();
     private:
         /*The name of the Trader.*/

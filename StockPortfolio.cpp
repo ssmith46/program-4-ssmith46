@@ -16,10 +16,15 @@
 #include <vector>
 #include <iomanip>
 
+/**
+* The default constructor for the stockportfolio so complier doesn't complain
+*/
 StockPortfolio::StockPortfolio() { }
 
 /**
-* The default constructor for the stockportfolio so complier doesn't complain
+* The main constructor for the stockportfolio
+* 
+* @param m -> The market the portfolio can use to reference stocks
 */
 StockPortfolio::StockPortfolio(Market *m) { 
     /*Set the default total of the stock portfolio*/
