@@ -147,7 +147,7 @@ double Stock::getLastChange(){
 /**
 * An operator that allows a stock to be updated according to a percent change.
 * 
-* @return -> The new price of the stock.
+* @param amountToChangeBy -> The percentage to change the stock by
 */
 void Stock::change(double amountToChangeBy){
     /*Calculate the literal change of the stock price.*/

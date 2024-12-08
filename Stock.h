@@ -44,9 +44,7 @@ using namespace std;
  * - char getGrowthSymbol() -> Getter for the growth symbol of a stock.
  * - void setLastChange(double change) -> Setter for the last change that a stock experienced.
  * - double getLastChange() -> Getter for the last change that a stock experienced.
- * - double operator*=(double amountToChangeBy) -> An operation defintion that allows a
- *   stock to '*=' some double, and correctly update the price, as well as the last change
- *   that stock experienced.
+ * - void change(double amountToChangeBy) -> The percentage to change the Stock price by
  * - string toString() -> Converts the stock to a printable string version.
  * 
  * Class Usage:
@@ -141,9 +139,9 @@ class Stock {
          */
         double getLastChange();
         /**
-         * An operator that allows a stock to be updated according to a percent change.
+         * A method that allows a stock to be updated according to a percent change.
          * 
-         * @return -> The new price of the stock.
+         * @param amountToChangeBy -> The percentage to change the stock value by
          */
         void change(double amountToChangeBy);
         /**

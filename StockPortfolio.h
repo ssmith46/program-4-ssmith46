@@ -63,6 +63,9 @@ struct PortfolioEntry {
 */
 class StockPortfolio {
     public:
+        /**
+        * The default constructor for a strock portfolio so compiler doesn't complain
+        */
         StockPortfolio();
         /**
          * Calculate how much stock of a certain symbol a trader has in their portfolio. 

@@ -34,6 +34,7 @@ using namespace std;
  * - vector<Trader*> traders -> A vector containing all the available traders for the simulation.
  * - string simulatorName -> A name for the simulation of the currently running instance.
  * - Trader loggedIn -> The trader who is currently logged in to the simulation.
+ * - bool running -> A variable indicating if the simulation is still running
  * 
  * Member Functions:
  * - Simulator(Market m) -> A constructor for the Simulator class, used to instantiate a Simulator.
@@ -44,6 +45,8 @@ using namespace std;
  * - bool addTrader(Trader t) -> Add a trader to the simulator as a potential login for that user.
  * - Trader* getLoggedInTrader() -> Returns a pointer to the trader who is logged in.
  * - void Simulator::setLoggedInTrader(Trader *t) -> A setter for the logged in trader.
+ * - void setRunning(bool state) -> Change the state of the "running" data member
+ * - bool isRunning() -> Return the state of the running simulator
  * 
  * Class Usage:
  * - This class is used to house a Stock Simulation command line interface experience. It
@@ -105,8 +108,15 @@ class Simulator {
         * @param -> The Trader to set as logged in
         */
         void setLoggedInTrader(Trader *t);
-
+        /**
+        * A setter for the "running" of the data member
+        * 
+        * @param state -> The state to change the "running" data member to
+        */
         void setRunning(bool state);
+        /**
+        * A getter for the "running" data member of the simulator
+        */
         bool isRunning();
 
     private:
@@ -120,7 +130,7 @@ class Simulator {
         string simulatorName;
         /*The trader who is currently logged in for the simulation.*/
         Trader *loggedIn;
-        
+        /*Indicates if the simulation is running or not*/
         bool running;
 
 };

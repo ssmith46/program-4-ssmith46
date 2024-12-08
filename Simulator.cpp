@@ -22,6 +22,8 @@ using namespace std;
 
 /**
 * The constructor used to instantiate a Simulator object.
+* 
+* @param m -> The market of the simulation
 */
 Simulator::Simulator(Market *m){
     this->market = m;
@@ -194,6 +196,7 @@ void Simulator::loginScreen(){
                             cout << "Please ensure that your balance is at least one penny.";
                             cout << endl;
                         }
+                        /*Ensure the starting balance isn't too large*/
                         else if (balance > 1000000000000){
                             cout << endl;
                             cout << "Please ensure that your balance is less than ";
@@ -370,11 +373,21 @@ void createAllObjectTypes(){
     cout << "All object types created successfully!" << endl;
 }
 
+/**
+* A setter for the "running" of the data member
+*
+* @param state -> The state to change the "running" data member to
+*/
 void Simulator::setRunning(bool state) {
+    /*Set the "running" data member of the simulation*/
     this->running = state;
 }
 
+/**
+* A getter for the "running" data member of the simulator
+*/
 bool Simulator::isRunning() {
+    /*Return the "running" data mamber of the simulation*/
     return this->running;
 }
 
@@ -403,12 +416,14 @@ int main(){
     /*Setup a few traders in the simulator.*/
     exampleTraderSetup(&s);
 
+    /*Have the user login before continuing*/
     s.loginScreen();
     cout << endl;
     cout << "Login Successful, you are logged in as: " << s.getLoggedInTrader()->getName();
     cout << "." << endl;
 
     /*Get the next command to execute and execute it.*/
+    /*Loop until no longer running*/
     while (s.isRunning()){
         Command *c = s.getNextCommand();
         if (c != nullptr){
@@ -418,6 +433,7 @@ int main(){
         }
     }
 
+    /*Indicate the simulation has ended*/
     cout << endl;
     cout << "Thank you for using the Stock Simulator!";
     cout << endl;
